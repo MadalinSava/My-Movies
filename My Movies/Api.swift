@@ -23,12 +23,15 @@ class Api {
 	private let baseUrl = "https://api.themoviedb.org/3"
 	private let apiKey = "1ecc4c837d0fa6e033f34771e531b790"
 	
-	func searchMulti(text: String, page: Int, resultBlock: (NSURLResponse?, NSData?, NSError?) -> Void) {
+	func searchMulti(text: String, page: Int, success: SuccessBlock, error: ErrorBlock? = nil) {
 		let query = text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
 		let stringURL = baseUrl + "/search/multi" + formatParams("query", query, "page", page, withApiKey: true)
-		let req = NSURLRequest(URL: NSURL(string: stringURL)!)
-		// TODO: NSURLSession
-		NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue.mainQueue(), completionHandler: resultBlock)
+		RequestManager.instance.doRequest(stringURL, successBlock: success, errorBlock: error)
+	}
+	
+	func requestMovieDetails(movieId: Int, success: SuccessBlock, error: ErrorBlock? = nil) {
+		let stringURL = baseUrl + "/movie/\(movieId)" + formatParams("append_to_response", "trailers", withApiKey: true)
+		RequestManager.instance.doRequest(stringURL, successBlock: success, errorBlock: error)
 	}
 	
 	private func formatParams(params: CustomStringConvertible..., withApiKey: Bool) -> String {

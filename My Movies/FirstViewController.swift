@@ -22,9 +22,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 		searchController.searchBar = searchBar
 		searchController.delegate = self
 		
-		//tableView.dataSource = self
-		//tableView.delegate = self
 		tableView.hidden = true
+		
+		searchBar.text = "fight bat"
+		searchController.getResultsForNextPage()
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -50,6 +51,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 		
 		// regular cell
 		let cell = tableView.dequeueReusableCellWithIdentifier(SearchCell.reuseIdentifier) as! SearchCell
+		
+		let setDefaultImage = {
+			cell.thumbnail.image = UIImage(named: "default")
+		}
+		
 		if let thumbnailPath = searchController.results[indexPath.row].thumbnailPath {
 			//print("thumbnail for \(indexPath.row) is \(thumbnailPath)")
 			dispatch_async(queue) {
@@ -59,8 +65,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 						// TODO check thumbnail bug on device
 						cell.thumbnail.image = UIImage(data: data)
 					}
+				} else {
+					//setDefaultImage()
 				}
 			}
+		} else {
+			//setDefaultImage()
 		}
 		cell.name.text = searchController.results[indexPath.row].name
 		return cell
@@ -76,7 +86,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 		let pvc = parentViewController as! UITabBarController
 		pvc.selectedIndex = 1
 		let vc = pvc.selectedViewController as! SecondViewController
-		vc.metadata = searchController.medatada[indexPath.row]
+		vc.setupWithData(searchController.medatada[indexPath.row], image: (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image!)
+		//vc.metadata = searchController.medatada[indexPath.row]
+		
+		//pvc.tabBar.items![1].image = (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image
 	}
 	
 	// MARK: search controler delegate

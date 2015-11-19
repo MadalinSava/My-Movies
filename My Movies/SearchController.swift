@@ -14,7 +14,7 @@ class SearchController: NSObject, UISearchBarDelegate {
 	private(set) var medatada = [JSON]()
 	private(set) var hasMoreResults = false
 	
-	var delegate: SearchControllerDelegate?
+	weak var delegate: SearchControllerDelegate?
 	
 	var searchBar: UISearchBar! = nil {
 		didSet {
@@ -23,7 +23,7 @@ class SearchController: NSObject, UISearchBarDelegate {
 	}
 	
 	private var block: dispatch_block_t! = nil
-	private var currentPage = 1
+	private var currentPage = 0
 	private var requestDone = true
 	/*
 	required override init() {
@@ -71,42 +71,39 @@ class SearchController: NSObject, UISearchBarDelegate {
 		//print("requesting page \(currentPage)")
 		self.requestDone = false
 		
-		Api.instance.searchMulti(searchBar.text!, page: currentPage){ [unowned self] (resp, data, error) -> Void in
+		Api.instance.searchMulti(searchBar.text!, page: currentPage, success: {[unowned self] (result) in
 			
-			guard error == nil else {
-				print(error!.localizedDescription)
-				self.requestDone = true
-				return
-			}
-			//print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-			let jsonObject = JSON(data: data!)
-			let results = jsonObject["results"]
-			//if results.count == 0 {
-			//	print(jsonObject)
-			//}
+			let searchResults = result["results"]
+			
 			if self.currentPage == 1 {
 				self.results.removeAll()
 				self.medatada.removeAll()
 			}
-			for var i = 0; i < results.count; ++i {
-				if let newResult = SearchResult(data: results[i]) {
+			
+			for var i = 0; i < searchResults.count; ++i {
+				if let newResult = SearchResult(data: searchResults[i]) {
 					self.results.append(newResult)
-					self.medatada.append(results[i])
-					//print("result: \(newResult.name)")
+					self.medatada.append(searchResults[i])
 				}
 			}
-			self.hasMoreResults = (jsonObject["page"] < jsonObject["total_pages"])
+			
+			self.hasMoreResults = (result["page"] < result["total_pages"])
+			
 			if self.currentPage == 1 {
 				self.delegate?.resultsReset()
 			} else {
-				self.delegate?.resultsAdded(results.count)
+				self.delegate?.resultsAdded(searchResults.count)
 			}
+			
 			self.requestDone = true
-		}
+		},
+			error: { (error) in
+				print(error.localizedDescription)
+		})
 	}
 }
 
-protocol SearchControllerDelegate {
+protocol SearchControllerDelegate: NSObjectProtocol {
 	func resultsReset()
 	func resultsAdded(count: Int)
 }

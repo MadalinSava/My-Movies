@@ -10,8 +10,10 @@ import UIKit
 
 class TabBarController: UITabBarController {
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		//selectedItem = items![0]
-		tabBar.items![1].enabled = false
+		//tabBar.items![1].enabled = false
+		
 	}
 	/*
 	override func viewWillAppear(animated: Bool) {

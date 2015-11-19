@@ -10,13 +10,12 @@ import UIKit
 
 class DetailsView: UIView {
 	
-	var metadata: JSON! = nil {
-		didSet {
-			setup()
-		}
+	func setupWithMovie(movie: Movie) {
+		assertionFailure("please override")
 	}
 	
-	func setup() {
+	func getTitle() -> String {
 		assertionFailure("please override")
+		return ""
 	}
 }

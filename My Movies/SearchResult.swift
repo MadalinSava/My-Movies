@@ -17,7 +17,9 @@ class SearchResult {
 		case "movie":
 			var tempName = data["title"].stringValue
 			if let releaseDate = data["release_date"].string {
-				tempName += " (\(releaseDate.substringToIndex(releaseDate.startIndex.advancedBy(4))))"
+				if releaseDate.characters.count > 0 {
+					tempName += " (\(releaseDate.substringToIndex(releaseDate.startIndex.advancedBy(4))))"
+				}
 			}
 			name = tempName
 			thumbnailPath = data["poster_path"].string

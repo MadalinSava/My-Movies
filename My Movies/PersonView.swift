@@ -12,7 +12,7 @@ class PersonView: DetailsView {
 	
 	@IBOutlet var nameLabel: UILabel!
 	
-	override func setup() {
-		nameLabel.text = metadata["name"].stringValue
+	override func setupWithMovie(movie: Movie) {
+		//nameLabel.text = metadata["name"].stringValue
 	}
 }

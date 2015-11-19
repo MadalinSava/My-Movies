@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,36 +13,154 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iat-g5-KYV">
-                    <rect key="frame" x="277" y="290" width="46" height="21"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TLL-FD-ocg" userLabel="Stack View - title">
+                    <rect key="frame" x="8" y="0.0" width="584" height="45"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ED5-Vm-dm1">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="45"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Snp-r2-U26">
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="30"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DjJ-lx-YlJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="30"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" text="Movie Title Movieaaaa Titleabc Movie Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iat-g5-KYV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="328" height="30"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fnZ-06-5et">
+                                            <rect key="frame" x="332" y="0.0" width="50" height="30"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" text="Year" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzG-mB-J9h">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="15"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Run time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaL-bR-wtl">
+                                                    <rect key="frame" x="0.0" y="15" width="50" height="15"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                        </stackView>
+                                    </subviews>
+                                    <animations/>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vwU-oc-pbg" userLabel="Stack View - Genre">
+                                    <rect key="frame" x="0.0" y="30" width="382" height="15"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrO-2K-Dsv">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="15"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                </stackView>
+                            </subviews>
+                            <animations/>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMd-zF-oZh">
+                            <rect key="frame" x="480" y="0.0" width="104" height="45"/>
+                            <animations/>
+                            <state key="normal" title="Whishlist" image="second">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="whishlistPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="cbJ-nB-mSg"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOA-E6-oWn">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                </stackView>
+                <stackView contentMode="scaleToFill" misplaced="YES" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hzw-3Q-y2n" userLabel="Stack View - poster">
+                    <rect key="frame" x="8" y="82" width="584" height="120"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="JZ9-vl-CXC">
+                            <rect key="frame" x="0.0" y="0.0" width="175" height="120"/>
+                            <animations/>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="X6d-YR-oKc">
+                            <rect key="frame" x="180" y="0.0" width="404" height="120"/>
+                            <subviews>
+                                <label opaque="NO" contentMode="top" ambiguous="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-vg-AcL">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="90"/>
+                                    <animations/>
+                                    <mutableString key="text">Fight Batman Fight! is an unauthorized 1973 Filipino Batman action-fantasy film produced by Pacific Films (Philippines). It stars famous Philippine actors such as action star Victor Wood as Batman, Rod Navarro as Joker, comedians Roderick Paulate as Robin, German Moreno, Ike Lozada, drama actresses Gloria Romero, Rosemary Gil, Lotis Key as Cat Woman and Pinky Montilla as Bat Girl.")
+  - Some : "Fight Batman Fight! is an unauthorized 1973 Filipino Batman action-fantasy film produced by Pacific Films (Philippines). It stars famous Philippine actors such as action star Victor Wood as Batman, Rod Navarro as Joker, comedians Roderick Paulate as Robin, German Moreno, Ike Lozada, drama actresses Gloria Romero, Rosemary Gil, Lotis Key as Cat Woman and Pinky Montilla as Bat Girl.</mutableString>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="Kf4-wK-zNe" appends="YES" id="Q1X-ZR-svp"/>
+                                    </connections>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKd-dK-zo1">
+                                    <rect key="frame" x="0.0" y="90" width="119" height="30"/>
+                                    <animations/>
+                                    <state key="normal" title="Play Trailer" image="Home">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="trailerPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="pDS-Jg-dLl"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <animations/>
+                        </stackView>
+                    </subviews>
                     <animations/>
-                    <items>
-                        <navigationItem title="Title" id="JtF-T2-v54">
-                            <barButtonItem key="backBarButtonItem" title="Beac" id="bRT-tS-mt3"/>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="JZ9-vl-CXC" firstAttribute="width" secondItem="Hzw-3Q-y2n" secondAttribute="width" multiplier="0.3" priority="999" id="3uf-Vc-9tD"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="NOA-E6-oWn" secondAttribute="trailing" id="0mA-Z8-0Vm"/>
-                <constraint firstItem="Iat-g5-KYV" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Txb-67-gjJ"/>
-                <constraint firstItem="Iat-g5-KYV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Z7M-lB-D8g"/>
-                <constraint firstItem="NOA-E6-oWn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ffv-du-zYV"/>
-                <constraint firstItem="NOA-E6-oWn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oap-4t-2cg"/>
+                <constraint firstItem="Hzw-3Q-y2n" firstAttribute="top" secondItem="TLL-FD-ocg" secondAttribute="bottom" id="1uT-cp-Eat"/>
+                <constraint firstItem="Hzw-3Q-y2n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="8HL-IJ-qjS"/>
+                <constraint firstItem="TLL-FD-ocg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BuX-uG-IHd"/>
+                <constraint firstItem="TLL-FD-ocg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="EKC-Wo-XBS"/>
+                <constraint firstAttribute="trailingMargin" secondItem="Hzw-3Q-y2n" secondAttribute="trailingMargin" id="QZv-K2-gNa"/>
+                <constraint firstItem="Hzw-3Q-y2n" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.2" priority="751" identifier="posterHeight" id="XgM-vZ-dN1"/>
+                <constraint firstAttribute="trailingMargin" secondItem="TLL-FD-ocg" secondAttribute="trailing" id="ew4-yI-m84"/>
             </constraints>
             <connections>
-                <outlet property="title" destination="JtF-T2-v54" id="yUw-pw-sfe"/>
+                <outlet property="genresLabel" destination="hrO-2K-Dsv" id="n79-CH-ubO"/>
+                <outlet property="overviewLabel" destination="MLe-vg-AcL" id="E0P-Hx-9z7"/>
+                <outlet property="playTrailerButton" destination="YKd-dK-zo1" id="BuX-Ap-0ZS"/>
+                <outlet property="posterImage" destination="JZ9-vl-CXC" id="5RF-5p-Nmf"/>
+                <outlet property="runTimeLabel" destination="eaL-bR-wtl" id="x3j-IP-EME"/>
                 <outlet property="titleLabel" destination="Iat-g5-KYV" id="7Mb-Iy-voC"/>
+                <outlet property="whishlistButton" destination="ZMd-zF-oZh" id="XX1-1y-7cb"/>
+                <outlet property="yearLabel" destination="EzG-mB-J9h" id="Ho2-Fa-IWz"/>
             </connections>
         </view>
+        <tapGestureRecognizer id="Kf4-wK-zNe" userLabel="Overview Tap Gesture Recognizer">
+            <connections>
+                <action selector="overviewTapped:" destination="iN0-l3-epB" id="EKr-lD-KME"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
+    <resources>
+        <image name="Home" width="30" height="30"/>
+        <image name="default" width="128" height="128"/>
+        <image name="second" width="30" height="30"/>
+    </resources>
 </document>

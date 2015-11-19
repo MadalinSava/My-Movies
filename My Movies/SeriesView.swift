@@ -12,11 +12,7 @@ class SeriesView: DetailsView {
 	
 	@IBOutlet var titleLabel: UILabel!
 	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-	}
-	
-	override func setup() {
-		titleLabel.text = metadata["name"].stringValue
+	override func setupWithMovie(movie: Movie) {
+		//titleLabel.text = metadata["name"].stringValue
 	}
 }
