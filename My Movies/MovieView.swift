@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import AVKit
 
 class MovieView: DetailsView {
 	
@@ -15,25 +14,28 @@ class MovieView: DetailsView {
 	@IBOutlet var yearLabel: UILabel!
 	@IBOutlet var runTimeLabel: UILabel!
 	@IBOutlet var posterImage: UIImageView!
+	
+	@IBOutlet var overviewScroll: UIScrollView!
 	@IBOutlet var overviewLabel: UILabel!
 	@IBOutlet var playTrailerButton: UIButton!
+	
 	@IBOutlet var whishlistButton: UIButton!
 	
 	@IBOutlet var genresLabel: UILabel!
-	@IBOutlet var posterHeightConstraint: NSLayoutConstraint!
 	
 	private var movie: Movie!
 	
 	// animation stuff
-	private var originalPosterHeightConstraintPriority: UILayoutPriority! = nil
-	private var expandedPosterHeightConstraintPriority: UILayoutPriority = 749
+	@IBOutlet var posterHeightConstraint: NSLayoutConstraint!
+	@IBOutlet var bottomScrollConstraint: NSLayoutConstraint!
+	@IBOutlet var scrollHeightConstraint: NSLayoutConstraint!
 	
 	private var animationPosterImageFrame: CGRect! = nil
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		originalPosterHeightConstraintPriority = posterHeightConstraint.priority
+		bottomScrollConstraint.active = false
 	}
 	
 	@IBAction func overviewTapped(sender: UITapGestureRecognizer) {
@@ -65,6 +67,8 @@ class MovieView: DetailsView {
 		}
 		
 		yearLabel.text = "(" +? movie.releaseYear +? ")"
+		
+		layoutIfNeeded()
 		
 		self.movie = movie
 	}
@@ -101,11 +105,9 @@ class MovieView: DetailsView {
 	
 	// MARK: animations
 	private func animateOverviewLabel() {
-		if posterHeightConstraint.priority == originalPosterHeightConstraintPriority {
-			posterHeightConstraint.priority = expandedPosterHeightConstraintPriority
-		} else {
-			posterHeightConstraint.priority = originalPosterHeightConstraintPriority
-		}
+		!!scrollHeightConstraint.active
+		!!posterHeightConstraint.active
+		!!bottomScrollConstraint.active
 		
 		UIView.animateWithDuration(0.3) { [unowned self] () -> Void in
 			self.layoutIfNeeded()
@@ -113,8 +115,6 @@ class MovieView: DetailsView {
 	}
 	
 	private func showFullscreenPoster(gestureRecognizer: UITapGestureRecognizer) {
-		// expand
-		
 		// TODO: keep the image in memory? it can be purged on memory warning; it can also be initialized on load with a higher resolution poster, but it needs to be exactly the same; otherwise, maybe use a high res poster for the small image
 		let bigImage = UIImageView(image: posterImage.image)
 		
@@ -142,7 +142,6 @@ class MovieView: DetailsView {
 	}
 	
 	private func hideFullscreenPoster(gestureRecognizer: UITapGestureRecognizer) {
-		// shrink
 		let bigImage = gestureRecognizer.view!
 		posterImage.addGestureRecognizer(gestureRecognizer)
 		

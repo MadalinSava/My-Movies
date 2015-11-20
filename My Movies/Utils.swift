@@ -8,49 +8,10 @@
 
 import Foundation
 
+// MARK: operator =?
 // if right is not nil, assign
 infix operator =? { associativity right precedence 90 }
 
-// if right is not nil and not default value, assign
-infix operator =~? { associativity right precedence 90 }
-
-// if left is nil, assign
-infix operator ?= { associativity right precedence 90 }
-
-// if left is nil and right is not nil and not default value, assign
-infix operator ?=~? { associativity right precedence 90 }
-
-// return left if it's not nil and it's not default value; otherwise, return right
-infix operator ~?? { associativity right precedence 131 }
-
-// return left if it's not nil and it's not default value
-postfix operator ~? { }
-
-// add if both are not nil
-infix operator +? { associativity right precedence 140 }
-
-func +? (left: String?, right: String?) -> String? {
-	if left != nil && right != nil {
-		return left! + right!
-	}
-	return nil
-}
-
-func +? (left: String, right: String?) -> String? {
-	if right != nil {
-		return left + right!
-	}
-	return nil
-}
-
-func +? (left: String?, right: String) -> String? {
-	if left != nil {
-		return left! + right
-	}
-	return nil
-}
-
-// MARK: operator =?
 func =? <T> (inout left: T?, right: T?) {
 	if right != nil {
 		left = right
@@ -58,6 +19,9 @@ func =? <T> (inout left: T?, right: T?) {
 }
 
 // MARK: operator =~?
+// if right is not nil and not default value, assign
+infix operator =~? { associativity right precedence 90 }
+
 // number
 func =~? <T: SignedNumberType> (inout left: T?, right: T) {
 	if right != 0 {
@@ -85,6 +49,9 @@ func =~? (inout left: String?, right: String?) {
 }
 
 // MARK: operator ?=
+// if left is nil, assign
+infix operator ?= { associativity right precedence 90 }
+
 func ?= <T> (inout left: T?, right: T) {
 	if left == nil {
 		left = right
@@ -97,6 +64,9 @@ func ?= <T> (inout left: T?, right: T?) {
 }
 
 // MARK: operator ?=~?
+// if left is nil and right is not nil and not default value, assign
+infix operator ?=~? { associativity right precedence 90 }
+
 // number
 func ?=~? <T: SignedNumberType> (inout left: T?, right: T) {
 	if left == nil && right != 0 {
@@ -124,6 +94,9 @@ func ?=~? (inout left: String?, right: String?) {
 }
 
 // MARK: operator ~??
+// return left if it's not nil and it's not default value; otherwise, return right
+infix operator ~?? { associativity right precedence 131 }
+
 // number
 func ~??<T: SignedNumberType>(optional: T?, @autoclosure defaultValue: () throws -> T) -> T {
 	return try! (optional != nil && optional! != 0) ? optional! : defaultValue()
@@ -159,6 +132,9 @@ func ~?? (value: String, @autoclosure defaultValue: () throws -> String?) -> Str
 }
 
 // MARK: operator ~?
+// return left if it's not nil and it's not default value
+postfix operator ~? { }
+
 // number
 postfix func ~?<T: SignedNumberType>(optional: T?) -> T? {
 	return (optional != nil && optional! != 0) ? optional! : nil
@@ -175,4 +151,44 @@ postfix func ~? (optional: String?) -> String? {
 
 postfix func ~? (value: String) -> String? {
 	return value != "" ? value : nil
+}
+
+// MARK: operator +?
+// add if both are not nil
+infix operator +? { associativity right precedence 140 }
+
+func +? (left: String?, right: String?) -> String? {
+	if left != nil && right != nil {
+		return left! + right!
+	}
+	return nil
+}
+
+func +? (left: String, right: String?) -> String? {
+	if right != nil {
+		return left + right!
+	}
+	return nil
+}
+
+func +? (left: String?, right: String) -> String? {
+	if left != nil {
+		return left! + right
+	}
+	return nil
+}
+
+// MARK: operator !!
+// negate a boolean
+prefix operator !! {}
+
+prefix func !! (inout obj: Bool) {
+	obj = !obj
+}
+
+prefix func !! (inout obj: Bool?) {
+	guard obj != nil else {
+		return
+	}
+	obj = !obj!
 }

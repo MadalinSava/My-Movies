@@ -24,7 +24,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 		
 		tableView.hidden = true
 		
-		//searchBar.text = "fight bat"
+		searchBar.text = "matrix"//"fight bat"
 		searchController.getResultsForNextPage()
 	}
 

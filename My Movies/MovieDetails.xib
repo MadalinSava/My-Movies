@@ -22,7 +22,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Snp-r2-U26">
                                     <rect key="frame" x="0.0" y="0.0" width="480" height="35"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" text="Movie Title Movieaaaa Titleabc Movieeeei Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iat-g5-KYV">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="751" text="Movie Title Movieaaaa Titleabc Movieeeei Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iat-g5-KYV">
                                             <rect key="frame" x="0.0" y="0.0" width="360" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -32,14 +32,14 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fnZ-06-5et">
                                             <rect key="frame" x="364" y="5" width="116" height="30"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" text="Year" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzG-mB-J9h">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Year" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzG-mB-J9h">
                                                     <rect key="frame" x="0.0" y="0.0" width="116" height="15"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" text="Run time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaL-bR-wtl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Run time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaL-bR-wtl">
                                                     <rect key="frame" x="0.0" y="15" width="116" height="15"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -55,7 +55,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="vwU-oc-pbg" userLabel="Stack View - Genre">
                                     <rect key="frame" x="0.0" y="35" width="480" height="15"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrO-2K-Dsv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrO-2K-Dsv">
                                             <rect key="frame" x="0.0" y="0.0" width="480" height="15"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -68,7 +68,7 @@
                             </subviews>
                             <animations/>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMd-zF-oZh">
+                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMd-zF-oZh">
                             <rect key="frame" x="480" y="0.0" width="104" height="50"/>
                             <animations/>
                             <state key="normal" title="Whishlist" image="second">
@@ -94,17 +94,50 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lpo-I0-XeH">
                             <rect key="frame" x="180" y="0.0" width="404" height="120"/>
                             <subviews>
-                                <label opaque="NO" contentMode="top" verticalHuggingPriority="249" layoutMarginsFollowReadableWidth="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-vg-AcL">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="43"/>
+                                <scrollView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksr-qt-fMz">
+                                    <rect key="frame" x="0.0" y="0.0" width="404" height="90"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tj8-dK-ZTf" userLabel="Content View">
+                                            <rect key="frame" x="82" y="0.0" width="240" height="128"/>
+                                            <subviews>
+                                                <label opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" layoutMarginsFollowReadableWidth="YES" text="produced by Pacific Films (Philippines). It stars " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MLe-vg-AcL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="404" height="90"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="Kf4-wK-zNe" appends="YES" id="Q1X-ZR-svp"/>
+                                                    </connections>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="MLe-vg-AcL" firstAttribute="top" secondItem="tj8-dK-ZTf" secondAttribute="top" id="6rQ-tW-7bm"/>
+                                                <constraint firstItem="MLe-vg-AcL" firstAttribute="leading" secondItem="tj8-dK-ZTf" secondAttribute="leading" id="JiS-c7-QxU"/>
+                                                <constraint firstAttribute="trailing" secondItem="MLe-vg-AcL" secondAttribute="trailing" id="X2h-TH-7sO"/>
+                                                <constraint firstAttribute="bottom" secondItem="MLe-vg-AcL" secondAttribute="bottom" id="k3V-I7-Z9e"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
                                     <animations/>
-                                    <string key="text">produced by Pacific Films (Philippines). It stars famous Philippine actors such as action star Victor Wood as Batman, Rod Navarro as Joker, comedians Roderick af</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="Kf4-wK-zNe" appends="YES" id="Q1X-ZR-svp"/>
-                                    </connections>
-                                </label>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="MLe-vg-AcL" secondAttribute="bottom" id="GWy-RG-w4W"/>
+                                        <constraint firstItem="tj8-dK-ZTf" firstAttribute="top" secondItem="ksr-qt-fMz" secondAttribute="top" id="QgQ-Jf-n0L"/>
+                                        <constraint firstItem="tj8-dK-ZTf" firstAttribute="leading" secondItem="ksr-qt-fMz" secondAttribute="leading" id="dJx-Og-e6t"/>
+                                        <constraint firstAttribute="bottom" secondItem="tj8-dK-ZTf" secondAttribute="bottom" id="mgm-4m-0Rz"/>
+                                        <constraint firstAttribute="height" relation="lessThanOrEqual" secondItem="MLe-vg-AcL" secondAttribute="height" placeholder="YES" id="rqS-bF-rDq"/>
+                                        <constraint firstItem="MLe-vg-AcL" firstAttribute="height" secondItem="ksr-qt-fMz" secondAttribute="height" priority="751" id="sqB-O6-xGF"/>
+                                        <constraint firstAttribute="trailing" secondItem="tj8-dK-ZTf" secondAttribute="trailing" id="z2h-3j-tla"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="rqS-bF-rDq"/>
+                                        </mask>
+                                    </variation>
+                                </scrollView>
                                 <button opaque="NO" contentMode="bottomLeft" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKd-dK-zo1">
                                     <rect key="frame" x="0.0" y="90" width="119" height="30"/>
                                     <animations/>
@@ -117,6 +150,12 @@
                                 </button>
                             </subviews>
                             <animations/>
+                            <constraints>
+                                <constraint firstItem="YKd-dK-zo1" firstAttribute="top" secondItem="ksr-qt-fMz" secondAttribute="bottom" id="GWs-uD-n94"/>
+                                <constraint firstItem="MLe-vg-AcL" firstAttribute="width" secondItem="lpo-I0-XeH" secondAttribute="width" id="NWV-G9-wBg"/>
+                                <constraint firstItem="ksr-qt-fMz" firstAttribute="width" secondItem="lpo-I0-XeH" secondAttribute="width" id="jdk-rV-xfv"/>
+                                <constraint firstItem="ksr-qt-fMz" firstAttribute="top" secondItem="lpo-I0-XeH" secondAttribute="top" id="wct-IQ-BY9"/>
+                            </constraints>
                         </stackView>
                     </subviews>
                     <animations/>
@@ -135,16 +174,20 @@
                 <constraint firstItem="TLL-FD-ocg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="BuX-uG-IHd"/>
                 <constraint firstItem="TLL-FD-ocg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="EKC-Wo-XBS"/>
                 <constraint firstAttribute="trailingMargin" secondItem="Hzw-3Q-y2n" secondAttribute="trailingMargin" id="QZv-K2-gNa"/>
-                <constraint firstItem="Hzw-3Q-y2n" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.2" priority="750" id="XgM-vZ-dN1"/>
+                <constraint firstItem="Hzw-3Q-y2n" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.2" priority="751" id="XgM-vZ-dN1"/>
                 <constraint firstAttribute="trailingMargin" secondItem="TLL-FD-ocg" secondAttribute="trailing" id="ew4-yI-m84"/>
+                <constraint firstAttribute="bottom" secondItem="ksr-qt-fMz" secondAttribute="bottom" priority="52" id="xPg-9T-bMq"/>
             </constraints>
             <connections>
+                <outlet property="bottomScrollConstraint" destination="xPg-9T-bMq" id="Gwa-l9-VJu"/>
                 <outlet property="genresLabel" destination="hrO-2K-Dsv" id="n79-CH-ubO"/>
                 <outlet property="overviewLabel" destination="MLe-vg-AcL" id="E0P-Hx-9z7"/>
+                <outlet property="overviewScroll" destination="ksr-qt-fMz" id="kaK-6c-4II"/>
                 <outlet property="playTrailerButton" destination="YKd-dK-zo1" id="BuX-Ap-0ZS"/>
-                <outlet property="posterHeightConstraint" destination="XgM-vZ-dN1" id="XuM-Vo-vm2"/>
+                <outlet property="posterHeightConstraint" destination="XgM-vZ-dN1" id="YLz-St-w9f"/>
                 <outlet property="posterImage" destination="JZ9-vl-CXC" id="7fD-QC-Un5"/>
                 <outlet property="runTimeLabel" destination="eaL-bR-wtl" id="x3j-IP-EME"/>
+                <outlet property="scrollHeightConstraint" destination="sqB-O6-xGF" id="D9Z-lg-M7c"/>
                 <outlet property="titleLabel" destination="Iat-g5-KYV" id="7Mb-Iy-voC"/>
                 <outlet property="whishlistButton" destination="ZMd-zF-oZh" id="XX1-1y-7cb"/>
                 <outlet property="yearLabel" destination="EzG-mB-J9h" id="Ho2-Fa-IWz"/>
