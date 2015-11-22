@@ -10,6 +10,10 @@ import UIKit
 
 class MovieView: DetailsView {
 	
+	override class var nibName: String {
+		return "MovieDetails"
+	}
+	
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var yearLabel: UILabel!
 	@IBOutlet var runTimeLabel: UILabel!
@@ -19,7 +23,7 @@ class MovieView: DetailsView {
 	@IBOutlet var overviewLabel: UILabel!
 	@IBOutlet var playTrailerButton: UIButton!
 	
-	@IBOutlet var whishlistButton: UIButton!
+	@IBOutlet var watchlistButton: UIButton!
 	
 	@IBOutlet var genresLabel: UILabel!
 	
@@ -29,6 +33,7 @@ class MovieView: DetailsView {
 	@IBOutlet var posterHeightConstraint: NSLayoutConstraint!
 	@IBOutlet var bottomScrollConstraint: NSLayoutConstraint!
 	@IBOutlet var scrollHeightConstraint: NSLayoutConstraint!
+    private var expandedScrollHeightConstraint: NSLayoutConstraint!
 	
 	private var animationPosterImageFrame: CGRect! = nil
 	
@@ -39,7 +44,9 @@ class MovieView: DetailsView {
 	}
 	
 	@IBAction func overviewTapped(sender: UITapGestureRecognizer) {
-		animateOverviewLabel()
+        if animateOverviewLabel() == false {
+            sender.view!.removeGestureRecognizer(sender)
+        }
 	}
 	
 	@IBAction func posterTapped(sender: UITapGestureRecognizer) {
@@ -50,27 +57,24 @@ class MovieView: DetailsView {
 		}
 	}
 	
-	override func setupWithMovie(movie: Movie) {
+	override func setupWithEntity(entity: Entity) {
+		movie = entity as! Movie
 		
+		// setup only the UI that is sure to have the metadata here
 		titleLabel.text = movie.title
 		
-		Api.instance.requestMovieDetails(movie.id, success: gotDetails)
-		
-		overviewLabel.text = movie.overview
-		
 		if let posterPath = movie.posterPath {
-			// TODO: image setter
-			posterImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: "https://image.tmdb.org/t/p/w300" + posterPath)!)!)
-			// TODO: default poster
-			let aspectRatio = posterImage.image!.size.height / posterImage.image!.size.width
-			posterImage.addConstraint(NSLayoutConstraint(item: posterImage, attribute: .Height, relatedBy: .Equal, toItem: posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
+			ImageSetter.instance.setImage(posterPath, ofType: .Poster, andWidth: frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
+				let aspectRatio = self.posterImage.image!.size.height / self.posterImage.image!.size.width
+				self.posterImage.addConstraint(NSLayoutConstraint(item: self.posterImage, attribute: .Height, relatedBy: .Equal, toItem: self.posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
+			}
 		}
 		
-		yearLabel.text = "(" +? movie.releaseYear +? ")"
+		setWatchListButtonImage()
 		
-		layoutIfNeeded()
+		setupUI()
 		
-		self.movie = movie
+		Api.instance.requestMovieDetails(movie.id, success: gotDetails)
 	}
 	
 	override func getTitle() -> String {
@@ -83,13 +87,26 @@ class MovieView: DetailsView {
 		}
 	}
 	
-	@IBAction func whishlistPressed(sender: UIButton) {
-		print("whishlist pressed")
+	@IBAction func watchlistPressed(sender: UIButton) {
+		if movie.toggleWatchList() {
+			setWatchListButtonImage()
+		} else {
+			print("core data error")
+		}
 	}
 	
 	private func gotDetails(result: JSON) {
 		
 		movie.addData(result)
+		
+		setupUI()
+	}
+	
+	private func setupUI() {
+		
+		overviewLabel.text = movie.overview
+		
+		yearLabel.text = "(" +? movie.releaseYear +? ")"
 		
 		if movie.youtubeTrailer != nil {
 			playTrailerButton.enabled = true
@@ -103,15 +120,43 @@ class MovieView: DetailsView {
 		genresLabel.text = (genreText~?)?.substringToIndex(genreText.endIndex.predecessor())
 	}
 	
+	private func setWatchListButtonImage() {
+		if movie.isInWatchList {
+			watchlistButton.setImage(UIImage(named: "Home"), forState: .Normal)
+		} else {
+			watchlistButton.setImage(UIImage(named: "second"), forState: .Normal)
+		}
+	}
+	
 	// MARK: animations
-	private func animateOverviewLabel() {
+	private func animateOverviewLabel() -> Bool {
 		!!scrollHeightConstraint.active
 		!!posterHeightConstraint.active
-		!!bottomScrollConstraint.active
-		
-		UIView.animateWithDuration(0.3) { [unowned self] () -> Void in
-			self.layoutIfNeeded()
-		}
+        
+        if expandedScrollHeightConstraint == nil {
+            layoutIfNeeded()
+            
+            if overviewLabel.frame.height <= overviewScroll.frame.height {
+                !!scrollHeightConstraint.active
+                !!posterHeightConstraint.active
+                return false
+            }
+            
+            let labelFrameInView = overviewLabel.convertPoint(overviewLabel.frame.origin, toView: self)
+            let bottomDist = frame.height - labelFrameInView.y
+            let height = min(overviewLabel.frame.height, bottomDist)
+            
+            expandedScrollHeightConstraint = NSLayoutConstraint(item: overviewScroll, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: height)
+            overviewScroll.addConstraint(expandedScrollHeightConstraint)
+        } else {
+            !!expandedScrollHeightConstraint.active
+        }
+        
+        UIView.animateWithDuration(0.3) { [unowned self] () -> Void in
+            self.layoutIfNeeded()
+        }
+        
+        return true
 	}
 	
 	private func showFullscreenPoster(gestureRecognizer: UITapGestureRecognizer) {
@@ -132,10 +177,9 @@ class MovieView: DetailsView {
 		UIApplication.sharedApplication().delegate!.window!!.rootViewController!.view!.addSubview(bigImage)
 		
 		UIView.animateWithDuration(0.3, animations: { [unowned self] in
-			//bigImage.frame = self.frame
 			bigImage.frame = UIScreen.mainScreen().bounds
 			}, completion: { (completed) in
-				UIView.animateWithDuration(0.2, delay: 0.1, options: UIViewAnimationOptions.CurveLinear, animations: { [unowned self] in
+				UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveLinear, animations: { [unowned self] in
 				bigImage.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
 				}, completion: nil)
 		})

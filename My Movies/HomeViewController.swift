@@ -8,13 +8,14 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UITableViewDataSource, SearchControllerDelegate, UITableViewDelegate {
+class HomeViewController: UIViewController, TabbedViewController, SearchControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+	
+	static var tabIndex = -1
 	
 	@IBOutlet var searchBar: UISearchBar!
 	@IBOutlet var tableView: UITableView!
 	
 	private var searchController = SearchController()
-	private let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -26,6 +27,9 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 		
 		searchBar.text = "matrix"//"fight bat"
 		searchController.getResultsForNextPage()
+		
+		tableView.registerNib(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
+		//ImageSetter.instance
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -52,26 +56,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 		// regular cell
 		let cell = tableView.dequeueReusableCellWithIdentifier(SearchCell.reuseIdentifier) as! SearchCell
 		
-		let setDefaultImage = {
-			cell.thumbnail.image = UIImage(named: "default")
+		if let thumbnailPath = searchController.results[indexPath.row].thumbnailPath {
+			ImageSetter.instance.setImage(thumbnailPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail)
+			//print("thumbnail for \(indexPath.row) is \(thumbnailPath)")
+			// TODO: check thumbnail bug on device
 		}
 		
-		if let thumbnailPath = searchController.results[indexPath.row].thumbnailPath {
-			//print("thumbnail for \(indexPath.row) is \(thumbnailPath)")
-			dispatch_async(queue) {
-				if let data = NSData(contentsOfURL: NSURL(string: "https://image.tmdb.org/t/p/w92" + thumbnailPath)!) {
-					dispatch_async(dispatch_get_main_queue()) {
-						//print("setting for \(indexPath.row) thumbnail \(thumbnailPath)")
-						// TODO check thumbnail bug on device
-						cell.thumbnail.image = UIImage(data: data)
-					}
-				} else {
-					//setDefaultImage()
-				}
-			}
-		} else {
-			//setDefaultImage()
-		}
 		cell.name.text = searchController.results[indexPath.row].name
 		return cell
 	}
@@ -82,14 +72,10 @@ class FirstViewController: UIViewController, UITableViewDataSource, SearchContro
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		//print(indexPath.row)
-		let pvc = parentViewController as! UITabBarController
-		pvc.selectedIndex = 1
-		let vc = pvc.selectedViewController as! SecondViewController
-		vc.setupWithData(searchController.medatada[indexPath.row], image: (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image!)
-		//vc.metadata = searchController.medatada[indexPath.row]
-		
-		//pvc.tabBar.items![1].image = (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image
+		let vc = (parentViewController as! TabBarController).goToDetails()
+		let entity = Entity.createWithData(searchController.medatada[indexPath.row])
+		let image = (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image!
+		vc.setupWithEntity(entity, andImage: image)
 	}
 	
 	// MARK: search controler delegate

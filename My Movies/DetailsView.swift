@@ -10,7 +10,12 @@ import UIKit
 
 class DetailsView: UIView {
 	
-	func setupWithMovie(movie: Movie) {
+	class var nibName: String {
+		assertionFailure("please override")
+		return ""
+	}
+	
+	func setupWithEntity(entity: Entity) {
 		assertionFailure("please override")
 	}
 	

@@ -1,15 +1,15 @@
 //
-//  My_MoviesTests.swift
-//  My MoviesTests
+//  CoreDataTests.swift
+//  My Movies
 //
-//  Created by Madalin Sava on 09/11/15.
+//  Created by Madalin Sava on 21/11/15.
 //  Copyright © 2015 Madalin Sava. All rights reserved.
 //
 
 import XCTest
-@testable import My_Movies
+import CoreData
 
-class My_MoviesTests: XCTestCase {
+class CoreDataTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -33,18 +33,6 @@ class My_MoviesTests: XCTestCase {
         }
     }
 	
-	func testStringSubscripts() {
-		let str = "0123456789"
-		XCTAssertEqual(str[0, 0], str)
-		XCTAssertEqual(str[0, 1], "0")
-		XCTAssertEqual(str[1, 1], "")
-		XCTAssertEqual(str[0, -1], "012345678")
-		XCTAssertEqual(str[1, 0], "123456789")
-		XCTAssertEqual(str[1, -1], "12345678")
-		XCTAssertEqual(str[1, 2], "1")
-		XCTAssertEqual(str[-1, 0], "9")
-		XCTAssertEqual(str[-1, -1], "")
-		XCTAssertEqual(str[-2, -1], "8")
+	func testDataLoading() {
 	}
-    
 }

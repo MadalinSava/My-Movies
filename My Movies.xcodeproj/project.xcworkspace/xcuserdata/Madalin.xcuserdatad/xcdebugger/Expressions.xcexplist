@@ -10,5 +10,16 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "MovieView.(animateOverviewLabel in _8B62B82B2643A9A5E11899EB667DD8A6)() -&gt; ():MovieView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "overviewLabel.frame.minY">
+            </PersistentString>
+            <PersistentString
+               value = "frame.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

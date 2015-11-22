@@ -10,9 +10,13 @@ import UIKit
 
 class SeriesView: DetailsView {
 	
+	override class var nibName: String {
+		return "SeriesDetails"
+	}
+	
 	@IBOutlet var titleLabel: UILabel!
 	
-	override func setupWithMovie(movie: Movie) {
+	override func setupWithEntity(entity: Entity) {
 		//titleLabel.text = metadata["name"].stringValue
 	}
 }

@@ -8,14 +8,15 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class DetailsViewController: UIViewController, TabbedViewController {
 	
-	//var metadata: JSON! = nil
+	static var tabIndex = -1
+	
 	@IBOutlet var navBar: UINavigationBar!
 	@IBOutlet var navBarTitle: UINavigationItem!
 	@IBOutlet var barItem: UITabBarItem!
-	//@IBOutlet var posterImage: UIImageView!
 	
+	private var detailsView: DetailsView! = nil
 	private var barItemImageSize: CGSize!
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -38,22 +39,22 @@ class SecondViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 	
-	func setupWithData(data: JSON, image: UIImage) {
-		
-		var nibName: String
-		switch data["media_type"] {
-		case "movie":
-			nibName = "MovieDetails"
-		case "person":
-			nibName = "PersonDetails"
-		case "tv":
-			nibName = "SeriesDetails"
+	func setupWithEntity(entity: Entity, andImage image: UIImage) {
+		//var asd = MovieView.Type
+		var classType: DetailsView.Type
+		switch entity {
+		case is Movie:
+			classType = MovieView.self
+		case is Series:
+			classType = SeriesView.self
+		case is Person:
+			classType = PersonView.self
 		default:
 			return
 		}
 		
-		let detailsView = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil)[0] as! DetailsView
-		detailsView.setupWithMovie(Movie(data: data))
+		detailsView?.removeFromSuperview()
+		detailsView = NSBundle.mainBundle().loadNibNamed(classType.nibName, owner: self, options: nil)[0] as! DetailsView
 		
 		// setup frame
 		var frame = view.frame
@@ -61,24 +62,20 @@ class SecondViewController: UIViewController {
 		frame.origin.y += topLayoutGuide.length + navBar.frame.height
 		detailsView.frame = frame
 		
-		//detailsView.metadata = data
-		navBarTitle.title = detailsView.getTitle()
-		
 		view.addSubview(detailsView)
-		//detailsView.setNeedsLayout()
+		
+		detailsView.setupWithEntity(entity)
+		
+		navBarTitle.title = detailsView.getTitle()
 		
 		// set tab bar button images
 		barItem.image = getNormalBarItemImageFromImage(image)
 		let tintColor = (parentViewController as! UITabBarController).tabBar.tintColor.colorWithAlphaComponent(0.2)
 		barItem.selectedImage = getNormalBarItemImageFromImage(image, withTintColor: tintColor)
-		
-		// TESTING
-		/*let posterPath = data["poster_path"].stringValue
-		posterImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: "https://image.tmdb.org/t/p/w300" + posterPath)!)!)*/
 	}
 	
 	@IBAction func backPressed(sender: UIBarButtonItem) {
-		(self.parentViewController as! TabBarController).selectedIndex = 0
+		(parentViewController as! TabBarController).goBack()
 	}
 	
 	private func getNormalBarItemImageFromImage(image: UIImage, withTintColor color: UIColor = .clearColor()) -> UIImage {

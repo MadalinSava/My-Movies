@@ -10,9 +10,13 @@ import UIKit
 
 class PersonView: DetailsView {
 	
+	override class var nibName: String {
+		return "PersonDetails"
+	}
+	
 	@IBOutlet var nameLabel: UILabel!
 	
-	override func setupWithMovie(movie: Movie) {
+	override func setupWithEntity(entity: Entity) {
 		//nameLabel.text = metadata["name"].stringValue
 	}
 }

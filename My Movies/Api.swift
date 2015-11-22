@@ -8,20 +8,15 @@
 
 import Foundation
 
-extension String: CustomStringConvertible {
-	public var description: String {
-		get {
-			return self
-		}
-	}
-}
-
 class Api {
 	
-	static let instance = Api()
+	static let instance: Api = Api()
 	
 	private let baseUrl = "https://api.themoviedb.org/3"
 	private let apiKey = "1ecc4c837d0fa6e033f34771e531b790"
+	
+	private var configuration: JSON! = nil
+	private var configurationCallbacks = [SuccessBlock]()
 	
 	func searchMulti(text: String, page: Int, success: SuccessBlock, error: ErrorBlock? = nil) {
 		let query = text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
@@ -32,6 +27,34 @@ class Api {
 	func requestMovieDetails(movieId: Int, success: SuccessBlock, error: ErrorBlock? = nil) {
 		let stringURL = baseUrl + "/movie/\(movieId)" + formatParams("append_to_response", "trailers", withApiKey: true)
 		RequestManager.instance.doRequest(stringURL, successBlock: success, errorBlock: error)
+	}
+	
+	func getConfiguration(success: SuccessBlock) {
+		if configuration != nil {
+			success(configuration)
+		}
+		else {
+			print("wait")
+			configurationCallbacks.append(success)
+		}
+	}
+	
+	private init() {
+		requestConfiguration()
+	}
+	
+	private func requestConfiguration() {
+		let stringURL = baseUrl + "/configuration" + formatParams(withApiKey: true)
+		RequestManager.instance.doRequest(stringURL, successBlock: { [unowned self] (config) in
+			self.configuration = config
+			for callback in self.configurationCallbacks {
+				callback(config)
+			}
+			self.configurationCallbacks.removeAll()
+			}, errorBlock: {
+			(error) in
+			print(error.localizedDescription)
+		})
 	}
 	
 	private func formatParams(params: CustomStringConvertible..., withApiKey: Bool) -> String {
