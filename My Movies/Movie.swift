@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 public class ManagedMovie: NSManagedObject {
-	@NSManaged var id: Int
+	@NSManaged var id: Int32
 	@NSManaged var title: String
 	@NSManaged var releaseDate: String?
 	@NSManaged var posterPath: String?
@@ -55,7 +55,7 @@ class Movie: Entity {
 	}
 	
 	init(withManagedMovie movie: ManagedMovie) {
-		id = movie.id
+		id = Int(movie.id)
 		title = movie.title
 		releaseDate = movie.releaseDate
 		posterPath = movie.posterPath
@@ -124,7 +124,7 @@ class Movie: Entity {
 		let entityDescription = NSEntityDescription.entityForName("Movie", inManagedObjectContext: context)!
 		
 		let movieEntity = ManagedMovie(entity: entityDescription, insertIntoManagedObjectContext: context)
-		movieEntity.id = id
+		movieEntity.id = Int32(id)
 		movieEntity.title = title
 		movieEntity.posterPath = posterPath
 		movieEntity.isInWatchList = isInWatchList
