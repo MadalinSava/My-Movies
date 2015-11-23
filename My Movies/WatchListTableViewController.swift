@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class WatchListTableViewController: UITableViewController, TabbedViewController {
+class WatchListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TabbedViewController {
 	
 	static var tabIndex = -1
 	
-	var movies = [ManagedMovie]()
+	@IBOutlet var tableView: UITableView!
+	
+	private var movies = [ManagedMovie]()
 	// TODO: add another section for series!!!
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -23,6 +25,9 @@ class WatchListTableViewController: UITableViewController, TabbedViewController 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		//self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+		
+		tableView.delegate = self
+		tableView.dataSource = self
 		tableView.registerNib(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
 	}
 	
@@ -42,11 +47,11 @@ class WatchListTableViewController: UITableViewController, TabbedViewController 
 		}
 	}
 	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return movies.count
 	}
 	
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
 		let cell = tableView.dequeueReusableCellWithIdentifier(SearchCell.reuseIdentifier) as! SearchCell
 		
@@ -58,7 +63,7 @@ class WatchListTableViewController: UITableViewController, TabbedViewController 
 		return cell
 	}
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let vc = (parentViewController as! TabBarController).goToDetails()
 		let entity = Movie(withManagedMovie: movies[indexPath.row])
 		let image = (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image!
