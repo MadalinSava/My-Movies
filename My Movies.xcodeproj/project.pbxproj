@@ -310,10 +310,10 @@
 			children = (
 				E3EDF0A71BF0CFA90006A238 /* AppDelegate.swift */,
 				E3EDF0AD1BF0CFA90006A238 /* Main.storyboard */,
-				E3EDF0B01BF0CFA90006A238 /* Assets.xcassets */,
 				E3EDF0B21BF0CFA90006A238 /* LaunchScreen.storyboard */,
-				E3EDF0B51BF0CFA90006A238 /* Info.plist */,
+				E3EDF0B01BF0CFA90006A238 /* Assets.xcassets */,
 				E369034A1C0105F4002D40A2 /* Movies.xcdatamodeld */,
+				E3EDF0B51BF0CFA90006A238 /* Info.plist */,
 			);
 			name = "App Essentials";
 			sourceTree = "<group>";

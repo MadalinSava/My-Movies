@@ -32,10 +32,15 @@ class ImageSetter {
 	func setImage (path: String, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, success: ImageSetSuccess? = nil) {
 	}*/
 	
-	func setImage (path: String, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: ImageSetSuccess? = nil) {
+	func setImage (path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: ImageSetSuccess? = nil) {
 		guard configurationComplete else {
 			// TODO: do something? like queueing
 			print("configuration not ready")
+			return
+		}
+		
+		guard let path = path else {
+			forView.image = UIImage(named: defaultImage!)
 			return
 		}
 		

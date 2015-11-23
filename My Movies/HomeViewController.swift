@@ -56,11 +56,8 @@ class HomeViewController: UIViewController, TabbedViewController, SearchControll
 		// regular cell
 		let cell = tableView.dequeueReusableCellWithIdentifier(SearchCell.reuseIdentifier) as! SearchCell
 		
-		if let thumbnailPath = searchController.results[indexPath.row].thumbnailPath {
-			ImageSetter.instance.setImage(thumbnailPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail)
-			//print("thumbnail for \(indexPath.row) is \(thumbnailPath)")
-			// TODO: check thumbnail bug on device
-		}
+		let thumbPath = searchController.results[indexPath.row].thumbnailPath
+		ImageSetter.instance.setImage(thumbPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail, defaultImage: "default")
 		
 		cell.name.text = searchController.results[indexPath.row].name
 		return cell

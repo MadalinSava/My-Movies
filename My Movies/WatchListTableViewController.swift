@@ -22,7 +22,7 @@ class WatchListTableViewController: UITableViewController, TabbedViewController 
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+		//self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
 		tableView.registerNib(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
 	}
 	
@@ -52,9 +52,7 @@ class WatchListTableViewController: UITableViewController, TabbedViewController 
 		
 		let movie = movies[indexPath.row]
 		
-		if let posterPath = movie.posterPath {
-			ImageSetter.instance.setImage(posterPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail)
-		}
+		ImageSetter.instance.setImage(movie.posterPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail, defaultImage: "default")
 		
 		cell.name.text = movie.title
 		return cell
