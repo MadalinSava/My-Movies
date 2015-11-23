@@ -37,10 +37,8 @@ class WatchListTableViewController: UIViewController, UITableViewDelegate, UITab
 		do {
 			let context = AppDelegate.instance.managedObjectContext
 			let fetchRequest = NSFetchRequest(entityName: "Movie")
+			fetchRequest.predicate = NSPredicate(format: "isInWatchList == true")
 			movies = try context.executeFetchRequest(fetchRequest) as! [ManagedMovie]
-			movies = movies.filter { (movie) in
-				return movie.isInWatchList
-			}
 			tableView.reloadData()
 		} catch let error as NSError {
 			print(error.localizedDescription)
