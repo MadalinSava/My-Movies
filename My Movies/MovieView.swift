@@ -64,7 +64,7 @@ class MovieView: DetailsView {
 		titleLabel.text = movie.title
 		
 		if let posterPath = movie.posterPath {
-			ImageSetter.instance.setImage(posterPath, ofType: .Poster, andWidth: frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
+			ImageSetter.instance.setImage(posterPath, ofType: .Poster, andWidth: posterImage.frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
 				let aspectRatio = self.posterImage.image!.size.height / self.posterImage.image!.size.width
 				self.posterImage.addConstraint(NSLayoutConstraint(item: self.posterImage, attribute: .Height, relatedBy: .Equal, toItem: self.posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
 			}
@@ -162,6 +162,7 @@ class MovieView: DetailsView {
 	private func showFullscreenPoster(gestureRecognizer: UITapGestureRecognizer) {
 		// TODO: keep the image in memory? it can be purged on memory warning; it can also be initialized on load with a higher resolution poster, but it needs to be exactly the same; otherwise, maybe use a high res poster for the small image
 		let bigImage = UIImageView(image: posterImage.image)
+		ImageSetter.instance.setImage(movie.posterPath, ofType: .Poster, andWidth: frame.width, forView: bigImage)
 		
 		let containingView = superview!
 		
