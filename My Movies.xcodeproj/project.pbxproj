@@ -48,6 +48,9 @@
 		E36903A31C0255D3002D40A2 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36903A21C0255D3002D40A2 /* Person.swift */; };
 		E36903A41C0255D3002D40A2 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36903A21C0255D3002D40A2 /* Person.swift */; };
 		E36903A51C0255D3002D40A2 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36903A21C0255D3002D40A2 /* Person.swift */; };
+		E37507C01C04613900DEA958 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
+		E37507C21C04679000DEA958 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C11C04679000DEA958 /* NavigationController.swift */; };
+		E37507C51C049C8100DEA958 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* NavigationBar.swift */; };
 		E3EDF0A81BF0CFA90006A238 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0A71BF0CFA90006A238 /* AppDelegate.swift */; };
 		E3EDF0AA1BF0CFA90006A238 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0A91BF0CFA90006A238 /* HomeViewController.swift */; };
 		E3EDF0AC1BF0CFA90006A238 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
@@ -128,6 +131,9 @@
 		E369039A1C022A50002D40A2 /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		E369039E1C022AAD002D40A2 /* Series.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Series.swift; sourceTree = "<group>"; };
 		E36903A21C0255D3002D40A2 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		E37507BF1C04613900DEA958 /* NewMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewMain.storyboard; sourceTree = "<group>"; };
+		E37507C11C04679000DEA958 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		E37507C41C049C8100DEA958 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		E3EDF0A41BF0CFA90006A238 /* My Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Movies.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3EDF0A71BF0CFA90006A238 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3EDF0A91BF0CFA90006A238 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +210,14 @@
 			name = "Swift Utils And Extensions";
 			sourceTree = "<group>";
 		};
+		E37507C31C049C6700DEA958 /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				E37507C41C049C8100DEA958 /* NavigationBar.swift */,
+			);
+			name = "UI Components";
+			sourceTree = "<group>";
+		};
 		E3EDF09B1BF0CFA80006A238 = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +242,7 @@
 		E3EDF0A61BF0CFA90006A238 /* My Movies */ = {
 			isa = PBXGroup;
 			children = (
+				E37507C31C049C6700DEA958 /* UI Components */,
 				E3EDF1671BF37B930006A238 /* App Essentials */,
 				E3EDF1651BF37B560006A238 /* Controllers */,
 				E3EDF1631BF37B090006A238 /* Detail Views */,
@@ -292,6 +307,7 @@
 				E3EDF0A91BF0CFA90006A238 /* HomeViewController.swift */,
 				E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */,
 				E36903901C011099002D40A2 /* WatchListTableViewController.swift */,
+				E37507C11C04679000DEA958 /* NavigationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -310,6 +326,7 @@
 			children = (
 				E3EDF0A71BF0CFA90006A238 /* AppDelegate.swift */,
 				E3EDF0AD1BF0CFA90006A238 /* Main.storyboard */,
+				E37507BF1C04613900DEA958 /* NewMain.storyboard */,
 				E3EDF0B21BF0CFA90006A238 /* LaunchScreen.storyboard */,
 				E3EDF0B01BF0CFA90006A238 /* Assets.xcassets */,
 				E369034A1C0105F4002D40A2 /* Movies.xcdatamodeld */,
@@ -435,6 +452,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E37507C01C04613900DEA958 /* NewMain.storyboard in Resources */,
 				E3EDF1481BF36AAC0006A238 /* MovieDetails.xib in Resources */,
 				E3EDF1501BF36FB10006A238 /* SeriesDetails.xib in Resources */,
 				E3EDF0B41BF0CFA90006A238 /* LaunchScreen.storyboard in Resources */,
@@ -483,8 +501,10 @@
 				E36903431C00F170002D40A2 /* Extensions.swift in Sources */,
 				E369033B1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
 				E36903A31C0255D3002D40A2 /* Person.swift in Sources */,
+				E37507C51C049C8100DEA958 /* NavigationBar.swift in Sources */,
 				E3EDF16A1BF37C2F0006A238 /* Api.swift in Sources */,
 				E352333D1BFB1357008FD590 /* Operators.swift in Sources */,
+				E37507C21C04679000DEA958 /* NavigationController.swift in Sources */,
 				E3EDF15C1BF375560006A238 /* PersonView.swift in Sources */,
 				E3EDF1541BF370BF0006A238 /* MovieView.swift in Sources */,
 				E369039F1C022AAD002D40A2 /* Series.swift in Sources */,
@@ -686,6 +706,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "My Movies/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ms.My-Movies";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -698,6 +719,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "My Movies/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ms.My-Movies";
 				PRODUCT_NAME = "$(TARGET_NAME)";

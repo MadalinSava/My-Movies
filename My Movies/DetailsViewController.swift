@@ -26,12 +26,64 @@ class DetailsViewController: UIViewController, TabbedViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		tabBarItem!.enabled = true
-		barItemImageSize = barItem.selectedImage!.size
+		navigationItem.setHidesBackButton(true, animated: false)
+		//navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Home"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+		
+		//tabBarItem!.enabled = true
+		//barItemImageSize = barItem.selectedImage!.size
+		//print(navBar.items)
+		
+		let parent = navigationController!.viewControllers[0]
+		let back = parent.navigationItem.backBarButtonItem
+		
+		/*for subview in navBar.subviews {
+			let type = subview.dynamicType
+			print(subview)
+		}
+		let backItem = navBar.subviews[2]*/
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationItem.setHidesBackButton(true, animated: false)
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		navigationItem.setHidesBackButton(true, animated: false)
+		super.viewWillDisappear(animated)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+		
+		
+		/*let button = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 30))
+		button.setImage(UIImage(named: "Home"), forState: UIControlState.Normal)
+		button.setTitle("BEAC!!!", forState: UIControlState.Normal)
+		button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+		button.addTarget(self, action: "asd", forControlEvents: UIControlEvents.TouchDown)
+		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+		
+		let navBar = navigationController!.navigationBar
+		//navBar.layoutIfNeeded()
+		
+		let buttonView = navigationItem.leftBarButtonItem!.customView
+		let searchBar = (navigationController as! NavigationController).searchBar
+		let constraint = NSLayoutConstraint(item: searchBar, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: button, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: 5.0)
+		searchBar.superview!.addConstraint(constraint)*/
+		
+		/*
+		print(navigationItem.leftBarButtonItem)
+		print(navigationItem.leftBarButtonItem?.customView)
+		let navBar = navigationController!.navigationBar
+		print(navBar.topItem)
+		print(navBar.topItem?.leftBarButtonItem) // THIS
+		print(navBar.topItem?.titleView)
+		print(navBar.topItem?.rightBarButtonItem)
+		print(navBar.backItem)
+		print(navBar.backIndicatorImage)
+		*/
+		//navigationItem.backBarButtonItem = UIBarButtonItem(title: "Beac", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
 	}
 
 	override func didReceiveMemoryWarning() {
