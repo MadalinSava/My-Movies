@@ -46,7 +46,7 @@ class ImageSetter {
 		
 		let pixels = Int(ceil(pointsToPixels(width)))
 		let sizeComponent = getSizeComponentForWidth(pixels, ofImageType: type)
-		print("setting image " + sizeComponent)
+		//print("setting image " + sizeComponent)
 		
 		let imageId = sizeComponent + "-" + path[1, 0]
 		let tmpDirURL = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
@@ -66,7 +66,7 @@ class ImageSetter {
 			dispatch_async(dispatch_get_main_queue()) {
 				if image != nil {
 					forView.image = image
-					print("success")
+					//print("success")
 					success?()
 				} else if defaultImage != nil { // TODO: test this
 					forView.image = UIImage(named: defaultImage!)

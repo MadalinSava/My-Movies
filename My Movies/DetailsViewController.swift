@@ -19,37 +19,19 @@ class DetailsViewController: UIViewController, TabbedViewController {
 	private var detailsView: DetailsView! = nil
 	private var barItemImageSize: CGSize!
 	
-	required init?(coder aDecoder: NSCoder) {
+	/*required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-	}
+	}*/
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		navigationItem.setHidesBackButton(true, animated: false)
-		//navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Home"), style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
-		
-		//tabBarItem!.enabled = true
-		//barItemImageSize = barItem.selectedImage!.size
-		//print(navBar.items)
-		
-		let parent = navigationController!.viewControllers[0]
-		let back = parent.navigationItem.backBarButtonItem
-		
-		/*for subview in navBar.subviews {
-			let type = subview.dynamicType
-			print(subview)
-		}
-		let backItem = navBar.subviews[2]*/
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationItem.setHidesBackButton(true, animated: false)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
-		navigationItem.setHidesBackButton(true, animated: false)
 		super.viewWillDisappear(animated)
 	}
 	
