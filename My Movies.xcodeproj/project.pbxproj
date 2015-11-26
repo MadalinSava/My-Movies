@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
+		E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E35233331BFA0A0C008FD590 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35233321BFA0A0C008FD590 /* RequestManager.swift */; };
 		E35233341BFA0A0C008FD590 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35233321BFA0A0C008FD590 /* RequestManager.swift */; };
 		E35233351BFA0A0C008FD590 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35233321BFA0A0C008FD590 /* RequestManager.swift */; };
@@ -544,6 +546,7 @@
 				E3EDF1591BF374130006A238 /* DetailsView.swift in Sources */,
 				E3EDF1411BF218910006A238 /* SwiftyJSON.swift in Sources */,
 				E3EDF12D1BF0F6560006A238 /* SearchController.swift in Sources */,
+				E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */,
 				E369039C1C022A50002D40A2 /* Entity.swift in Sources */,
 				E36903441C00F170002D40A2 /* Extensions.swift in Sources */,
 				E369033C1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
@@ -567,6 +570,7 @@
 				E36903A11C022AAD002D40A2 /* Series.swift in Sources */,
 				E36903A51C0255D3002D40A2 /* Person.swift in Sources */,
 				E3EDF1561BF370BF0006A238 /* MovieView.swift in Sources */,
+				E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */,
 				E3EDF1361BF210DA0006A238 /* SearchResult.swift in Sources */,
 				E3EDF1461BF35EFA0006A238 /* TabBarController.swift in Sources */,
 				E36903991C01D32F002D40A2 /* TabbedViewController.swift in Sources */,

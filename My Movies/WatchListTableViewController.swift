@@ -66,7 +66,6 @@ class WatchListTableViewController: UIViewController, UITableViewDelegate, UITab
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let vc = (parentViewController as! TabBarController).goToDetails()
 		let entity = Movie(withManagedMovie: movies[indexPath.row])
-		let image = (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image!
-		vc.setupWithEntity(entity, andImage: image)
+		vc.setupWithEntity(entity)
 	}
 }

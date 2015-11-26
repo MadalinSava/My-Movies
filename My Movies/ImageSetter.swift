@@ -40,7 +40,9 @@ class ImageSetter {
 		}
 		
 		guard let path = path else {
-			forView.image = UIImage(named: defaultImage!)
+			if defaultImage != nil {
+				forView.image = UIImage(named: defaultImage!)
+			}
 			return
 		}
 		

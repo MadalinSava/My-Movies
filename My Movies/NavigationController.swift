@@ -44,6 +44,7 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		print("navigation: \(topLayoutGuide.length)")
 		
 		correctSearchBarColor()
 		
@@ -51,6 +52,10 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 		navigationBar.addSubview(navigationView)
 		
 		searchController = SearchController(searchBar: searchBar, tableView: searchTable)
+		
+		// for tests
+		searchBar.text = "matrix"
+		searchController.getResultsForNextPage()
 	}
 	
 	override func viewWillAppear(animated: Bool) {

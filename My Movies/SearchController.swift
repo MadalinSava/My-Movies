@@ -48,6 +48,8 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		mainWindow.addSubview(tableView)
 		tableView.frame.origin.y = viewController.topLayoutGuide.length + 50
 		tableView.frame.size.height = mainWindow.frame.size.height - viewController.topLayoutGuide.length - viewController.bottomLayoutGuide.length - 100
+		
+		updateTableVisibility()
 	}
 	
 	// MARK: UISearchBarDelegate
@@ -146,23 +148,26 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		searchBar.text = nil
+		searchBar.resignFirstResponder()
+		results.removeAll()
+		tableView.reloadData()
 		
-		tableView.frame.size.height = 0.0
 		//let vc = DetailsViewController()
 		let st = UIStoryboard(name: "NewMain", bundle: nil)
 		//aprint(st.
-		let vc = st.instantiateViewControllerWithIdentifier("DetailsViewController")
-		UIApplication.sharedApplication().keyWindow!.rootViewController!.presentViewController(vc, animated: true){}
+		let vc = st.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
+		//UIApplication.sharedApplication().keyWindow!.rootViewController!.presentViewController(vc, animated: true){}
+		let nc = UIApplication.sharedApplication().keyWindow!.rootViewController as! UINavigationController
+		nc.pushViewController(vc, animated: true)
 		
-		/*let vc = (parentViewController as! TabBarController).goToDetails()
-		let entity = Entity.createWithData(searchController.medatada[indexPath.row])
-		let image = (tableView.cellForRowAtIndexPath(indexPath) as! SearchCell).thumbnail.image!
-		vc.setupWithEntity(entity, andImage: image)*/
+		let entity = Entity.createWithData(medatada[indexPath.row])
+		//vc.setupWithEntity(entity)
 	}
 	
 	// MARK: search controler delegate
 	func resultsReset() {
-		tableView.hidden = (results.count == 0)
+		updateTableVisibility()
 		tableView.reloadData()
 		if results.count > 0 {
 			tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
@@ -178,5 +183,8 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		}
 		tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
 	}
-
+	
+	private func updateTableVisibility() {
+		tableView.hidden = (results.count == 0)
+	}
 }
