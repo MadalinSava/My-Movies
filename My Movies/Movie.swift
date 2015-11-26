@@ -23,7 +23,10 @@ class Movie: Entity {
 	let id: Int
 	let releaseDate: String?
 	
+	private(set) var minBackdropAspectRatio: Float?
+	
 	private(set) var posterPath: String? = nil
+	private(set) var backdropPaths = [String]()
 	private(set) var overview: String? = nil
 	private(set) var youtubeTrailer: String? = nil
 	private(set) var runTime: Int? = nil
@@ -31,12 +34,10 @@ class Movie: Entity {
 	private(set) var isInWatchList = false
 	
 	var releaseYear: String? {
-		get {
-			guard let date = releaseDate else {
-				return nil
-			}
-			return date.substringToIndex(date.startIndex.advancedBy(4))
+		guard let date = releaseDate else {
+			return nil
 		}
+		return date.substringToIndex(date.startIndex.advancedBy(4))
 	}
 	
 	init(data: JSON) {
@@ -65,15 +66,30 @@ class Movie: Entity {
 		setupSavedProperties(fromManagedMovie: movie)
 	}
 	
-	func addData(data: JSON) {
+	func requestDetails(completion: () -> Void) {
+		Api.instance.requestMovieDetails(id, success: { [unowned self] (data) in
+			//print(data)
+			self.addData(data)
+			completion()
+		})
+	}
+	
+	private func addData(data: JSON) {
 		//print(data)
 		
 		posterPath ?=~? data["poster_path"].string
 		overview ?=~? data["overview"].string
 		runTime ?=~? data["runtime"].int
 		
-		for genre in data["genres"].arrayValue {
-			genreList.append(genre["name"].stringValue)
+		backdropPaths = data["images"]["backdrops"].arrayValue.map { (backdrop) in
+			return backdrop["file_path"].stringValue
+		}
+		minBackdropAspectRatio = data["images"]["backdrops"].arrayValue.reduce(nil, combine: { (currentMin, backdrop) -> Float? in
+			return min(currentMin ?? Float.infinity, backdrop["aspect_ratio"].floatValue)
+		})
+		
+		genreList = data["genres"].arrayValue.map { (genre) in
+			return genre["name"].stringValue
 		}
 		
 		youtubeTrailer ?=~? data["trailers"]["youtube"][0]["source"].string

@@ -97,7 +97,7 @@ class MovieView: DetailsView {
 	
 	private func gotDetails(result: JSON) {
 		
-		movie.addData(result)
+		//movie.addData(result)
 		
 		setupUI()
 	}

@@ -9,9 +9,7 @@
 import UIKit
 import CoreData
 
-class WatchListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TabbedViewController {
-	
-	static var tabIndex = -1
+class WatchListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	@IBOutlet var tableView: UITableView!
 	
@@ -64,8 +62,8 @@ class WatchListTableViewController: UIViewController, UITableViewDelegate, UITab
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let vc = (parentViewController as! TabBarController).goToDetails()
+		/*let vc = (parentViewController as! TabBarController).goToDetails()
 		let entity = Movie(withManagedMovie: movies[indexPath.row])
-		vc.setupWithEntity(entity)
+		vc.setupWithEntity(entity)*/
 	}
 }

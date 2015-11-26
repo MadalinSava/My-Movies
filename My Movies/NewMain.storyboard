@@ -3,13 +3,14 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="FmQ-ym-sVq">
             <objects>
                 <navigationController id="ngd-Be-Fxi" customClass="NavigationController" customModule="My_Movies" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ek0-qT-4GD" customClass="NavigationBar" customModule="My_Movies" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ek0-qT-4GD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
@@ -132,13 +133,81 @@
                     <view key="view" contentMode="scaleToFill" id="F4V-0Y-rcg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" contentMode="top" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACf-jh-9rM">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="076-z1-7E9" userLabel="GalleryView" customClass="GalleryView" customModule="My_Movies" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                                <animations/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="Ab9-0e-VnU"/>
+                                                </constraints>
+                                            </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="600" id="7Ed-Se-xPS"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="076-z1-7E9" secondAttribute="trailing" id="2kA-TO-QZT"/>
+                                            <constraint firstItem="jvN-GF-LcO" firstAttribute="top" secondItem="076-z1-7E9" secondAttribute="bottom" id="BFT-UF-GHn"/>
+                                            <constraint firstItem="076-z1-7E9" firstAttribute="leading" secondItem="p3c-id-i9C" secondAttribute="leading" id="Ldc-nH-vSF"/>
+                                            <constraint firstItem="076-z1-7E9" firstAttribute="top" secondItem="p3c-id-i9C" secondAttribute="top" id="P5h-lA-wL7"/>
+                                            <constraint firstItem="jvN-GF-LcO" firstAttribute="leading" secondItem="p3c-id-i9C" secondAttribute="leading" id="jcE-ma-ipR"/>
+                                            <constraint firstAttribute="bottom" secondItem="jvN-GF-LcO" secondAttribute="bottom" id="uo7-hp-1FZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="jvN-GF-LcO" secondAttribute="trailing" id="xZF-da-U4t"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="p3c-id-i9C" secondAttribute="trailing" id="GEd-JS-PEx"/>
+                                    <constraint firstItem="p3c-id-i9C" firstAttribute="top" secondItem="ACf-jh-9rM" secondAttribute="top" id="Sfx-hD-Tnk"/>
+                                    <constraint firstItem="p3c-id-i9C" firstAttribute="leading" secondItem="ACf-jh-9rM" secondAttribute="leading" id="U5c-HG-Cei"/>
+                                    <constraint firstAttribute="bottom" secondItem="p3c-id-i9C" secondAttribute="bottom" id="xLc-Ag-jue"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Cb2-9l-bQq" id="OhY-hs-hbE"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="076-z1-7E9" firstAttribute="width" secondItem="F4V-0Y-rcg" secondAttribute="width" id="9Ri-JQ-EjC"/>
+                            <constraint firstItem="ACf-jh-9rM" firstAttribute="top" secondItem="F4V-0Y-rcg" secondAttribute="topMargin" id="BnU-i6-nXc"/>
+                            <constraint firstItem="UeR-90-BCx" firstAttribute="top" secondItem="ACf-jh-9rM" secondAttribute="bottom" id="G0b-C8-FZG"/>
+                            <constraint firstAttribute="trailing" secondItem="ACf-jh-9rM" secondAttribute="trailing" id="Nam-mG-fya"/>
+                            <constraint firstItem="076-z1-7E9" firstAttribute="height" secondItem="F4V-0Y-rcg" secondAttribute="height" multiplier="0.2" placeholder="YES" id="osr-18-xag"/>
+                            <constraint firstItem="p3c-id-i9C" firstAttribute="width" secondItem="F4V-0Y-rcg" secondAttribute="width" id="qDU-uB-Bhr"/>
+                            <constraint firstItem="ACf-jh-9rM" firstAttribute="leading" secondItem="F4V-0Y-rcg" secondAttribute="leading" id="wxT-rM-I6I"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="osr-18-xag"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="gallery" destination="076-z1-7E9" id="y07-zN-iZl"/>
+                        <outlet property="galleryHeight" destination="Ab9-0e-VnU" id="5hv-1U-GuK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Brr-vK-H3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="913" y="205"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="default" width="128" height="128"/>
+    </resources>
 </document>

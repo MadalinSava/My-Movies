@@ -24,15 +24,23 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 	
 	private var searchController: SearchController!
 	private var controllerAnimationDuration: Double! = nil
-	
+	/*
 	func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
 		
 		//searchController.addToViewController(topViewController!)
-	}
+	}*/
 	
 	func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
 		
 		searchController.addToViewController(topViewController!)
+		
+		// for tests
+		/*if viewControllers.count == 1 {
+			searchBar.text = "matrix"
+			searchController.results.removeAll()
+			searchTable
+			searchController.getResultsForNextPage()
+		}*/
 	}
 	
 	// MARK: overrides
@@ -44,7 +52,6 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		print("navigation: \(topLayoutGuide.length)")
 		
 		correctSearchBarColor()
 		
@@ -54,7 +61,7 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 		searchController = SearchController(searchBar: searchBar, tableView: searchTable)
 		
 		// for tests
-		searchBar.text = "matrix"
+		searchBar.text = "godfather"//"matrix"
 		searchController.getResultsForNextPage()
 	}
 	
@@ -87,6 +94,14 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 		}
 		
 		return super.popViewControllerAnimated(animated)
+	}
+	
+	override func setNavigationBarHidden(hidden: Bool, animated: Bool) {
+		super.setNavigationBarHidden(hidden, animated: animated)
+		if hidden == false {
+			hideBackButton(false)
+			showBackButton(false)
+		}
 	}
 	
 	@IBAction func backButtonPressed(sender: UIButton) {

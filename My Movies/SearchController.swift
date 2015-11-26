@@ -162,7 +162,7 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		nc.pushViewController(vc, animated: true)
 		
 		let entity = Entity.createWithData(medatada[indexPath.row])
-		//vc.setupWithEntity(entity)
+		vc.setupWithEntity(entity)
 	}
 	
 	// MARK: search controler delegate

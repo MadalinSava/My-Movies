@@ -25,7 +25,7 @@ class Api {
 	}
 	
 	func requestMovieDetails(movieId: Int, success: SuccessBlock, error: ErrorBlock? = nil) {
-		let stringURL = baseUrl + "/movie/\(movieId)" + formatParams("append_to_response", "trailers", withApiKey: true)
+		let stringURL = baseUrl + "/movie/\(movieId)" + formatParams("append_to_response", "trailers,images", withApiKey: true)
 		RequestManager.instance.doRequest(stringURL, successBlock: success, errorBlock: error)
 	}
 	

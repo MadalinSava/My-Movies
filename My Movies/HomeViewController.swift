@@ -55,12 +55,10 @@ class HomeViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		print("home: \(topLayoutGuide.length)")
 	}
 	
 	override func viewDidAppear(animated: Bool) {
-		
-		print("home: \(topLayoutGuide.length)")
+		super.viewDidAppear(animated)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {

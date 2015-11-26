@@ -8,18 +8,21 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController, TabbedViewController {
+typealias ActionBlock = () -> Void
+
+class DetailsViewController: CustomViewController, UIScrollViewDelegate {
 	
-	static var tabIndex = -1
+
+	@IBOutlet var gallery: GalleryView!
 	
-	@IBOutlet var barItem: UITabBarItem!
+	@IBOutlet var galleryHeight: NSLayoutConstraint!
 	
-	private var detailsView: DetailsView! = nil
-	private var barItemImageSize: CGSize!
 	
-	/*required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}*/
+	private var movie: Movie! = nil
+	private var backdropImageAspectRatio: NSLayoutConstraint!
+	
+	
+	private var lastScrollPosition: CGFloat = 0.0
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -27,45 +30,14 @@ class DetailsViewController: UIViewController, TabbedViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		print("details will appear 1: \(topLayoutGuide.length)")
-	}
-	
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-		
-		print("details: \(topLayoutGuide.length)")
-		
-		/*let button = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 30))
-		button.setImage(UIImage(named: "Home"), forState: UIControlState.Normal)
-		button.setTitle("BEAC!!!", forState: UIControlState.Normal)
-		button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-		button.addTarget(self, action: "asd", forControlEvents: UIControlEvents.TouchDown)
-		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
-		
-		let navBar = navigationController!.navigationBar
-		//navBar.layoutIfNeeded()
-		
-		let buttonView = navigationItem.leftBarButtonItem!.customView
-		let searchBar = (navigationController as! NavigationController).searchBar
-		let constraint = NSLayoutConstraint(item: searchBar, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: button, attribute: NSLayoutAttribute.Leading, multiplier: 1.0, constant: 5.0)
-		searchBar.superview!.addConstraint(constraint)*/
-		
-		/*
-		print(navigationItem.leftBarButtonItem)
-		print(navigationItem.leftBarButtonItem?.customView)
-		let navBar = navigationController!.navigationBar
-		print(navBar.topItem)
-		print(navBar.topItem?.leftBarButtonItem) // THIS
-		print(navBar.topItem?.titleView)
-		print(navBar.topItem?.rightBarButtonItem)
-		print(navBar.backItem)
-		print(navBar.backIndicatorImage)
-		*/
-		//navigationItem.backBarButtonItem = UIBarButtonItem(title: "Beac", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -74,8 +46,13 @@ class DetailsViewController: UIViewController, TabbedViewController {
 	}
 	
 	func setupWithEntity(entity: Entity) {
+		
+		movie = entity as! Movie
+		
+		movie.requestDetails(setupUI)
+		
 		//var asd = MovieView.Type
-		var classType: DetailsView.Type
+		/*var classType: DetailsView.Type
 		switch entity {
 		case is Movie:
 			classType = MovieView.self
@@ -85,28 +62,50 @@ class DetailsViewController: UIViewController, TabbedViewController {
 			classType = PersonView.self
 		default:
 			return
-		}
+		}*/
 		
-		detailsView?.removeFromSuperview()
-		detailsView = NSBundle.mainBundle().loadNibNamed(classType.nibName, owner: self, options: nil)[0] as! DetailsView
+		//detailsView?.removeFromSuperview()
+		//detailsView = NSBundle.mainBundle().loadNibNamed(classType.nibName, owner: self, options: nil)[0] as! DetailsView
 		
 		// setup frame
 		
 		//print("details: \(topLayoutGuide.length)")
-		var frame = view.frame
+		/*var frame = view.frame
 		frame.size.height -= topLayoutGuide.length + bottomLayoutGuide.length// + navBar.frame.height
 		frame.origin.y += topLayoutGuide.length// + navBar.frame.height
 		detailsView.frame = frame
 		
 		view.addSubview(detailsView)
 		
-		detailsView.setupWithEntity(entity)
+		detailsView.setupWithEntity(entity)*/
 		
 		//navBarTitle.title = detailsView.getTitle()
 	}
 	
-	@IBAction func backPressed(sender: UIBarButtonItem) {
-		(parentViewController as! TabBarController).goBack()
+	// MARK: UIScrollViewDelegate
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		guard didAppear else {
+			lastScrollPosition = scrollView.contentOffset.y
+			return
+		}
+		let delta = topLayoutGuide.length
+		if scrollView.contentOffset.y - lastScrollPosition > delta {
+			navigationController!.setNavigationBarHidden(true, animated: true)
+			lastScrollPosition = scrollView.contentOffset.y
+		} else if scrollView.contentOffset.y - lastScrollPosition < -delta {
+			navigationController!.setNavigationBarHidden(false, animated: true)
+			lastScrollPosition = scrollView.contentOffset.y
+		}
+	}
+	
+	// MARK: private stuff
+	private func setupUI() {
+		if let minAR = movie.minBackdropAspectRatio {
+			galleryHeight.constant = view.frame.width / CGFloat(minAR)
+			gallery.setImages(movie.backdropPaths, ofType: .Backdrop)
+		} else {
+			galleryHeight.constant = 0
+		}
 	}
 }
 
