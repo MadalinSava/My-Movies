@@ -22,13 +22,25 @@ class CustomViewController: UIViewController {
 		}
 	}
 	
+	func didAutorotate() {}
+	
 	// MARK: overrides
+	override func viewDidLoad() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didAutorotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+	}
+	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		didAppear = true
 		
 		doPendingActions()
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		didAppear = false
 	}
 	
 	private func doPendingActions() {

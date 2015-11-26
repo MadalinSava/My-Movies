@@ -74,6 +74,10 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 	}
+	override func shouldAutorotate() -> Bool {
+		navigationView.frame.size = navigationBar.frame.size
+		return true
+	}
 	
 	override func pushViewController(viewController: UIViewController, animated: Bool) {
 		

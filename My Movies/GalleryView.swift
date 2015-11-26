@@ -30,28 +30,25 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 		showsHorizontalScrollIndicator = false
 		
 		backgroundColor = UIColor.blackColor()
+		
+		pagingEnabled = true
 	}
 	
 	func setImages(images: [String], ofType imageType: ImageType) {
 		self.images = images
 		self.imageType = imageType
 		
-		// TODO: handle zero items
 		reloadData()
 	}
 	
-	/*override func layoutSubviews() {
-		super.layoutSubviews()
-	}*/
-	
-	
-	/*override func awakeAfterUsingCoder(aDecoder: NSCoder) -> AnyObject? {
-		return super.awakeAfterUsingCoder(aDecoder)
+	func resetLayout() {
+		// keep the page
+		let prevWidth = layoutAttributesForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!.frame.width
+		let page = round(contentOffset.x / prevWidth)
+		contentOffset.x = frame.width * page
+		
+		collectionViewLayout.invalidateLayout()
 	}
-	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-	}*/
 	
 	// MARK: data source
 	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -69,7 +66,6 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = dequeueReusableCellWithReuseIdentifier(GalleryCell.reuseIdentifier, forIndexPath: indexPath) as! GalleryCell
 		cell.setImage(images[indexPath.row], ofType: imageType)
-		
 		return cell
 	}
 }

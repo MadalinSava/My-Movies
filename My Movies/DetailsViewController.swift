@@ -13,6 +13,7 @@ typealias ActionBlock = () -> Void
 class DetailsViewController: CustomViewController, UIScrollViewDelegate {
 	
 
+	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var gallery: GalleryView!
 	
 	@IBOutlet var galleryHeight: NSLayoutConstraint!
@@ -21,8 +22,11 @@ class DetailsViewController: CustomViewController, UIScrollViewDelegate {
 	private var movie: Movie! = nil
 	private var backdropImageAspectRatio: NSLayoutConstraint!
 	
+	private var topBarToggleScrollDelta: CGFloat = 0
+	private var lastScrollPosition: CGFloat = CGFloat.NaN
 	
-	private var lastScrollPosition: CGFloat = 0.0
+	deinit {
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,19 +34,33 @@ class DetailsViewController: CustomViewController, UIScrollViewDelegate {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		if UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation) {
+			navigationController!.setNavigationBarHidden(true, animated: false)
+		}
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+		
+		topBarToggleScrollDelta = topLayoutGuide.length
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	override func didAutorotate() {
+		let hideNavBar = UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation)
+		navigationController!.setNavigationBarHidden(hideNavBar, animated: false)
+		topBarToggleScrollDelta = topLayoutGuide.length
+		
+		updateGalleryHeight()
+		lastScrollPosition = scrollView.contentOffset.y
 	}
 	
 	func setupWithEntity(entity: Entity) {
@@ -84,28 +102,52 @@ class DetailsViewController: CustomViewController, UIScrollViewDelegate {
 	
 	// MARK: UIScrollViewDelegate
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		guard didAppear else {
+		guard didAppear && lastScrollPosition != CGFloat.NaN && UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) else {
+			// TODO: check orientation unknown bug on device
 			lastScrollPosition = scrollView.contentOffset.y
 			return
 		}
-		let delta = topLayoutGuide.length
-		if scrollView.contentOffset.y - lastScrollPosition > delta {
-			navigationController!.setNavigationBarHidden(true, animated: true)
+		
+		if scrollView.contentOffset.y < lastScrollPosition {
+			if navigationController!.navigationBarHidden == false {
+				lastScrollPosition = scrollView.contentOffset.y
+			}
+		} else {
+			if navigationController!.navigationBarHidden {
+				lastScrollPosition = scrollView.contentOffset.y
+			}
+		}
+		
+		// TODO: check animation smoothness on device
+		if navigationController!.navigationBarHidden == false && scrollView.contentOffset.y - lastScrollPosition > topBarToggleScrollDelta && scrollView.contentOffset.y >= topBarToggleScrollDelta {
+			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration)) { [unowned self] in
+				self.navigationController!.setNavigationBarHidden(true, animated: true)
+				scrollView.contentOffset.y -= self.topBarToggleScrollDelta - self.topLayoutGuide.length
+				self.view.layoutIfNeeded()
+			}
 			lastScrollPosition = scrollView.contentOffset.y
-		} else if scrollView.contentOffset.y - lastScrollPosition < -delta {
-			navigationController!.setNavigationBarHidden(false, animated: true)
+		} else if navigationController!.navigationBarHidden && scrollView.contentOffset.y - lastScrollPosition < -topBarToggleScrollDelta {
+			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration)) { [unowned self] in
+				scrollView.contentOffset.y += self.topBarToggleScrollDelta - self.topLayoutGuide.length
+				self.navigationController!.setNavigationBarHidden(false, animated: false)
+				self.view.layoutIfNeeded()
+			}
 			lastScrollPosition = scrollView.contentOffset.y
 		}
 	}
 	
 	// MARK: private stuff
 	private func setupUI() {
+		gallery.setImages(movie.backdropPaths, ofType: .Backdrop)
+		updateGalleryHeight()
+	}
+	
+	private func updateGalleryHeight() {
 		if let minAR = movie.minBackdropAspectRatio {
 			galleryHeight.constant = view.frame.width / CGFloat(minAR)
-			gallery.setImages(movie.backdropPaths, ofType: .Backdrop)
+			gallery.resetLayout()
 		} else {
 			galleryHeight.constant = 0
 		}
 	}
 }
-
