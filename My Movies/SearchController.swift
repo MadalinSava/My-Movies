@@ -46,8 +46,14 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		
 		let mainWindow = UIApplication.sharedApplication().keyWindow!
 		mainWindow.addSubview(tableView)
-		tableView.frame.origin.y = viewController.topLayoutGuide.length + 50
-		tableView.frame.size.height = mainWindow.frame.size.height - viewController.topLayoutGuide.length - viewController.bottomLayoutGuide.length - 100
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		
+		mainWindow.addConstraints([
+			NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: viewController.topLayoutGuide, attribute: .Bottom, multiplier: 1.0, constant: 0.0),
+			NSLayoutConstraint(item: tableView, attribute: .Bottom, relatedBy: .Equal, toItem: viewController.bottomLayoutGuide, attribute: .Top, multiplier: 1.0, constant: 0.0),
+			NSLayoutConstraint(item: tableView, attribute: .Leading, relatedBy: .Equal, toItem: viewController.view, attribute: .Leading, multiplier: 1.0, constant: 0.0),
+			NSLayoutConstraint(item: tableView, attribute: .Trailing, relatedBy: .Equal, toItem: viewController.view, attribute: .Trailing, multiplier: 1.0, constant: 0.0)
+			])
 		
 		updateTableVisibility()
 	}

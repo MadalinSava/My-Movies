@@ -26,6 +26,8 @@ class CustomViewController: UIViewController {
 	
 	// MARK: overrides
 	override func viewDidLoad() {
+		super.viewDidLoad()
+		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "didAutorotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
 	}
 	

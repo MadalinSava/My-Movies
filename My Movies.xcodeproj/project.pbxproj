@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E305A26B1C0882DE00097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
+		E305A26C1C0884A300097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
+		E305A26D1C0884A300097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
+		E305A26E1C0884AC00097A30 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* GalleryView.swift */; };
+		E305A26F1C0884AD00097A30 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* GalleryView.swift */; };
+		E305A2701C0884AF00097A30 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4681C0736DF007F11AA /* GalleryCell.swift */; };
+		E305A2711C0884AF00097A30 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4681C0736DF007F11AA /* GalleryCell.swift */; };
+		E305A2721C0884B900097A30 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
+		E305A2731C0884BA00097A30 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
 		E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4631C072144007F11AA /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
@@ -115,6 +124,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		E33FA4621C072144007F11AA /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		E33FA4661C0736D1007F11AA /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
 		E33FA4681C0736DF007F11AA /* GalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
@@ -306,6 +316,7 @@
 			children = (
 				E37507C11C04679000DEA958 /* NavigationController.swift */,
 				E33FA4621C072144007F11AA /* CustomViewController.swift */,
+				E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */,
 				E3EDF0A91BF0CFA90006A238 /* HomeViewController.swift */,
 				E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */,
 				E36903901C011099002D40A2 /* WatchListTableViewController.swift */,
@@ -501,6 +512,7 @@
 				E369033F1C00C82F002D40A2 /* Graphics.swift in Sources */,
 				E36903431C00F170002D40A2 /* Extensions.swift in Sources */,
 				E33FA4691C0736DF007F11AA /* GalleryCell.swift in Sources */,
+				E305A26B1C0882DE00097A30 /* ScrollingViewController.swift in Sources */,
 				E369033B1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
 				E36903A31C0255D3002D40A2 /* Person.swift in Sources */,
 				E37507C51C049C8100DEA958 /* GalleryView.swift in Sources */,
@@ -527,10 +539,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E305A2721C0884B900097A30 /* CustomViewController.swift in Sources */,
 				E3EDF15D1BF375560006A238 /* PersonView.swift in Sources */,
 				E3EDF0BF1BF0CFA90006A238 /* My_MoviesTests.swift in Sources */,
 				E369038E1C010E1C002D40A2 /* AppDelegate.swift in Sources */,
 				E3EDF1311BF201F40006A238 /* SearchCell.swift in Sources */,
+				E305A26C1C0884A300097A30 /* ScrollingViewController.swift in Sources */,
 				E352333E1BFB1357008FD590 /* Operators.swift in Sources */,
 				E35233341BFA0A0C008FD590 /* RequestManager.swift in Sources */,
 				E36903A41C0255D3002D40A2 /* Person.swift in Sources */,
@@ -542,6 +556,7 @@
 				E35233391BFA4502008FD590 /* Movie.swift in Sources */,
 				E36903401C00C82F002D40A2 /* Graphics.swift in Sources */,
 				E3EDF1591BF374130006A238 /* DetailsView.swift in Sources */,
+				E305A2701C0884AF00097A30 /* GalleryCell.swift in Sources */,
 				E3EDF1411BF218910006A238 /* SwiftyJSON.swift in Sources */,
 				E3EDF12D1BF0F6560006A238 /* SearchController.swift in Sources */,
 				E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */,
@@ -550,6 +565,7 @@
 				E369033C1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
 				E36903A01C022AAD002D40A2 /* Series.swift in Sources */,
 				E3EDF1611BF3755F0006A238 /* SeriesView.swift in Sources */,
+				E305A26E1C0884AC00097A30 /* GalleryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,8 +580,11 @@
 				E352333F1BFB1357008FD590 /* Operators.swift in Sources */,
 				E35233351BFA0A0C008FD590 /* RequestManager.swift in Sources */,
 				E36903931C011099002D40A2 /* WatchListTableViewController.swift in Sources */,
+				E305A26F1C0884AD00097A30 /* GalleryView.swift in Sources */,
 				E36903491C00F717002D40A2 /* Api.swift in Sources */,
 				E36903A11C022AAD002D40A2 /* Series.swift in Sources */,
+				E305A26D1C0884A300097A30 /* ScrollingViewController.swift in Sources */,
+				E305A2711C0884AF00097A30 /* GalleryCell.swift in Sources */,
 				E36903A51C0255D3002D40A2 /* Person.swift in Sources */,
 				E3EDF1561BF370BF0006A238 /* MovieView.swift in Sources */,
 				E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */,
@@ -573,6 +592,7 @@
 				E352333A1BFA4502008FD590 /* Movie.swift in Sources */,
 				E36903411C00C82F002D40A2 /* Graphics.swift in Sources */,
 				E3EDF15A1BF374130006A238 /* DetailsView.swift in Sources */,
+				E305A2731C0884BA00097A30 /* CustomViewController.swift in Sources */,
 				E369038F1C010E1D002D40A2 /* AppDelegate.swift in Sources */,
 				E3EDF1421BF218910006A238 /* SwiftyJSON.swift in Sources */,
 				E3EDF12E1BF0F6560006A238 /* SearchController.swift in Sources */,

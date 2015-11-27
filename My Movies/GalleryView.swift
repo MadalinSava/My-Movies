@@ -29,7 +29,7 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 		bounces = false
 		showsHorizontalScrollIndicator = false
 		
-		backgroundColor = UIColor.blackColor()
+		backgroundColor = UIColor.yellowColor() // blackColor()
 		
 		pagingEnabled = true
 	}
