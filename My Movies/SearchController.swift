@@ -154,7 +154,7 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		searchBar.text = nil
+		//searchBar.text = nil
 		searchBar.resignFirstResponder()
 		results.removeAll()
 		tableView.reloadData()

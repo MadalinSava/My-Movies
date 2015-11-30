@@ -114,10 +114,6 @@ class MovieView: DetailsView {
 		
 		runTimeLabel.text = movie.runTime?.description +? " min"
 		
-		let genreText: String = movie.genreList.reduce("") { (concatenated, genre) in
-			return concatenated + genre + " "
-		}
-		genresLabel.text = (genreText~?)?.substringToIndex(genreText.endIndex.predecessor())
 	}
 	
 	private func setWatchListButtonImage() {

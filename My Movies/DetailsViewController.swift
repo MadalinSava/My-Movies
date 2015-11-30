@@ -17,10 +17,30 @@ class DetailsViewController: ScrollingViewController {
 	@IBOutlet var galleryHeight: NSLayoutConstraint!
 	
 	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var genresLabel: UILabel!
+	@IBOutlet var watchlistButton: UIButton!
+	@IBOutlet var posterImage: UIImageView!
+	@IBOutlet var overviewLabel: UILabel!
+	
 	
 	private var movie: Movie! = nil
 	private var backdropImageAspectRatio: NSLayoutConstraint!
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		titleLabel.text = "\(movie.title) (\(movie.releaseYear ?? "????"))"
+		
+		if let posterPath = movie.posterPath {
+			ImageSetter.instance.setImage(posterPath, ofType: .Poster, andWidth: posterImage.frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
+				let aspectRatio = self.posterImage.image!.size.height / self.posterImage.image!.size.width
+				self.posterImage.addConstraint(NSLayoutConstraint(item: self.posterImage, attribute: .Height, relatedBy: .Equal, toItem: self.posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
+			}
+		}
+		
+		updateWatchlistButton()
+	}
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -35,7 +55,6 @@ class DetailsViewController: ScrollingViewController {
 	func setupWithEntity(entity: Entity) {
 		
 		movie = entity as! Movie
-		
 		movie.requestDetails(setupUI)
 		
 		//var asd = MovieView.Type
@@ -69,12 +88,25 @@ class DetailsViewController: ScrollingViewController {
 		//navBarTitle.title = detailsView.getTitle()
 	}
 	
+	@IBAction func watchlistPressed() {
+		if movie.toggleWatchList() {
+			updateWatchlistButton()
+		}
+	}
+	
 	// MARK: private stuff
 	private func setupUI() {
 		gallery.setImages(movie.backdropPaths, ofType: .Backdrop)
+		gallery.shouldStartSlideshow = true
 		updateGalleryHeight()
 		
-		titleLabel.text = movie.title
+		let separator = ", "
+		let genreText = movie.genreList.reduce("") { (concatenated, genre) in
+			return concatenated + genre + separator
+		}
+		genresLabel.text = (genreText~?)?[0, -separator.characters.count]
+		
+		overviewLabel.text = movie.overview
 	}
 	
 	private func updateGalleryHeight() {
@@ -84,5 +116,12 @@ class DetailsViewController: ScrollingViewController {
 		} else {
 			galleryHeight.constant = 0
 		}
+	}
+	
+	private func updateWatchlistButton() {
+		let normalImage = movie.isInWatchList ? "bookmarkAddedNormal" : "bookmarkNormal"
+		let selectedImage = movie.isInWatchList ? "bookmarkAddedPressed" : "bookmarkPressed"
+		watchlistButton.setImage(UIImage(named: normalImage), forState: .Normal)
+		watchlistButton.setImage(UIImage(named: selectedImage), forState: .Highlighted)
 	}
 }

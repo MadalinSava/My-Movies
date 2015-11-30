@@ -35,6 +35,9 @@ class ScrollingViewController: CustomViewController, UIScrollViewDelegate {
 	
 	// MARK: UIScrollViewDelegate
 	func scrollViewDidScroll(scrollView: UIScrollView) {
+		
+		(navigationController as? NavigationController)?.searchBar.resignFirstResponder()
+		
 		guard didAppear && lastScrollPosition != CGFloat.NaN && UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) else {
 			// TODO: check orientation unknown bug on device
 			lastScrollPosition = scrollView.contentOffset.y

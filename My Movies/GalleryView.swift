@@ -8,13 +8,29 @@
 
 import UIKit
 
-@IBDesignable
-class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+	
+	public var shouldStartSlideshow = false {
+		didSet {
+			tryStartSlideshow()
+		}
+	}
 	
 	private var images = [String]()
 	private var imageType: ImageType!
+	private var firstImageSet = false {
+		didSet {
+			tryStartSlideshow()
+		}
+	}
+	private var slideshowTimer: NSTimer?
+	private let slideshowInterval = 5.0
 	
-	required init?(coder aDecoder: NSCoder) {
+	override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+		super.init(frame: frame, collectionViewLayout: layout)
+	}
+	
+	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		
 		let layout = UICollectionViewFlowLayout(coder: aDecoder)!
@@ -29,7 +45,7 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 		bounces = false
 		showsHorizontalScrollIndicator = false
 		
-		backgroundColor = UIColor.yellowColor() // blackColor()
+		backgroundColor = UIColor.blackColor()
 		
 		pagingEnabled = true
 	}
@@ -51,21 +67,49 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	}
 	
 	// MARK: data source
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return images.count
 	}
 	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+	public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 		return frame.size
 	}
 	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+	public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
 		return 0.0
 	}
 	
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+	public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = dequeueReusableCellWithReuseIdentifier(GalleryCell.reuseIdentifier, forIndexPath: indexPath) as! GalleryCell
-		cell.setImage(images[indexPath.row], ofType: imageType)
+		cell.setImage(images[indexPath.row], ofType: imageType) { [unowned self] in
+			if indexPath.row == 0 && self.firstImageSet == false {
+				self.firstImageSet = true
+			}
+		}
 		return cell
+	}
+	
+	public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+		slideshowTimer?.invalidate()
+	}
+	
+	public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+		tryStartSlideshow()
+	}
+	
+	// MARK: private stuff
+	private func tryStartSlideshow() {
+		if firstImageSet && shouldStartSlideshow {
+			slideshowTimer = NSTimer(timeInterval: slideshowInterval, target: self, selector: "nextImage", userInfo: nil, repeats: true)
+			NSRunLoop.currentRunLoop().addTimer(slideshowTimer!, forMode: NSRunLoopCommonModes)
+		}
+	}
+	
+	private func getCurrentItem() -> Int {
+		return Int(round(contentOffset.x / frame.width))
+	}
+	
+	func nextImage() {
+		scrollToItemAtIndexPath(NSIndexPath(forItem: (getCurrentItem() + 1) % images.count, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
 	}
 }

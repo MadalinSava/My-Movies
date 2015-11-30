@@ -10,12 +10,13 @@
 		E305A26B1C0882DE00097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
 		E305A26C1C0884A300097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
 		E305A26D1C0884A300097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
-		E305A26E1C0884AC00097A30 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* GalleryView.swift */; };
-		E305A26F1C0884AD00097A30 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* GalleryView.swift */; };
 		E305A2701C0884AF00097A30 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4681C0736DF007F11AA /* GalleryCell.swift */; };
 		E305A2711C0884AF00097A30 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4681C0736DF007F11AA /* GalleryCell.swift */; };
 		E305A2721C0884B900097A30 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
 		E305A2731C0884BA00097A30 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
+		E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */; };
+		E31AA3211C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
+		E31AA3221C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
 		E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4631C072144007F11AA /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
@@ -125,6 +126,7 @@
 
 /* Begin PBXFileReference section */
 		E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
+		E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleFontLabel.swift; sourceTree = "<group>"; };
 		E33FA4621C072144007F11AA /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		E33FA4661C0736D1007F11AA /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
 		E33FA4681C0736DF007F11AA /* GalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				E37507C41C049C8100DEA958 /* GalleryView.swift */,
 				E33FA4681C0736DF007F11AA /* GalleryCell.swift */,
 				E33FA4661C0736D1007F11AA /* GalleryCell.xib */,
+				E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31AA3211C08A507003329A3 /* NewMain.storyboard in Resources */,
 				E3EDF1491BF36AAC0006A238 /* MovieDetails.xib in Resources */,
 				E3EDF1511BF36FB10006A238 /* SeriesDetails.xib in Resources */,
 				E3EDF14D1BF36AEF0006A238 /* PersonDetails.xib in Resources */,
@@ -490,6 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31AA3221C08A507003329A3 /* NewMain.storyboard in Resources */,
 				E3EDF14A1BF36AAC0006A238 /* MovieDetails.xib in Resources */,
 				E3EDF1521BF36FB10006A238 /* SeriesDetails.xib in Resources */,
 				E3EDF14E1BF36AEF0006A238 /* PersonDetails.xib in Resources */,
@@ -518,6 +523,7 @@
 				E37507C51C049C8100DEA958 /* GalleryView.swift in Sources */,
 				E3EDF16A1BF37C2F0006A238 /* Api.swift in Sources */,
 				E352333D1BFB1357008FD590 /* Operators.swift in Sources */,
+				E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */,
 				E37507C21C04679000DEA958 /* NavigationController.swift in Sources */,
 				E3EDF15C1BF375560006A238 /* PersonView.swift in Sources */,
 				E33FA4631C072144007F11AA /* CustomViewController.swift in Sources */,
@@ -565,7 +571,6 @@
 				E369033C1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
 				E36903A01C022AAD002D40A2 /* Series.swift in Sources */,
 				E3EDF1611BF3755F0006A238 /* SeriesView.swift in Sources */,
-				E305A26E1C0884AC00097A30 /* GalleryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +585,6 @@
 				E352333F1BFB1357008FD590 /* Operators.swift in Sources */,
 				E35233351BFA0A0C008FD590 /* RequestManager.swift in Sources */,
 				E36903931C011099002D40A2 /* WatchListTableViewController.swift in Sources */,
-				E305A26F1C0884AD00097A30 /* GalleryView.swift in Sources */,
 				E36903491C00F717002D40A2 /* Api.swift in Sources */,
 				E36903A11C022AAD002D40A2 /* Series.swift in Sources */,
 				E305A26D1C0884A300097A30 /* ScrollingViewController.swift in Sources */,

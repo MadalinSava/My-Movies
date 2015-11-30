@@ -14,8 +14,8 @@ class GalleryCell: UICollectionViewCell {
 	
 	@IBOutlet var image: UIImageView!
 	
-	func setImage(image: String, ofType imageType: ImageType) {
+	func setImage(image: String, ofType imageType: ImageType, success: ImageSetSuccess) {
 		self.image.image = nil
-		ImageSetter.instance.setImage(image, ofType: imageType, andWidth: self.image.frame.width, forView: self.image)
+		ImageSetter.instance.setImage(image, ofType: imageType, andWidth: self.image.frame.width, forView: self.image, defaultImage: nil, success: success)
 	}
 }

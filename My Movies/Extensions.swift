@@ -26,16 +26,10 @@ extension String {
 		let secondIndex = (end > 0 ? startIndex : endIndex)
 		return substringWithRange(Range(start: firstIndex.advancedBy(start), end: secondIndex.advancedBy(end)))
 	}
-	/*
-	subscript (var r: Range<Int>) -> String {
-		let firstIndex = (r.startIndex >= 0 ? startIndex : endIndex)
-		let secondIndex = (r.endIndex > 0 ? startIndex : endIndex)
-		if r.startIndex < 0 {
-			r.startIndex = characters.count - r.startIndex
-		}
-		if r.endIndex < 0 {
-			r.endIndex = characters.count - r.endIndex
-		}
-		return substringWithRange(Range(start: firstIndex.advancedBy(r.startIndex), end: secondIndex.advancedBy(r.endIndex)))
-	}*/
+}
+
+extension String {
+	var lenght: Int {
+		return characters.count
+	}
 }

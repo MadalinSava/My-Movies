@@ -23,8 +23,11 @@ extension UIImageView {
 		return image?.aspectRatio
 	}
 }
-/*
-extension UIScrollView {
-	var lastScrollPosition: Float!
+
+extension UILabel {
+	func isAllTextShown() -> Bool {
+		var higherFrame = frame
+		higherFrame.size.height = CGFloat.infinity
+		return frame.height >= textRectForBounds(higherFrame, limitedToNumberOfLines: 0).height
+	}
 }
-*/
