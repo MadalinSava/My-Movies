@@ -10,6 +10,8 @@ import UIKit
 
 class ScrollingViewController: CustomViewController, UIScrollViewDelegate {
 	
+	@IBOutlet var scrollView: UIScrollView!
+	
 	private var topBarToggleScrollDelta: CGFloat = 0
 	private var lastScrollPosition: CGFloat = CGFloat.NaN
 	

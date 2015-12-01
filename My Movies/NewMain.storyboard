@@ -161,7 +161,7 @@
                                                             <action selector="watchlistPressed" destination="Cb2-9l-bQq" eventType="touchUpInside" id="dSO-n8-Y04"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title of the movie! (year)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOY-Bq-EEG" customClass="MultipleFontLabel" customModule="My_Movies" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" text="Title of the movie! (year)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOY-Bq-EEG" customClass="MultipleFontLabel" customModule="My_Movies" customModuleProvider="target">
                                                         <rect key="frame" x="48" y="0.0" width="149" height="17"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -183,6 +183,17 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     </label>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-EP-xRm" customClass="Rating" customModule="My_Movies" customModuleProvider="target">
+                                                        <rect key="frame" x="48" y="37" width="52" height="5"/>
+                                                        <animations/>
+                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="score">
+                                                                <real key="value" value="7.7999999999999998"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="starImage" value="second"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
                                                 </subviews>
                                                 <animations/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -191,13 +202,15 @@
                                                     <constraint firstItem="tp2-RF-TE7" firstAttribute="leading" secondItem="k3s-PA-J6R" secondAttribute="leading" id="4kt-ke-oiy"/>
                                                     <constraint firstItem="tp2-RF-TE7" firstAttribute="top" secondItem="k3s-PA-J6R" secondAttribute="top" id="6Wj-3Q-9gx"/>
                                                     <constraint firstItem="SOY-Bq-EEG" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="k3s-PA-J6R" secondAttribute="trailing" id="6kA-kq-wl9"/>
-                                                    <constraint firstAttribute="bottom" secondItem="6ku-zE-8Ea" secondAttribute="bottom" priority="2" id="BXf-Oq-McX"/>
                                                     <constraint firstItem="SOY-Bq-EEG" firstAttribute="leading" secondItem="tp2-RF-TE7" secondAttribute="trailing" id="JMJ-no-bRf"/>
-                                                    <constraint firstAttribute="bottom" secondItem="tp2-RF-TE7" secondAttribute="bottom" id="ND5-Lp-sEF"/>
+                                                    <constraint firstItem="Dcp-EP-xRm" firstAttribute="leading" secondItem="6ku-zE-8Ea" secondAttribute="leading" id="M5q-zK-xZ6"/>
+                                                    <constraint firstAttribute="bottom" secondItem="tp2-RF-TE7" secondAttribute="bottom" priority="3" id="ND5-Lp-sEF"/>
                                                     <constraint firstItem="SOY-Bq-EEG" firstAttribute="top" secondItem="k3s-PA-J6R" secondAttribute="top" id="PD0-21-8XP"/>
+                                                    <constraint firstItem="Dcp-EP-xRm" firstAttribute="top" secondItem="6ku-zE-8Ea" secondAttribute="bottom" id="Pma-mt-dUv"/>
                                                     <constraint firstItem="6ku-zE-8Ea" firstAttribute="top" relation="greaterThanOrEqual" secondItem="SOY-Bq-EEG" secondAttribute="bottom" id="Xan-hX-Aq2"/>
                                                     <constraint firstItem="6ku-zE-8Ea" firstAttribute="top" secondItem="SOY-Bq-EEG" secondAttribute="bottom" priority="3" id="aRN-uN-eo0"/>
-                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6ku-zE-8Ea" secondAttribute="bottom" id="uko-As-scd"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dcp-EP-xRm" secondAttribute="bottom" id="mkU-xp-o5q"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Dcp-EP-xRm" secondAttribute="bottom" priority="2" id="qug-6S-2JZ"/>
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tp2-RF-TE7" secondAttribute="bottom" id="zfD-a4-yCM"/>
                                                 </constraints>
                                             </view>
@@ -211,19 +224,27 @@
                                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
                                                 <rect key="frame" x="0.0" y="264" width="600" height="128"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
+                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
                                                         <rect key="frame" x="0.0" y="0.0" width="180" height="128"/>
                                                         <animations/>
                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="qVR-yK-6Fc" appends="YES" id="tnt-SO-PbH"/>
+                                                        </connections>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
+                                                    <label opaque="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
                                                         <rect key="frame" x="188" y="0.0" width="412" height="81"/>
                                                         <animations/>
                                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <gestureRecognizers/>
                                                         <string key="text">Not sure why you get a bad access, but your code should not work. You are passing different values to setAssociateObject and getAssociatedObject. Using the string "shapeLayer" as a key is wrong, it's the pointer (it's address actually) that is the key, not what it points to. Two identical strings residing at different addresses are two different keys. Review Jou's answer and notice how he defined xoAssociationKey to be a global variable, so it is the same key/pointer when setting/getting.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="c7w-WG-fIO" appends="YES" id="oAE-Al-ZPH"/>
+                                                        </connections>
                                                     </label>
                                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-Ed-Tn0" userLabel="Line">
                                                         <rect key="frame" x="188" y="89" width="412" height="1"/>
@@ -314,11 +335,23 @@
                         <outlet property="overviewLabel" destination="y6V-MP-Ofr" id="aNE-NP-TDw"/>
                         <outlet property="playTrailerButton" destination="eii-Up-hrZ" id="uEb-ge-aTu"/>
                         <outlet property="posterImage" destination="RIY-na-QSd" id="sil-r4-qb5"/>
+                        <outlet property="posterViewHeight" destination="GiH-sg-9Sx" id="Qye-Hk-fQv"/>
+                        <outlet property="scrollView" destination="ACf-jh-9rM" id="WxN-qD-C9y"/>
                         <outlet property="titleLabel" destination="SOY-Bq-EEG" id="AZw-C9-0th"/>
                         <outlet property="watchlistButton" destination="tp2-RF-TE7" id="Zav-we-lU6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Brr-vK-H3t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="c7w-WG-fIO">
+                    <connections>
+                        <action selector="overviewTapped:" destination="Cb2-9l-bQq" id="o2N-vd-Hzf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="qVR-yK-6Fc">
+                    <connections>
+                        <action selector="posterTapped:" destination="Cb2-9l-bQq" id="ERJ-ur-Lvr"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="913" y="205"/>
         </scene>
@@ -329,5 +362,6 @@
         <image name="default" width="128" height="128"/>
         <image name="playNormal" width="30" height="30"/>
         <image name="playPressed" width="30" height="30"/>
+        <image name="second" width="30" height="30"/>
     </resources>
 </document>

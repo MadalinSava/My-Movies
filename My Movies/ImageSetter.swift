@@ -102,7 +102,7 @@ class ImageSetter {
 			let sizeStr = size.stringValue
 			var width: Int
 			if sizeStr.characters.first == "w" {
-				width = Int(sizeStr.substringFromIndex(sizeStr.startIndex.advancedBy(1)))!
+				width = Int(sizeStr[1, 0])!
 			} else if sizeStr == "original" {
 				width = 1000
 			} else {

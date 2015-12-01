@@ -18,7 +18,7 @@ class SearchResult {
 			var tempName = data["title"].stringValue
 			if let releaseDate = data["release_date"].string {
 				if releaseDate.characters.count > 0 {
-					tempName += " (\(releaseDate.substringToIndex(releaseDate.startIndex.advancedBy(4))))"
+					tempName += " (\(releaseDate[0, 4]))"
 				}
 			}
 			name = tempName

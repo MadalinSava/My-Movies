@@ -37,7 +37,7 @@ class Movie: Entity {
 		guard let date = releaseDate else {
 			return nil
 		}
-		return date.substringToIndex(date.startIndex.advancedBy(4))
+		return date[0, 4]
 	}
 	
 	init(data: JSON) {

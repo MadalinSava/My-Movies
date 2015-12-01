@@ -17,6 +17,7 @@
 		E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */; };
 		E31AA3211C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
 		E31AA3221C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
+		E33F92A41C0E28990002FF67 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F92A31C0E28990002FF67 /* Rating.swift */; };
 		E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4631C072144007F11AA /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
@@ -127,6 +128,7 @@
 /* Begin PBXFileReference section */
 		E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleFontLabel.swift; sourceTree = "<group>"; };
+		E33F92A31C0E28990002FF67 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		E33FA4621C072144007F11AA /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		E33FA4661C0736D1007F11AA /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
 		E33FA4681C0736DF007F11AA /* GalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				E33FA4681C0736DF007F11AA /* GalleryCell.swift */,
 				E33FA4661C0736D1007F11AA /* GalleryCell.xib */,
 				E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */,
+				E33F92A31C0E28990002FF67 /* Rating.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				E36903A31C0255D3002D40A2 /* Person.swift in Sources */,
 				E37507C51C049C8100DEA958 /* GalleryView.swift in Sources */,
 				E3EDF16A1BF37C2F0006A238 /* Api.swift in Sources */,
+				E33F92A41C0E28990002FF67 /* Rating.swift in Sources */,
 				E352333D1BFB1357008FD590 /* Operators.swift in Sources */,
 				E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */,
 				E37507C21C04679000DEA958 /* NavigationController.swift in Sources */,
