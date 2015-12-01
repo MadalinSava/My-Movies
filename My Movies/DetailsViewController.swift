@@ -21,6 +21,7 @@ class DetailsViewController: ScrollingViewController {
 	@IBOutlet var watchlistButton: UIButton!
 	@IBOutlet var posterImage: UIImageView!
 	@IBOutlet var overviewLabel: UILabel!
+	@IBOutlet var playTrailerButton: UIButton!
 	
 	
 	private var movie: Movie! = nil
@@ -94,6 +95,12 @@ class DetailsViewController: ScrollingViewController {
 		}
 	}
 	
+	@IBAction func playTrailerPressed() {
+		if let url = NSURL(string: "https://www.youtube.com/watch?v=\(movie.youtubeTrailer!)") {
+			UIApplication.sharedApplication().openURL(url)
+		}
+	}
+	
 	// MARK: private stuff
 	private func setupUI() {
 		gallery.setImages(movie.backdropPaths, ofType: .Backdrop)
@@ -107,6 +114,10 @@ class DetailsViewController: ScrollingViewController {
 		genresLabel.text = (genreText~?)?[0, -separator.characters.count]
 		
 		overviewLabel.text = movie.overview
+		
+		if movie.youtubeTrailer != nil {
+			playTrailerButton.enabled = true
+		}
 	}
 	
 	private func updateGalleryHeight() {

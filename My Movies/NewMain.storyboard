@@ -137,7 +137,7 @@
                             <scrollView clipsSubviews="YES" contentMode="top" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACf-jh-9rM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="076-z1-7E9" userLabel="GalleryView" customClass="GalleryView" customModule="My_Movies" customModuleProvider="target">
@@ -154,6 +154,7 @@
                                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp2-RF-TE7">
                                                         <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                                         <animations/>
+                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="bookmarkNormal"/>
                                                         <state key="highlighted" image="bookmarkPressed"/>
                                                         <connections>
@@ -184,7 +185,7 @@
                                                     </label>
                                                 </subviews>
                                                 <animations/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="6ku-zE-8Ea" firstAttribute="leading" secondItem="tp2-RF-TE7" secondAttribute="trailing" id="46h-9m-x8V"/>
                                                     <constraint firstItem="tp2-RF-TE7" firstAttribute="leading" secondItem="k3s-PA-J6R" secondAttribute="leading" id="4kt-ke-oiy"/>
@@ -200,39 +201,67 @@
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tp2-RF-TE7" secondAttribute="bottom" id="zfD-a4-yCM"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
                                                 <rect key="frame" x="0.0" y="400" width="600" height="600"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="600" id="7Ed-Se-xPS"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
                                                 <rect key="frame" x="0.0" y="264" width="600" height="128"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
                                                         <rect key="frame" x="0.0" y="0.0" width="180" height="128"/>
                                                         <animations/>
+                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
-                                                        <rect key="frame" x="188" y="0.0" width="412" height="128"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
+                                                        <rect key="frame" x="188" y="0.0" width="412" height="81"/>
                                                         <animations/>
+                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <string key="text">Not sure why you get a bad access, but your code should not work. You are passing different values to setAssociateObject and getAssociatedObject. Using the string "shapeLayer" as a key is wrong, it's the pointer (it's address actually) that is the key, not what it points to. Two identical strings residing at different addresses are two different keys. Review Jou's answer and notice how he defined xoAssociationKey to be a global variable, so it is the same key/pointer when setting/getting.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-Ed-Tn0" userLabel="Line">
+                                                        <rect key="frame" x="188" y="89" width="412" height="1"/>
+                                                        <animations/>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="zkI-eN-Q45"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eii-Up-hrZ">
+                                                        <rect key="frame" x="188" y="98" width="119" height="30"/>
+                                                        <animations/>
+                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="Play Trailer" image="playNormal">
+                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <state key="highlighted" image="playPressed"/>
+                                                        <connections>
+                                                            <action selector="playTrailerPressed" destination="Cb2-9l-bQq" eventType="touchUpInside" id="4gv-wI-eb1"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <animations/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="LlB-Ed-Tn0" firstAttribute="leading" secondItem="RIY-na-QSd" secondAttribute="trailing" constant="8" symbolic="YES" id="A11-fq-BLL"/>
+                                                    <constraint firstItem="eii-Up-hrZ" firstAttribute="leading" secondItem="RIY-na-QSd" secondAttribute="trailing" constant="8" symbolic="YES" id="ABT-MO-epP"/>
                                                     <constraint firstAttribute="trailing" secondItem="y6V-MP-Ofr" secondAttribute="trailing" id="Amr-bG-TAw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="LlB-Ed-Tn0" secondAttribute="trailing" id="C21-R8-rbe"/>
                                                     <constraint firstItem="y6V-MP-Ofr" firstAttribute="leading" secondItem="RIY-na-QSd" secondAttribute="trailing" constant="8" symbolic="YES" id="FOj-Lo-7dt"/>
                                                     <constraint firstAttribute="bottom" secondItem="RIY-na-QSd" secondAttribute="bottom" id="GiH-sg-9Sx"/>
                                                     <constraint firstItem="y6V-MP-Ofr" firstAttribute="top" secondItem="wiy-wl-cBW" secondAttribute="top" id="IcK-5o-hRL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="eii-Up-hrZ" secondAttribute="bottom" id="VLl-wL-DeU"/>
                                                     <constraint firstItem="RIY-na-QSd" firstAttribute="leading" secondItem="wiy-wl-cBW" secondAttribute="leading" id="ZTA-Ji-nnF"/>
                                                     <constraint firstItem="RIY-na-QSd" firstAttribute="top" secondItem="wiy-wl-cBW" secondAttribute="top" id="apT-ud-v7H"/>
+                                                    <constraint firstItem="LlB-Ed-Tn0" firstAttribute="top" secondItem="y6V-MP-Ofr" secondAttribute="bottom" constant="8" symbolic="YES" id="gb0-Ki-iKh"/>
+                                                    <constraint firstItem="eii-Up-hrZ" firstAttribute="top" secondItem="LlB-Ed-Tn0" secondAttribute="bottom" constant="8" symbolic="YES" id="hfV-ym-V1o"/>
                                                     <constraint firstItem="RIY-na-QSd" firstAttribute="width" secondItem="wiy-wl-cBW" secondAttribute="width" multiplier="0.3" id="oi1-Jo-2pR"/>
-                                                    <constraint firstAttribute="bottom" secondItem="y6V-MP-Ofr" secondAttribute="bottom" id="xaz-5H-1fQ"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -283,6 +312,7 @@
                         <outlet property="galleryHeight" destination="Ab9-0e-VnU" id="5hv-1U-GuK"/>
                         <outlet property="genresLabel" destination="6ku-zE-8Ea" id="LRd-lM-wSt"/>
                         <outlet property="overviewLabel" destination="y6V-MP-Ofr" id="aNE-NP-TDw"/>
+                        <outlet property="playTrailerButton" destination="eii-Up-hrZ" id="uEb-ge-aTu"/>
                         <outlet property="posterImage" destination="RIY-na-QSd" id="sil-r4-qb5"/>
                         <outlet property="titleLabel" destination="SOY-Bq-EEG" id="AZw-C9-0th"/>
                         <outlet property="watchlistButton" destination="tp2-RF-TE7" id="Zav-we-lU6"/>
@@ -297,5 +327,7 @@
         <image name="bookmarkNormal" width="48" height="48"/>
         <image name="bookmarkPressed" width="48" height="48"/>
         <image name="default" width="128" height="128"/>
+        <image name="playNormal" width="30" height="30"/>
+        <image name="playPressed" width="30" height="30"/>
     </resources>
 </document>

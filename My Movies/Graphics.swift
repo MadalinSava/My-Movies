@@ -31,3 +31,12 @@ extension UILabel {
 		return frame.height >= textRectForBounds(higherFrame, limitedToNumberOfLines: 0).height
 	}
 }
+/*
+extension UIView {
+	var backgroundColor: UIColor! {
+		willSet {
+			print("wow")
+		}
+	}
+}
+*/
