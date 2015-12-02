@@ -14,9 +14,16 @@
 		E305A2711C0884AF00097A30 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4681C0736DF007F11AA /* GalleryCell.swift */; };
 		E305A2721C0884B900097A30 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
 		E305A2731C0884BA00097A30 /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FA4621C072144007F11AA /* CustomViewController.swift */; };
+		E30FCD6D1C0F60D900438562 /* NonTestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36903461C00F6FE002D40A2 /* NonTestable.swift */; };
+		E30FCD6E1C0F60EF00438562 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* GalleryView.swift */; };
+		E30FCD6F1C0F60F300438562 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C11C04679000DEA958 /* NavigationController.swift */; };
+		E30FCD701C0F654900438562 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C41C049C8100DEA958 /* GalleryView.swift */; };
+		E30FCD711C0F654D00438562 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37507C11C04679000DEA958 /* NavigationController.swift */; };
 		E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */; };
 		E31AA3211C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
 		E31AA3221C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
+		E32304351C0F83B4009F5E74 /* Movies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E369034A1C0105F4002D40A2 /* Movies.xcdatamodeld */; };
+		E32304361C0F83B5009F5E74 /* Movies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E369034A1C0105F4002D40A2 /* Movies.xcdatamodeld */; };
 		E33F92A41C0E28990002FF67 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33F92A31C0E28990002FF67 /* Rating.swift */; };
 		E33FA4601C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
 		E33FA4611C06E8D1007F11AA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF0AB1BF0CFA90006A238 /* DetailsViewController.swift */; };
@@ -554,6 +561,7 @@
 				E3EDF0BF1BF0CFA90006A238 /* My_MoviesTests.swift in Sources */,
 				E369038E1C010E1C002D40A2 /* AppDelegate.swift in Sources */,
 				E3EDF1311BF201F40006A238 /* SearchCell.swift in Sources */,
+				E30FCD711C0F654D00438562 /* NavigationController.swift in Sources */,
 				E305A26C1C0884A300097A30 /* ScrollingViewController.swift in Sources */,
 				E352333E1BFB1357008FD590 /* Operators.swift in Sources */,
 				E35233341BFA0A0C008FD590 /* RequestManager.swift in Sources */,
@@ -574,7 +582,9 @@
 				E36903441C00F170002D40A2 /* Extensions.swift in Sources */,
 				E369033C1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
 				E36903A01C022AAD002D40A2 /* Series.swift in Sources */,
+				E30FCD701C0F654900438562 /* GalleryView.swift in Sources */,
 				E3EDF1611BF3755F0006A238 /* SeriesView.swift in Sources */,
+				E32304351C0F83B4009F5E74 /* Movies.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,10 +597,12 @@
 				E369039D1C022A50002D40A2 /* Entity.swift in Sources */,
 				E3EDF1321BF201F40006A238 /* SearchCell.swift in Sources */,
 				E352333F1BFB1357008FD590 /* Operators.swift in Sources */,
+				E30FCD6F1C0F60F300438562 /* NavigationController.swift in Sources */,
 				E35233351BFA0A0C008FD590 /* RequestManager.swift in Sources */,
 				E36903931C011099002D40A2 /* WatchListTableViewController.swift in Sources */,
 				E36903491C00F717002D40A2 /* Api.swift in Sources */,
 				E36903A11C022AAD002D40A2 /* Series.swift in Sources */,
+				E30FCD6D1C0F60D900438562 /* NonTestable.swift in Sources */,
 				E305A26D1C0884A300097A30 /* ScrollingViewController.swift in Sources */,
 				E305A2711C0884AF00097A30 /* GalleryCell.swift in Sources */,
 				E36903A51C0255D3002D40A2 /* Person.swift in Sources */,
@@ -606,7 +618,9 @@
 				E3EDF12E1BF0F6560006A238 /* SearchController.swift in Sources */,
 				E36903451C00F170002D40A2 /* Extensions.swift in Sources */,
 				E369033D1BFFD314002D40A2 /* ImageSetter.swift in Sources */,
+				E30FCD6E1C0F60EF00438562 /* GalleryView.swift in Sources */,
 				E3EDF1621BF3755F0006A238 /* SeriesView.swift in Sources */,
+				E32304361C0F83B5009F5E74 /* Movies.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

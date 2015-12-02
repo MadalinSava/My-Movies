@@ -150,6 +150,38 @@
             endingLineNumber = "74"
             landmarkName = "setImage(_:ofType:andWidth:forView:defaultImage:success:)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[0] = Dead, Arg[1] = Value Promoted from InOut&gt; of My_Movies.ImageSetter.(setImage (My_Movies.ImageSetter) -&gt; (Swift.Optional&lt;Swift.String&gt;, ofType : My_Movies.ImageType, andWidth : CoreGraphics.CGFloat, forView : __ObjC.UIImageView, defaultImage : Swift.Optional&lt;Swift.String&gt;, success : Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "My Movies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madalin/Development/My-Movies/My%20Movies/ImageSetter.swift"
+                  timestampString = "470778818.208023"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "701">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "function signature specialization &lt;Arg[0] = Dead, Arg[1] = Value Promoted from InOut&gt; of My_MoviesTests.ImageSetter.(setImage (My_MoviesTests.ImageSetter) -&gt; (Swift.Optional&lt;Swift.String&gt;, ofType : My_MoviesTests.ImageType, andWidth : CoreGraphics.CGFloat, forView : __ObjC.UIImageView, defaultImage : Swift.Optional&lt;Swift.String&gt;, success : Swift.Optional&lt;() -&gt; ()&gt;) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "My MoviesTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madalin/Development/My-Movies/My%20Movies/ImageSetter.swift"
+                  timestampString = "470778819.03214"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "701">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -182,6 +214,38 @@
             endingLineNumber = "94"
             landmarkName = "watchlistPressed(_:)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "My_Movies.MovieView.watchlistPressed (My_Movies.MovieView)(__ObjC.UIButton) -&gt; ()"
+                  moduleName = "My Movies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madalin/Development/My-Movies/My%20Movies/MovieView.swift"
+                  timestampString = "470778818.210019"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "241">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "My_MoviesTests.MovieView.watchlistPressed (My_MoviesTests.MovieView)(__ObjC.UIButton) -&gt; ()"
+                  moduleName = "My MoviesTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/madalin/Development/My-Movies/My%20Movies/MovieView.swift"
+                  timestampString = "470778819.032583"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "241">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

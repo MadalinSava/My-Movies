@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-public class MultipleFontLabel: UILabel {
+class MultipleFontLabel: UILabel {
 	@IBInspectable var secondFontSize: CGFloat = 0 {
 		didSet {
 			updateAttributes()
@@ -22,18 +22,10 @@ public class MultipleFontLabel: UILabel {
 		}
 	}
 	
-	override public var text: String? {
+	override var text: String? {
 		didSet {
 			updateAttributes()
 		}
-	}
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-
-	required public init?(coder aDecoder: NSCoder) {
-	    super.init(coder: aDecoder)
 	}
 	
 	func updateAttributes() {

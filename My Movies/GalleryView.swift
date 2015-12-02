@@ -8,9 +8,9 @@
 
 import UIKit
 
-public class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	
-	public var shouldStartSlideshow = false {
+	var shouldStartSlideshow = false {
 		didSet {
 			tryStartSlideshow()
 		}
@@ -30,7 +30,7 @@ public class GalleryView: UICollectionView, UICollectionViewDelegate, UICollecti
 		super.init(frame: frame, collectionViewLayout: layout)
 	}
 	
-	required public init?(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		
 		let layout = UICollectionViewFlowLayout(coder: aDecoder)!
@@ -67,19 +67,19 @@ public class GalleryView: UICollectionView, UICollectionViewDelegate, UICollecti
 	}
 	
 	// MARK: data source
-	public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return images.count
 	}
 	
-	public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 		return frame.size
 	}
 	
-	public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
 		return 0.0
 	}
 	
-	public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = dequeueReusableCellWithReuseIdentifier(GalleryCell.reuseIdentifier, forIndexPath: indexPath) as! GalleryCell
 		cell.setImage(images[indexPath.row], ofType: imageType) { [unowned self] in
 			if indexPath.row == 0 && self.firstImageSet == false {
@@ -89,11 +89,11 @@ public class GalleryView: UICollectionView, UICollectionViewDelegate, UICollecti
 		return cell
 	}
 	
-	public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+	func scrollViewWillBeginDragging(scrollView: UIScrollView) {
 		slideshowTimer?.invalidate()
 	}
 	
-	public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+	func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 		tryStartSlideshow()
 	}
 	

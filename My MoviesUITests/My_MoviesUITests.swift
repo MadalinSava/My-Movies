@@ -29,8 +29,8 @@ class My_MoviesUITests: XCTestCase {
     }
     
     func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+		XCUIDevice.sharedDevice().orientation = .Portrait
+		
+		XCUIApplication().tables.staticTexts["The Matrix (1999)"].tap()
     }
-    
 }

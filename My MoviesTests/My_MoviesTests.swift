@@ -33,6 +33,25 @@ class My_MoviesTests: XCTestCase {
         }
     }
 	
+	func testMovie() {
+		let mm = ManagedMovie()
+		mm.id = 123
+		mm.title = "test title"
+		
+		XCTAssertEqual(mm.isInWatchList, false)
+		
+		let m = Movie(withManagedMovie: mm)
+		XCTAssert(m.toggleWatchList())
+		XCTAssertEqual(mm.isInWatchList, true)
+	}
+	
+	func testOperators() {
+		var a: String = ""
+		XCTAssertEqual(a~?, nil)
+		var b: String? = ""
+		b ?=~? a
+	}
+	
 	func testStringSubscripts() {
 		let str = "0123456789"
 		XCTAssertEqual(str[0, 0], str)

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-public class ManagedMovie: NSManagedObject {
+class ManagedMovie: NSManagedObject {
 	@NSManaged var id: Int32
 	@NSManaged var title: String
 	@NSManaged var releaseDate: String?
