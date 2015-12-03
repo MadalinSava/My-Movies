@@ -32,15 +32,8 @@ class WatchListTableViewController: UIViewController, UITableViewDelegate, UITab
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		do {
-			let context = AppDelegate.instance.managedObjectContext
-			let fetchRequest = NSFetchRequest(entityName: "Movie")
-			fetchRequest.predicate = NSPredicate(format: "isInWatchList == true")
-			movies = try context.executeFetchRequest(fetchRequest) as! [ManagedMovie]
-			tableView.reloadData()
-		} catch let error as NSError {
-			print(error.localizedDescription)
-		}
+		let predicate = NSPredicate(format: "isInWatchList == true")
+		movies =? CoreDataManager.instance.getObjects(ofType: ManagedMovie.self, withPredicate: predicate)
 	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

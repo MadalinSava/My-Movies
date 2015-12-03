@@ -9,7 +9,7 @@
 import XCTest
 @testable import My_Movies
 
-class My_MoviesTests: XCTestCase {
+class Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -21,29 +21,15 @@ class My_MoviesTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+	func testExample() {
     }
-    
+	
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {
             // Put the code you want to measure the time of here.
         }
     }
-	
-	func testMovie() {
-		let mm = ManagedMovie()
-		mm.id = 123
-		mm.title = "test title"
-		
-		XCTAssertEqual(mm.isInWatchList, false)
-		
-		let m = Movie(withManagedMovie: mm)
-		XCTAssert(m.toggleWatchList())
-		XCTAssertEqual(mm.isInWatchList, true)
-	}
 	
 	func testOperators() {
 		var a: String = ""

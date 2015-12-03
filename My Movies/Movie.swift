@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class ManagedMovie: NSManagedObject {
+class ManagedMovie: NSManagedObject, NamedManagedObject {
+	static let entityName = "Movie"
+	
 	@NSManaged var id: Int32
 	@NSManaged var title: String
 	@NSManaged var releaseDate: String?
@@ -96,20 +98,15 @@ class Movie: Entity {
 	}
 	
 	func toggleWatchList() -> Bool {
-		if let movie = getExistingOrNewManagedMovie() {
-			!!movie.isInWatchList
-			do {
-				try AppDelegate.instance.managedObjectContext.save()
-				!!isInWatchList
-			} catch let error as NSError {
-				print("nope - " + error.localizedDescription)
-				return false
-			}
-			
-			return true
+		let movie = getExistingOrNewManagedMovie()
+		!!movie.isInWatchList
+		
+		guard CoreDataManager.instance.save() else {
+			return false
 		}
 		
-		return false
+		!!isInWatchList
+		return true
 	}
 	
 	private func setupSavedProperties(fromManagedMovie movie: ManagedMovie) {
@@ -117,29 +114,25 @@ class Movie: Entity {
 	}
 	
 	private func getExistingManagedMovie() -> ManagedMovie? {
-		let context = AppDelegate.instance.managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "Movie")
-		fetchRequest.predicate = NSPredicate(format: "id == %d", id)
-		do {
-			let managedMovies = try context.executeFetchRequest(fetchRequest) as! [ManagedMovie]
-			if managedMovies.count > 0 {
-				return managedMovies[0]
-			}
-		} catch let error as NSError {
-			print(error.localizedDescription)
+		let predicate = NSPredicate(format: "id == %d", id)
+		guard let managedMovies = CoreDataManager.instance.getObjects(ofType: ManagedMovie.self, withPredicate: predicate) else {
+			return nil
 		}
+		
+		if managedMovies.count > 0 {
+			return managedMovies[0]
+		}
+		
 		return nil
 	}
 	
-	private func getExistingOrNewManagedMovie() -> ManagedMovie? {
+	private func getExistingOrNewManagedMovie() -> ManagedMovie {
 		return getExistingManagedMovie() ?? getNewManagedMovie()
 	}
 	
-	private func getNewManagedMovie() -> ManagedMovie? {
-		let context = AppDelegate.instance.managedObjectContext
-		let entityDescription = NSEntityDescription.entityForName("Movie", inManagedObjectContext: context)!
+	private func getNewManagedMovie() -> ManagedMovie {
+		let movieEntity = CoreDataManager.instance.createEntity(ofType: ManagedMovie.self)
 		
-		let movieEntity = ManagedMovie(entity: entityDescription, insertIntoManagedObjectContext: context)
 		movieEntity.id = Int32(id)
 		movieEntity.title = title
 		movieEntity.posterPath = posterPath

@@ -26,11 +26,10 @@ class ImageSetter {
 	private let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
 	private var configurationComplete = false
 	
-	private var sizes = [ImageType: [(width: Int, name: String)]]()
+	private typealias ImageSize = (width: Int, name: String)
+	
+	private var sizes = [ImageType: [ImageSize]]()
 	//private var widths = [(width: Int, type: ImageType): String]()
-	/*
-	func setImage (path: String, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, success: ImageSetSuccess? = nil) {
-	}*/
 	
 	func setImage (path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: ImageSetSuccess? = nil) {
 		guard configurationComplete else {
@@ -95,8 +94,8 @@ class ImageSetter {
 		configurationComplete = true
 	}
 	
-	private func getSizesFromJSON(json: JSON) -> [(width: Int, name: String)] {
-		var list = [(width: Int, name: String)]()
+	private func getSizesFromJSON(json: JSON) -> [ImageSize] {
+		var list = [ImageSize]()
 		
 		for size in json.arrayValue {
 			let sizeStr = size.stringValue
@@ -115,21 +114,21 @@ class ImageSetter {
 	}
 	
 	private func getSizeComponentForWidth(width: Int, ofImageType type: ImageType) -> String {
-		let minWidth = sizes[type]!.reduce(nil, combine: { (minWidth: (width: Int, name: String)?, size: (width: Int, name: String)) -> (width: Int, name: String)? in
-			guard let minWidth = minWidth else {
+		let minSize = sizes[type]!.reduce(nil) { (minSize: ImageSize?, size: ImageSize) -> ImageSize? in
+			guard let minSize = minSize else {
 				return size
 			}
-			if minWidth.width < width {
-				if minWidth.width > size.width {
-					return minWidth
+			if minSize.width < width {
+				if minSize.width > size.width {
+					return minSize
 				}
 				return size
 			}
-			if size.width >= width && size.width < minWidth.width {
+			if size.width >= width && size.width < minSize.width {
 				return size
 			}
-			return minWidth
-		})
-		return minWidth!.name
+			return minSize
+		}!
+		return minSize.name
 	}
 }

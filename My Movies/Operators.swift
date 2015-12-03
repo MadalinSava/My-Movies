@@ -12,9 +12,15 @@ import Foundation
 // if right is not nil, assign
 infix operator =? { associativity right precedence 90 }
 
+func =? <T> (inout left: T, right: T?) {
+	if right != nil {
+		left = right!
+	}
+}
+
 func =? <T> (inout left: T?, right: T?) {
 	if right != nil {
-		left = right
+		left = right!
 	}
 }
 

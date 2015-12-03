@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreData
+@testable import My_Movies
 
 class CoreDataTests: XCTestCase {
     
@@ -31,8 +32,34 @@ class CoreDataTests: XCTestCase {
         self.measureBlock {
             // Put the code you want to measure the time of here.
         }
-    }
+	}
 	
-	func testDataLoading() {
+	func testMovie() {
+		let mm = CoreDataManager.instance.createEntity(ofType: ManagedMovie.self)
+		mm.id = 123
+		mm.title = "test title"
+		
+		XCTAssertEqual(mm.isInWatchList, false)
+		
+		let m = Movie(withManagedMovie: mm)
+		XCTAssertTrue(m.toggleWatchList())
+		XCTAssertEqual(m.isInWatchList, true)
+		XCTAssertEqual(m.title, mm.title)
+		
+		let newTitle = "changed title"
+		mm.title = newTitle
+		XCTAssertTrue(CoreDataManager.instance.save())
+		
+		let m2 = Movie(withManagedMovie: mm)
+		XCTAssertEqual(m2.title, mm.title)
+		XCTAssertEqual(m2.title, newTitle)
+		
+		
+		let mma = CoreDataManager.instance.getObjects(ofType: ManagedMovie.self, withPredicate: NSPredicate(format: "id == %d", 123))
+		XCTAssertNotNil(mma)
+		XCTAssertNotEqual(mma!.count, 0)
+		let mm2 = mma![0]
+		
+		XCTAssertEqual(mm2.title, newTitle)
 	}
 }
