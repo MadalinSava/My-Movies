@@ -110,22 +110,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "My Movies/ImageSetter.swift"
-            timestampString = "470847771.862219"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "setImage(_:ofType:andWidth:forView:defaultImage:success:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "My Movies/MovieView.swift"
             timestampString = "470327077.080543"
             startingColumnNumber = "9223372036854775807"
@@ -133,22 +117,6 @@
             startingLineNumber = "132"
             endingLineNumber = "132"
             landmarkName = "animateOverviewLabel()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "My Movies/ImageSetter.swift"
-            timestampString = "470847771.862219"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "setImage(_:ofType:andWidth:forView:defaultImage:success:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -213,22 +181,6 @@
             startingLineNumber = "18"
             endingLineNumber = "18"
             landmarkName = "create(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "My MoviesTests/CoreDataTests.swift"
-            timestampString = "470842182.027425"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "testMovie()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

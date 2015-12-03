@@ -30,11 +30,12 @@ class ImageSetter {
 	
 	private var sizes = [ImageType: [ImageSize]]()
 	//private var widths = [(width: Int, type: ImageType): String]()
+	private var imagesToSet = [(String?, ImageType, CGFloat, UIImageView, String?, ImageSetSuccess?)]()
 	
-	func setImage (path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: ImageSetSuccess? = nil) {
+	func setImage(path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: ImageSetSuccess? = nil) {
 		guard configurationComplete else {
-			// TODO: do something? like queueing
 			print("configuration not ready")
+			imagesToSet.append((path, type, width, forView, defaultImage, success))
 			return
 		}
 		
@@ -53,17 +54,8 @@ class ImageSetter {
 		let tmpDirURL = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
 		let fileURL = tmpDirURL.URLByAppendingPathComponent(imageId)
 		
-		dispatch_async(queue) { [unowned self] in
-			var image: UIImage?
-			if NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
-				image = UIImage(contentsOfFile: fileURL.path!)
-			} else {
-				let fullURL = self.baseURL + sizeComponent + path
-				if let data = NSData(contentsOfURL: NSURL(string: fullURL)!) {
-					NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
-					image = UIImage(data: data)
-				}
-			}
+		var image: UIImage?
+		let setImage = {
 			dispatch_async(dispatch_get_main_queue()) {
 				if image != nil {
 					forView.image = image
@@ -75,6 +67,20 @@ class ImageSetter {
 				}
 			}
 		}
+		// TODO: move this functionality: downloadFile(url, toLocal, dataCallback, fileCallback)
+		if NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
+			dispatch_async(queue) {
+				image = UIImage(contentsOfFile: fileURL.path!)
+				setImage()
+			}
+		} else {
+			let fullURL = self.baseURL + sizeComponent + path
+			RequestManager.instance.doBackgroundRequest(fullURL, successBlock: { (data) -> Void in
+				NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
+				image = UIImage(data: data)
+				setImage()
+			})
+		}
 	}
 	
 	private init() {
@@ -82,6 +88,11 @@ class ImageSetter {
 	}
 	
 	private func gotConfiguration(config: JSON) {
+		guard configurationComplete == false else {
+			print("configuration already ready")
+			return
+		}
+		
 		let images = config["images"]
 		baseURL = images["secure_base_url"].stringValue
 		
@@ -92,6 +103,10 @@ class ImageSetter {
 		sizes[.Backdrop] = getSizesFromJSON(images["backdrop_sizes"])
 		
 		configurationComplete = true
+		
+		for params in imagesToSet {
+			setImage(params.0, ofType: params.1, andWidth: params.2, forView: params.3, defaultImage: params.4, success: params.5)
+		}
 	}
 	
 	private func getSizesFromJSON(json: JSON) -> [ImageSize] {

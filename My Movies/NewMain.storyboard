@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ngd-Be-Fxi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ngd-Be-Fxi">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -14,7 +14,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="barTintColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <outlet property="backButton" destination="wU3-Gb-VHB" id="4Us-pl-Aam"/>
@@ -137,24 +136,22 @@
                             <scrollView clipsSubviews="YES" contentMode="top" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACf-jh-9rM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1045"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1035"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="076-z1-7E9" userLabel="GalleryView" customClass="GalleryView" customModule="My_Movies" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                                                 <animations/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="999" constant="200" id="Ab9-0e-VnU"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3s-PA-J6R" userLabel="TitleView">
-                                                <rect key="frame" x="0.0" y="208" width="600" height="59"/>
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3s-PA-J6R" userLabel="TitleView">
+                                                <rect key="frame" x="0.0" y="208" width="600" height="49"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp2-RF-TE7">
                                                         <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                                         <animations/>
-                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" image="bookmarkNormal"/>
                                                         <state key="highlighted" image="bookmarkPressed"/>
                                                         <connections>
@@ -168,15 +165,14 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-EP-xRm" customClass="Rating" customModule="My_Movies" customModuleProvider="target">
-                                                        <rect key="frame" x="48" y="29" width="49" height="30"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-EP-xRm" customClass="Rating" customModule="My_Movies" customModuleProvider="target">
+                                                        <rect key="frame" x="48" y="29" width="34" height="17"/>
                                                         <animations/>
-                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="score">
-                                                                <real key="value" value="7.7999999999999998"/>
+                                                                <real key="value" value="0.0"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="image" keyPath="starImage" value="second"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="starImage" value="Star"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title of the movie! (year)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOY-Bq-EEG" customClass="MultipleFontLabel" customModule="My_Movies" customModuleProvider="target">
@@ -196,7 +192,6 @@
                                                     </label>
                                                 </subviews>
                                                 <animations/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="6ku-zE-8Ea" firstAttribute="leading" secondItem="tp2-RF-TE7" secondAttribute="trailing" id="46h-9m-x8V"/>
                                                     <constraint firstItem="tp2-RF-TE7" firstAttribute="leading" secondItem="k3s-PA-J6R" secondAttribute="leading" id="4kt-ke-oiy"/>
@@ -213,13 +208,12 @@
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tp2-RF-TE7" secondAttribute="bottom" id="zfD-a4-yCM"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
-                                                <rect key="frame" x="0.0" y="275" width="600" height="162"/>
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
+                                                <rect key="frame" x="0.0" y="265" width="600" height="162"/>
                                                 <subviews>
                                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
                                                         <rect key="frame" x="0.0" y="0.0" width="180" height="128"/>
                                                         <animations/>
-                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="qVR-yK-6Fc" appends="YES" id="tnt-SO-PbH"/>
@@ -228,7 +222,6 @@
                                                     <label opaque="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
                                                         <rect key="frame" x="188" y="0.0" width="412" height="81"/>
                                                         <animations/>
-                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <gestureRecognizers/>
                                                         <string key="text">Not sure why you get a bad access, but your code should not work. You are passing different values to setAssociateObject and getAssociatedObject. Using the string "shapeLayer" as a key is wrong, it's the pointer (it's address actually) that is the key, not what it points to. Two identical strings residing at different addresses are two different keys. Review Jou's answer and notice how he defined xoAssociationKey to be a global variable, so it is the same key/pointer when setting/getting.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -249,7 +242,6 @@
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eii-Up-hrZ">
                                                         <rect key="frame" x="188" y="98" width="119" height="30"/>
                                                         <animations/>
-                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Play Trailer" image="playNormal">
                                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -260,7 +252,6 @@
                                                     </button>
                                                 </subviews>
                                                 <animations/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="LlB-Ed-Tn0" firstAttribute="leading" secondItem="RIY-na-QSd" secondAttribute="trailing" constant="8" symbolic="YES" id="A11-fq-BLL"/>
                                                     <constraint firstItem="eii-Up-hrZ" firstAttribute="leading" secondItem="RIY-na-QSd" secondAttribute="trailing" constant="8" symbolic="YES" id="ABT-MO-epP"/>
@@ -277,8 +268,8 @@
                                                     <constraint firstItem="RIY-na-QSd" firstAttribute="width" secondItem="wiy-wl-cBW" secondAttribute="width" multiplier="0.3" id="oi1-Jo-2pR"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
-                                                <rect key="frame" x="0.0" y="445" width="600" height="600"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
+                                                <rect key="frame" x="0.0" y="435" width="600" height="600"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="600" id="7Ed-Se-xPS"/>
@@ -286,7 +277,7 @@
                                             </imageView>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="076-z1-7E9" secondAttribute="trailing" id="2kA-TO-QZT"/>
                                             <constraint firstItem="jvN-GF-LcO" firstAttribute="top" secondItem="wiy-wl-cBW" secondAttribute="bottom" constant="8" symbolic="YES" id="5Xn-Nh-x9i"/>
@@ -335,6 +326,7 @@
                         <outlet property="playTrailerButton" destination="eii-Up-hrZ" id="uEb-ge-aTu"/>
                         <outlet property="posterImage" destination="RIY-na-QSd" id="sil-r4-qb5"/>
                         <outlet property="posterViewHeight" destination="GiH-sg-9Sx" id="Qye-Hk-fQv"/>
+                        <outlet property="ratingView" destination="Dcp-EP-xRm" id="2d9-vi-3sn"/>
                         <outlet property="scrollView" destination="ACf-jh-9rM" id="WxN-qD-C9y"/>
                         <outlet property="titleLabel" destination="SOY-Bq-EEG" id="AZw-C9-0th"/>
                         <outlet property="watchlistButton" destination="tp2-RF-TE7" id="Zav-we-lU6"/>
@@ -356,11 +348,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Star" width="15" height="15"/>
         <image name="bookmarkNormal" width="48" height="48"/>
         <image name="bookmarkPressed" width="48" height="48"/>
         <image name="default" width="128" height="128"/>
         <image name="playNormal" width="30" height="30"/>
         <image name="playPressed" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
     </resources>
 </document>

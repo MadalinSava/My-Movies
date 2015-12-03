@@ -13,6 +13,8 @@ import CoreData
 class CoreDataTests: XCTestCase {
     
     override func setUp() {
+		CoreDataManager.instance.storeType = NSInMemoryStoreType
+		
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }

@@ -11,14 +11,15 @@ import UIKit
 @IBDesignable
 public class Rating: UIView {
 	
-	@IBInspectable var score: CGFloat = 3.4 {
+	@IBInspectable var score: Double = 0.0 {
 		didSet {
 			updateText()
 		}
 	}
 	@IBInspectable var starImage: UIImage! {
 		didSet {
-			star.image = starImage
+			star.image = starImage.imageWithRenderingMode(.AlwaysTemplate)
+			star.tintColor = UIColor.yellowColor()
 		}
 	}
 	
@@ -39,7 +40,6 @@ public class Rating: UIView {
 		var contentSize = CGSize()
 		contentSize.width = text.frame.maxX
 		contentSize.height = max(star.frame.maxY, text.frame.maxY)
-		
 		return contentSize
 	}
 	
@@ -48,13 +48,20 @@ public class Rating: UIView {
 		star.sizeToFit()
 		
 		text.font = UIFont.systemFontOfSize(14)
-		text.textColor = UIColor.blackColor()
+		text.textColor = UIColor.yellowColor()
 		text.sizeToFit()
 		text.frame.origin.x = star.frame.width
 		addSubview(text)
 	}
 	
 	private func updateText() {
-		text.text = String(score)
+		guard score > 0 else {
+			hidden = true
+			return
+		}
+		hidden = false
+		text.text = String(format: "%.1lf", score)
+		text.sizeToFit()
+		invalidateIntrinsicContentSize()
 	}
 }

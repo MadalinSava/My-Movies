@@ -34,6 +34,7 @@ class Movie: Entity {
 	private(set) var runTime: Int? = nil
 	private(set) var genreList: [String] = [String]()
 	private(set) var isInWatchList = false
+	private(set) var rating = 0.0
 	
 	var releaseYear: String? {
 		guard let date = releaseDate else {
@@ -95,6 +96,8 @@ class Movie: Entity {
 		}
 		
 		youtubeTrailer ?=~? data["trailers"]["youtube"][0]["source"].string
+		
+		rating =? data["vote_average"].double
 	}
 	
 	func toggleWatchList() -> Bool {

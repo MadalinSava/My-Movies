@@ -21,6 +21,8 @@ class DetailsViewController: ScrollingViewController {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var genresLabel: UILabel!
 	@IBOutlet var watchlistButton: UIButton!
+	@IBOutlet var ratingView: Rating!
+	
 	@IBOutlet var posterImage: UIImageView!
 	@IBOutlet var overviewLabel: UILabel!
 	@IBOutlet var playTrailerButton: UIButton!
@@ -147,6 +149,8 @@ class DetailsViewController: ScrollingViewController {
 		if movie.youtubeTrailer != nil {
 			playTrailerButton.enabled = true
 		}
+		
+		ratingView.score = movie.rating
 	}
 	
 	private func updateGalleryHeight() {

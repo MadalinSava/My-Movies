@@ -8,24 +8,45 @@
 
 import Foundation
 
-typealias SuccessBlock = (JSON) -> Void
+typealias RequestSuccessBlock = (NSData) -> Void
 typealias ErrorBlock = (NSError) -> Void
 
-class RequestManager {
+class RequestManager {//: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
 	static let instance = RequestManager()
 	
-	func doRequest(stringURL: String, successBlock: SuccessBlock, errorBlock: ErrorBlock? = nil) {
+	private let foregroundSession: NSURLSession
+	private let backgroundSession: NSURLSession
+	private let backgroundQueue: NSOperationQueue
+	
+	func doForegroundRequest(stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) {
 		
 		let req = NSURLRequest(URL: NSURL(string: stringURL)!)
-		// TODO: NSURLSession
-		NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue.mainQueue()) { (resp, data, error) -> Void in
-			// TODO: error handling
-			if let error = error {
-				errorBlock?(error)
+		foregroundSession.dataTaskWithRequest(req) { (data, resp, error) -> Void in
+			if data != nil && error == nil {
+				successBlock(data!)
 			}
 			else {
-				successBlock(JSON(data: data!))
+				errorBlock?(error ?? NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey : "Unknown error, but data is nil"]))
 			}
-		}
+		}.resume()
+	}
+	
+	func doBackgroundRequest(stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) {
+		
+		let req = NSURLRequest(URL: NSURL(string: stringURL)!)
+		backgroundSession.dataTaskWithRequest(req) { (data, resp, error) -> Void in
+			if data != nil && error == nil {
+				successBlock(data!)
+			}
+			else {
+				errorBlock?(error ?? NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey : "Unknown error, but data is nil"]))
+			}
+		}.resume()
+	}
+	
+	private init() {
+		backgroundQueue = NSOperationQueue()
+		foregroundSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+		backgroundSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: backgroundQueue)
 	}
 }
