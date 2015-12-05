@@ -27,6 +27,7 @@ class DetailsViewController: ScrollingViewController {
 	@IBOutlet var overviewLabel: UILabel!
 	@IBOutlet var playTrailerButton: UIButton!
 	
+	private var fullscreenPoster: UIImageView!
 	
 	private var movie: Movie! = nil
 	private var backdropImageAspectRatio: NSLayoutConstraint!
@@ -49,6 +50,10 @@ class DetailsViewController: ScrollingViewController {
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	override func shouldAutorotate() -> Bool {
+		return fullscreenPoster == nil
 	}
 	
 	override func didAutorotate() {
@@ -174,40 +179,40 @@ class DetailsViewController: ScrollingViewController {
 			UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
 		}
 		// TODO: keep the image in memory? it can be purged on memory warning; it can also be initialized on load with a higher resolution poster, but it needs to be exactly the same; otherwise, maybe use a high res poster for the small image
-		let bigImage = UIImageView(image: posterImage.image)
-		ImageSetter.instance.setImage(movie.posterPath, ofType: .Poster, andWidth: view.frame.width, forView: bigImage)
+		fullscreenPoster = UIImageView(image: posterImage.image)
+		ImageSetter.instance.setImage(movie.posterPath, ofType: .Poster, andWidth: view.frame.width, forView: fullscreenPoster)
 		
 		let viewToAdd = UIApplication.sharedApplication().delegate!.window!!
 		
 		var initialFrame = posterImage.frame
 		initialFrame.origin = posterImage.convertPoint(posterImage.frame.origin, toView: viewToAdd)
-		bigImage.frame = initialFrame
+		fullscreenPoster.frame = initialFrame
 		
-		bigImage.contentMode = .ScaleAspectFit
-		bigImage.userInteractionEnabled = true
-		bigImage.addGestureRecognizer(gestureRecognizer)
-		viewToAdd.addSubview(bigImage)
+		fullscreenPoster.contentMode = .ScaleAspectFit
+		fullscreenPoster.userInteractionEnabled = true
+		fullscreenPoster.addGestureRecognizer(gestureRecognizer)
+		viewToAdd.addSubview(fullscreenPoster)
 		
-		UIView.animateWithDuration(0.3, animations: {
-			bigImage.frame = viewToAdd.frame
+		UIView.animateWithDuration(0.3, animations: { [unowned self] in
+			self.fullscreenPoster.frame = viewToAdd.frame
 			}, completion: { (completed) in
-				UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseInOut, animations: {
-					bigImage.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+				UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseInOut, animations: { [unowned self] in
+					self.fullscreenPoster.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
 					}, completion: nil)
 		})
 	}
 	
 	private func hideFullscreenPoster(gestureRecognizer: UITapGestureRecognizer) {
-		let bigImage = gestureRecognizer.view!
 		posterImage.addGestureRecognizer(gestureRecognizer)
 		
 		var oldFrame = posterImage.frame
 		oldFrame.origin = posterImage.convertPoint(posterImage.frame.origin, toView: UIApplication.sharedApplication().delegate!.window!!)
-		bigImage.backgroundColor = UIColor.clearColor()
-		UIView.animateWithDuration(0.3, animations: {
-			bigImage.frame = oldFrame
-			}, completion: { (_) in
-				bigImage.removeFromSuperview()
+		fullscreenPoster.backgroundColor = UIColor.clearColor()
+		UIView.animateWithDuration(0.3, animations: { [unowned self] in
+			self.fullscreenPoster.frame = oldFrame
+			}, completion: { [unowned self] (_) in
+				self.fullscreenPoster.removeFromSuperview()
+				self.fullscreenPoster = nil
 		})
 	}
 }

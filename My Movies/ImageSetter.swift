@@ -6,6 +6,7 @@
 //  Copyright © 2015 Madalin Sava. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 enum ImageType {
@@ -22,8 +23,8 @@ class ImageSetter {
 	
 	static let instance = ImageSetter()
 	
-	private var baseURL: String! = nil
-	private let queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+	private var basePath: String! = nil
+	private let queue = NSOperationQueue()
 	private var configurationComplete = false
 	
 	private typealias ImageSize = (width: Int, name: String)
@@ -67,15 +68,21 @@ class ImageSetter {
 				}
 			}
 		}
+		
+		//let onlinePath = self.basePath + sizeComponent + path
+		//FileManager.instance.downloadFile(onlinePath, toFile: fileURL.path!)
+		
 		// TODO: move this functionality: downloadFile(url, toLocal, dataCallback, fileCallback)
+		
 		if NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
-			dispatch_async(queue) {
+			//dispatch_async(queue)
+			queue.addOperationWithBlock() {
 				image = UIImage(contentsOfFile: fileURL.path!)
 				setImage()
 			}
 		} else {
-			let fullURL = self.baseURL + sizeComponent + path
-			RequestManager.instance.doBackgroundRequest(fullURL, successBlock: { (data) -> Void in
+			let onlinePath = self.basePath + sizeComponent + path
+			RequestManager.instance.doBackgroundRequest(onlinePath, successBlock: { (data) -> Void in
 				NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
 				image = UIImage(data: data)
 				setImage()
@@ -84,6 +91,22 @@ class ImageSetter {
 	}
 	
 	private init() {
+		
+		queue.qualityOfService = NSQualityOfService.UserInitiated
+		queue.maxConcurrentOperationCount = 1
+		
+		NSLog("image setter init")
+		print(NSOperationQueueDefaultMaxConcurrentOperationCount)
+		// TESTING - delete cache
+		if true {
+			let manager = NSFileManager.defaultManager()
+			let tempDir = NSTemporaryDirectory()
+			let contents = try! manager.contentsOfDirectoryAtPath(tempDir)
+			for item in contents {
+				try! manager.removeItemAtPath(tempDir + item)
+			}
+		}
+		
 		Api.instance.getConfiguration(gotConfiguration)
 	}
 	
@@ -94,7 +117,7 @@ class ImageSetter {
 		}
 		
 		let images = config["images"]
-		baseURL = images["secure_base_url"].stringValue
+		basePath = images["secure_base_url"].stringValue
 		
 		sizes[.Poster] = getSizesFromJSON(images["poster_sizes"])
 		sizes[.Still] = getSizesFromJSON(images["still_sizes"])

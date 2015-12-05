@@ -9,6 +9,10 @@
 import XCTest
 @testable import My_Movies
 
+class A {
+	func asd() {print("wow")}
+}
+
 class Tests: XCTestCase {
     
     override func setUp() {
@@ -51,5 +55,19 @@ class Tests: XCTestCase {
 		XCTAssertEqual(str[-1, -1], "")
 		XCTAssertEqual(str[-2, -1], "8")
 	}
-    
+	
+	func testNSTimerExtension() {
+		let a = A()
+		
+		//let block = {print("goodie")}
+		//let timer = NSTimer(timeInterval: 1.0, target: self, selector: "doRequest", userInfo: nil, repeats: false)
+		//let block = NSBlockOperation(block: doRequest)
+		//let timer = NSTimer(timeInterval: 1.0, target: block, selector: "main", userInfo: nil, repeats: false)
+		//let timer = NSTimer(timeInterval: 1.0, target: NSBlockOperation(block: {}), selector: "main", userInfo: nil, repeats: false)
+		//let timer = NSTimer(timeInterval: 1.0, target: block)
+		//let timer = NSTimer(timeInterval: 1.0, target: doRequest)
+		
+		//let _ = NSTimer(timeInterval: 1.0, target: a, selector: "asd", repeats: false)
+		let _ = NSTimer.schedule(1.0, target: {print("asd")})
+	}
 }

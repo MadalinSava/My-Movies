@@ -100,8 +100,8 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	// MARK: private stuff
 	private func tryStartSlideshow() {
 		if firstImageSet && shouldStartSlideshow {
-			slideshowTimer = NSTimer(timeInterval: slideshowInterval, target: self, selector: "nextImage", userInfo: nil, repeats: true)
-			NSRunLoop.currentRunLoop().addTimer(slideshowTimer!, forMode: NSRunLoopCommonModes)
+			slideshowTimer = NSTimer.schedule(slideshowInterval, repeats: true, target: nextImage)
+			//slideshowTimer!.start()
 		}
 	}
 	

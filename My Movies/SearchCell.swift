@@ -13,4 +13,15 @@ class SearchCell: UITableViewCell {
 	
 	@IBOutlet var thumbnail: UIImageView!
 	@IBOutlet var name: UILabel!
+	
+	func setupWithImage(path: String?, andText text: String) {
+		print("setup for \(self)")
+		
+		thumbnail.image = UIImage(named: "default")
+		
+		//ImageSetter.instance.setImage(path, ofType: .Poster, andWidth: thumbnail.frame.width, forView: thumbnail, defaultImage: "default")
+		ImageSetter.instance.setImage(path, ofType: .Poster, andWidth: 1000, forView: thumbnail)
+		
+		name.text = text
+	}
 }

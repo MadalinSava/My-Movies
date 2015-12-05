@@ -87,9 +87,9 @@ class Movie: Entity {
 		backdropPaths = data["images"]["backdrops"].arrayValue.map { (backdrop) in
 			return backdrop["file_path"].stringValue
 		}
-		minBackdropAspectRatio = data["images"]["backdrops"].arrayValue.reduce(nil, combine: { (currentMin, backdrop) -> Float? in
+		minBackdropAspectRatio = data["images"]["backdrops"].arrayValue.reduce(nil) { (currentMin, backdrop) -> Float? in
 			return min(currentMin ?? Float.infinity, backdrop["aspect_ratio"].floatValue)
-		})
+		}
 		
 		genreList = data["genres"].arrayValue.map { (genre) in
 			return genre["name"].stringValue

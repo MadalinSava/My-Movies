@@ -17,7 +17,7 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 	private(set) var medatada = [JSON]()
 	private(set) var hasMoreResults = false
 	
-	private var block: dispatch_block_t! = nil
+	private var requestTimer: NSTimer!
 	private var currentPage = 0
 	private var requestDone = true
 	
@@ -27,6 +27,7 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		
 		super.init()
 		
+		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.delegate = self
 		tableView.dataSource = self
 		searchBar.delegate = self
@@ -46,7 +47,6 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		
 		let mainWindow = UIApplication.sharedApplication().keyWindow!
 		mainWindow.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
 		
 		mainWindow.addConstraints([
 			NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: viewController.topLayoutGuide, attribute: .Bottom, multiplier: 1.0, constant: 0.0),
@@ -63,19 +63,10 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		
 		assert(searchBar == self.searchBar, "wrong search bar")
 		
-		if block != nil {
-			dispatch_block_cancel(block)
-		}
-		// TODO: what if requestDone is false?
+		requestTimer?.invalidate()
+		requestTimer = NSTimer.schedule(1.0, target: doRequest)
+		// TODO: what if requestDone is false? should cancel it, doh
 		currentPage = 1
-		block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, doRequest)
-		// TODO: not on main queue?
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), block)
-	}
-	
-	func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-		//searchBar.becomeFirstResponder()
-		return true
 	}
 	
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -142,9 +133,8 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		let cell = tableView.dequeueReusableCellWithIdentifier(SearchCell.reuseIdentifier) as! SearchCell
 		
 		let thumbPath = results[indexPath.row].thumbnailPath
-		ImageSetter.instance.setImage(thumbPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail, defaultImage: "default")
+		cell.setupWithImage(thumbPath, andText: results[indexPath.row].name)
 		
-		cell.name.text = results[indexPath.row].name
 		return cell
 	}
 	
@@ -154,14 +144,12 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		//searchBar.text = nil
 		searchBar.resignFirstResponder()
 		results.removeAll()
 		tableView.reloadData()
 		
 		//let vc = DetailsViewController()
 		let st = UIStoryboard(name: "NewMain", bundle: nil)
-		//aprint(st.
 		let vc = st.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
 		//UIApplication.sharedApplication().keyWindow!.rootViewController!.presentViewController(vc, animated: true){}
 		let nc = UIApplication.sharedApplication().keyWindow!.rootViewController as! UINavigationController

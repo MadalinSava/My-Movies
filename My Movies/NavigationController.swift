@@ -76,7 +76,7 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 	}
 	override func shouldAutorotate() -> Bool {
 		navigationView.frame.size = navigationBar.frame.size
-		return true
+		return topViewController!.shouldAutorotate()
 	}
 	
 	override func pushViewController(viewController: UIViewController, animated: Bool) {
