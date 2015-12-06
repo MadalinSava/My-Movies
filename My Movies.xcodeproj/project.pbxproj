@@ -46,6 +46,9 @@
 		E3EDF1401BF218910006A238 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF13F1BF218910006A238 /* SwiftyJSON.swift */; };
 		E3EDF16A1BF37C2F0006A238 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF1691BF37C2F0006A238 /* Api.swift */; };
 		E3F943C21C12FD2D00E5AF47 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F943C11C12FD2D00E5AF47 /* FileManager.swift */; };
+		E3F943C41C1454E300E5AF47 /* QueuedURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F943C31C1454E300E5AF47 /* QueuedURLSession.swift */; };
+		E3F943C71C1467A700E5AF47 /* AsyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F943C61C1467A700E5AF47 /* AsyncTask.swift */; };
+		E3F943C91C146D9000E5AF47 /* QueuedAsyncWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F943C81C146D9000E5AF47 /* QueuedAsyncWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +112,9 @@
 		E3EDF13F1BF218910006A238 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		E3EDF1691BF37C2F0006A238 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		E3F943C11C12FD2D00E5AF47 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		E3F943C31C1454E300E5AF47 /* QueuedURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueuedURLSession.swift; sourceTree = "<group>"; };
+		E3F943C61C1467A700E5AF47 /* AsyncTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTask.swift; sourceTree = "<group>"; };
+		E3F943C81C146D9000E5AF47 /* QueuedAsyncWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueuedAsyncWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +202,7 @@
 		E3EDF0A61BF0CFA90006A238 /* My Movies */ = {
 			isa = PBXGroup;
 			children = (
+				E3F943C51C14563300E5AF47 /* Abstract */,
 				E3EDF1671BF37B930006A238 /* App Essentials */,
 				E3EDF1651BF37B560006A238 /* Controllers */,
 				E35233361BFA44EF008FD590 /* Entities */,
@@ -276,6 +283,7 @@
 			children = (
 				E3EDF1691BF37C2F0006A238 /* Api.swift */,
 				E369033A1BFFD314002D40A2 /* ImageSetter.swift */,
+				E3F943C31C1454E300E5AF47 /* QueuedURLSession.swift */,
 				E35233321BFA0A0C008FD590 /* RequestManager.swift */,
 			);
 			name = Network;
@@ -288,6 +296,15 @@
 				E3F943C11C12FD2D00E5AF47 /* FileManager.swift */,
 			);
 			name = System;
+			sourceTree = "<group>";
+		};
+		E3F943C51C14563300E5AF47 /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				E3F943C61C1467A700E5AF47 /* AsyncTask.swift */,
+				E3F943C81C146D9000E5AF47 /* QueuedAsyncWorker.swift */,
+			);
+			name = Abstract;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,8 +460,11 @@
 				E36F9EAE1C103CC200E1A0B5 /* CoreDataManager.swift in Sources */,
 				E33F92A41C0E28990002FF67 /* Rating.swift in Sources */,
 				E352333D1BFB1357008FD590 /* Operators.swift in Sources */,
+				E3F943C41C1454E300E5AF47 /* QueuedURLSession.swift in Sources */,
+				E3F943C71C1467A700E5AF47 /* AsyncTask.swift in Sources */,
 				E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */,
 				E3F943C21C12FD2D00E5AF47 /* FileManager.swift in Sources */,
+				E3F943C91C146D9000E5AF47 /* QueuedAsyncWorker.swift in Sources */,
 				E37507C21C04679000DEA958 /* NavigationController.swift in Sources */,
 				E33FA4631C072144007F11AA /* CustomViewController.swift in Sources */,
 				E369039F1C022AAD002D40A2 /* Series.swift in Sources */,

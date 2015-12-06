@@ -90,6 +90,7 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 				self.medatada.removeAll()
 			}
 			
+			let prevCount = self.results.count
 			for var i = 0; i < searchResults.count; ++i {
 				if let newResult = SearchResult(data: searchResults[i]) {
 					self.results.append(newResult)
@@ -102,7 +103,7 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 			if self.currentPage == 1 {
 				self.resultsReset()
 			} else {
-				self.resultsAdded(searchResults.count)
+				self.resultsAdded(self.results.count - prevCount)
 			}
 			
 			self.requestDone = true

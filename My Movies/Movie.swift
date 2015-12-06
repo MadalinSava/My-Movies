@@ -69,7 +69,7 @@ class Movie: Entity {
 		setupSavedProperties(fromManagedMovie: movie)
 	}
 	
-	func requestDetails(completion: () -> Void) {
+	func requestDetails(completion: SimpleBlock) {
 		Api.instance.requestMovieDetails(id, success: { [unowned self] (data) in
 			//print(data)
 			self.addData(data)

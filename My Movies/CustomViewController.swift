@@ -12,9 +12,9 @@ class CustomViewController: UIViewController {
 	
 	var didAppear = false;
 	
-	private var pendingActions = [ActionBlock]()
+	private var pendingActions = [SimpleBlock]()
 	
-	func executeAfterTransitionFinishes(action: ActionBlock) {
+	func executeAfterTransitionFinishes(action: SimpleBlock) {
 		if didAppear {
 			action()
 		} else {

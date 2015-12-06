@@ -11,81 +11,53 @@ import Foundation
 typealias RequestSuccessBlock = (NSData) -> Void
 typealias ErrorBlock = (NSError) -> Void
 
-class RequestManager: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate {
+class RequestManager {
 	static let instance = RequestManager()
 	
-	private var foregroundSession: NSURLSession! = nil
-	private var backgroundSession: NSURLSession! = nil
+	private let foregroundSession: QueuedURLSession
+	private let backgroundSession: QueuedURLSession
 	private let backgroundQueue: NSOperationQueue
-	private var numOngoingTasks = [NSURLSession: Int]()
-	private var maxOngoingTasks = [NSURLSession: Int]()
-	private var pendingTasks = [NSURLSession: [NSURLSessionTask]]()
 	
-	func doForegroundRequest(stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) {
-		doRequestInSession(foregroundSession, stringURL: stringURL, successBlock: successBlock, errorBlock: errorBlock)
+	func doForegroundRequest(stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) -> AsyncTask {
+		return doRequestInSession(foregroundSession, stringURL: stringURL, successBlock: successBlock, errorBlock: errorBlock)
 	}
 	
-	func doBackgroundRequest(stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) {
-		doRequestInSession(backgroundSession, stringURL: stringURL, successBlock: successBlock, errorBlock: errorBlock)
-	}
-	
-	// MARK: delegates
-	
-	func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-		print("completed delegate - ", task.response)
+	func doBackgroundRequest(stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) -> AsyncTask {
+		return doRequestInSession(backgroundSession, stringURL: stringURL, successBlock: successBlock, errorBlock: errorBlock)
 	}
 	
 	// MARK: private stuff
-	
-	private override init() {
+	private init() {
 		
 		backgroundQueue = NSOperationQueue()
 		backgroundQueue.qualityOfService = NSQualityOfService.UserInitiated
 		backgroundQueue.maxConcurrentOperationCount = 1
 		// TODO: request task resume queue
 		let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-		//sessionConfig.timeoutIntervalForRequest = 5
+		//sessionConfig.HTTPMaximumConnectionsPerHost = 1
+		sessionConfig.timeoutIntervalForRequest = 5
 		//sessionConfig.timeoutIntervalForResource = 10
 		
-		super.init()
+		foregroundSession = QueuedURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegateQueue: NSOperationQueue.mainQueue(), maxOngoingTasks: 10)
 		
-		foregroundSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: NSOperationQueue.mainQueue())
-		numOngoingTasks[foregroundSession] = 0
-		maxOngoingTasks[foregroundSession] = 10
-		pendingTasks[foregroundSession] = [NSURLSessionTask]()
-		
-		backgroundSession = NSURLSession(configuration: sessionConfig, delegate: self, delegateQueue: backgroundQueue)
-		numOngoingTasks[backgroundSession] = 0
-		maxOngoingTasks[backgroundSession] = 5
-		pendingTasks[backgroundSession] = [NSURLSessionTask]()
+		backgroundSession = QueuedURLSession(configuration: sessionConfig, delegateQueue: backgroundQueue, maxOngoingTasks: 10)
 	}
 	
-	private func doRequestInSession(session: NSURLSession, stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) {
+	private func doRequestInSession(session: QueuedURLSession, stringURL: String, successBlock: RequestSuccessBlock, errorBlock: ErrorBlock? = nil) -> AsyncTask {
 		let req = NSURLRequest(URL: NSURL(string: stringURL)!)
-		let task = session.dataTaskWithRequest(req, completionHandler: requestFinished(session, successBlock,  errorBlock))
-		if numOngoingTasks[session] < maxOngoingTasks[session] {
-			task.resume()
-			numOngoingTasks[session] = numOngoingTasks[session]! + 1
-		} else {
-			pendingTasks[session]!.append(task)
-		}
+		let task = session.startDataTaskWithRequest(req, completionHandler: requestFinished(successBlock,  errorBlock))
+		return task
 	}
 	
-	private func requestFinished(session: NSURLSession, _ successBlock: RequestSuccessBlock, _ errorBlock: ErrorBlock?)(data: NSData?, resp: NSURLResponse?, error: NSError?) {
-		
-		if numOngoingTasks[session] == maxOngoingTasks[session] && pendingTasks[session]!.count > 0 {
-			let task = pendingTasks[session]?.removeFirst()
-			task!.resume()
-		} else {
-			numOngoingTasks[session] = numOngoingTasks[session]! - 1
-		}
-		
+	private func requestFinished(successBlock: RequestSuccessBlock, _ errorBlock: ErrorBlock?)(data: NSData?, resp: NSURLResponse?, error: NSError?) {
 		//print("completed handler - ", resp)
 		if data != nil && error == nil {
 			successBlock(data!)
 		}
 		else {
-			errorBlock?(error ?? NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey : "Unknown error, but data is nil"]))
+			let error = error ?? NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey : "Unknown error, but data is nil"])
+			print(error.localizedDescription)
+			errorBlock?(error)
 		}
 	}
 }

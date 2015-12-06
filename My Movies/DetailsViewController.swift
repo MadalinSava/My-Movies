@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias ActionBlock = () -> Void
-
 class DetailsViewController: ScrollingViewController {
 	
 

@@ -61,7 +61,7 @@ class NavigationController: UINavigationController, UINavigationControllerDelega
 		searchController = SearchController(searchBar: searchBar, tableView: searchTable)
 		
 		// for tests
-		searchBar.text = "matrix"//"south central"//"star wars"//"godfather"//"matrix"
+		searchBar.text = "a"//"matrix"//"south central"//"star wars"//"godfather"//"matrix"
 		searchController.getResultsForNextPage()
 	}
 	

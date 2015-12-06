@@ -36,5 +36,8 @@ class SearchResult {
 			//assertionFailure("unsupported result")
 			return nil
 		}
+		if thumbnailPath == nil {
+			return nil
+		}
 	}
 }

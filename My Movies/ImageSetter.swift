@@ -17,8 +17,6 @@ enum ImageType {
 	case Backdrop
 }
 
-typealias ImageSetSuccess = () -> Void
-
 class ImageSetter {
 	
 	static let instance = ImageSetter()
@@ -31,20 +29,20 @@ class ImageSetter {
 	
 	private var sizes = [ImageType: [ImageSize]]()
 	//private var widths = [(width: Int, type: ImageType): String]()
-	private var imagesToSet = [(String?, ImageType, CGFloat, UIImageView, String?, ImageSetSuccess?)]()
+	private var imagesToSet = [(String?, ImageType, CGFloat, UIImageView, String?, SimpleBlock?)]()
 	
-	func setImage(path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: ImageSetSuccess? = nil) {
+	func setImage(path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: SimpleBlock? = nil) -> AsyncTask? {
 		guard configurationComplete else {
 			print("configuration not ready")
 			imagesToSet.append((path, type, width, forView, defaultImage, success))
-			return
+			return nil
 		}
 		
 		guard let path = path else {
 			if defaultImage != nil {
 				forView.image = UIImage(named: defaultImage!)
 			}
-			return
+			return nil
 		}
 		
 		let pixels = Int(ceil(pointsToPixels(width)))
@@ -55,9 +53,11 @@ class ImageSetter {
 		let tmpDirURL = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
 		let fileURL = tmpDirURL.URLByAppendingPathComponent(imageId)
 		
-		var image: UIImage?
-		let setImage = {
+		let setImage = { (image: UIImage?) in
 			dispatch_async(dispatch_get_main_queue()) {
+				if forView.image != nil {
+					print("wat")
+				}
 				if image != nil {
 					forView.image = image
 					//print("success")
@@ -77,17 +77,16 @@ class ImageSetter {
 		if NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
 			//dispatch_async(queue)
 			queue.addOperationWithBlock() {
-				image = UIImage(contentsOfFile: fileURL.path!)
-				setImage()
+				setImage(UIImage(contentsOfFile: fileURL.path!))
 			}
 		} else {
 			let onlinePath = self.basePath + sizeComponent + path
-			RequestManager.instance.doBackgroundRequest(onlinePath, successBlock: { (data) -> Void in
-				NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
-				image = UIImage(data: data)
-				setImage()
+			return RequestManager.instance.doBackgroundRequest(onlinePath, successBlock: { (data) -> Void in
+				//NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
+				setImage(UIImage(data: data))
 			})
 		}
+		return nil
 	}
 	
 	private init() {
