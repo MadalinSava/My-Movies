@@ -37,8 +37,11 @@ class ScrollingViewController: CustomViewController, UIScrollViewDelegate {
 	
 	// MARK: UIScrollViewDelegate
 	func scrollViewDidScroll(scrollView: UIScrollView) {
+		guard let navigationController = navigationController as? NavigationController else {
+			return
+		}
 		
-		(navigationController as? NavigationController)?.searchBar.resignFirstResponder()
+		navigationController.searchBar.resignFirstResponder()
 		
 		guard didAppear && lastScrollPosition != CGFloat.NaN && UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) else {
 			// TODO: check orientation unknown bug on device
@@ -47,24 +50,24 @@ class ScrollingViewController: CustomViewController, UIScrollViewDelegate {
 		}
 		
 		if scrollView.contentOffset.y < lastScrollPosition {
-			if navigationController!.navigationBarHidden == false {
+			if navigationController.navigationBarHidden == false {
 				lastScrollPosition = scrollView.contentOffset.y
 			}
 		} else {
-			if navigationController!.navigationBarHidden {
+			if navigationController.navigationBarHidden {
 				lastScrollPosition = scrollView.contentOffset.y
 			}
 		}
 		
 		// TODO: check animation smoothness on device
-		if navigationController!.navigationBarHidden == false && scrollView.contentOffset.y - lastScrollPosition > topBarToggleScrollDelta && scrollView.contentOffset.y >= topBarToggleScrollDelta {
+		if navigationController.navigationBarHidden == false && scrollView.contentOffset.y - lastScrollPosition > topBarToggleScrollDelta && scrollView.contentOffset.y >= topBarToggleScrollDelta {
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration)) { [unowned self] in
 				self.navigationController!.setNavigationBarHidden(true, animated: true)
 				scrollView.contentOffset.y -= self.topBarToggleScrollDelta - self.topLayoutGuide.length
 				self.view.layoutIfNeeded()
 			}
 			lastScrollPosition = scrollView.contentOffset.y
-		} else if navigationController!.navigationBarHidden && scrollView.contentOffset.y - lastScrollPosition < -topBarToggleScrollDelta {
+		} else if navigationController.navigationBarHidden && scrollView.contentOffset.y - lastScrollPosition < -topBarToggleScrollDelta {
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration)) { [unowned self] in
 				scrollView.contentOffset.y += self.topBarToggleScrollDelta - self.topLayoutGuide.length
 				self.navigationController!.setNavigationBarHidden(false, animated: false)

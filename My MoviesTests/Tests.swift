@@ -26,6 +26,30 @@ class Tests: XCTestCase {
     }
     
 	func testExample() {
+		print("asd")
+		class A {
+			var x: Int = 1
+			
+			init() {
+				print("init A")
+			}
+			
+			deinit {
+				print("deinit A")
+			}
+		}
+		
+		class B {
+			var a: A? = A()
+		}
+		
+		let b = B()
+		
+		weak var c: A?
+		c = b.a
+		
+		//b.a = nil
+		print(c?.x) // WTF
     }
 	
     func testPerformanceExample() {

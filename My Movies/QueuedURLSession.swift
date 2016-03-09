@@ -55,6 +55,7 @@ class QueuedURLSession: NSObject, NSURLSessionTaskDelegate, NSURLSessionDataDele
 		session.delegateQueue.addOperationWithBlock { [unowned self] in
 			assert(NSOperationQueue.currentQueue() == self.session.delegateQueue)
 			self.tasksInfo[task] = TaskInfo(completionHandler: completionHandler)
+			print("added info for task \(task.taskIdentifier)")
 		}
 		return task
 	}
@@ -68,30 +69,37 @@ class QueuedURLSession: NSObject, NSURLSessionTaskDelegate, NSURLSessionDataDele
 	
 	// MARK: delegates
 	func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-		// prepare for data
 		//print("response for task \(dataTask.taskIdentifier)")
 		assert(NSOperationQueue.currentQueue() == session.delegateQueue)
+		
+		guard tasksInfo[dataTask] != nil else {
+			return
+		}
+		
 		tasksInfo[dataTask]!.response = response
 		completionHandler(.Allow)
 	}
 	
 	func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
 		// update data
-		//print("data for task \(dataTask.taskIdentifier)")
+		////print("data for task \(dataTask.taskIdentifier)")
 		assert(NSOperationQueue.currentQueue() == session.delegateQueue)
+		
+		guard tasksInfo[dataTask] != nil else {
+			return
+		}
+		
 		tasksInfo[dataTask]!.appendData(data)
 	}
 	
 	func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
 		// send completion, cleanup, update worker
-		
-		assert(NSOperationQueue.currentQueue() == session.delegateQueue)
 		//print("completion for task \(task.taskIdentifier); state \(task.state.description)")
-		if let taskInfo = tasksInfo[task] {
-			taskInfo.completionHandler(taskInfo.data, taskInfo.response, error)
-			tasksInfo.removeValueForKey(task)
-			//tasksInfo[task] = nil
-		}
+		assert(NSOperationQueue.currentQueue() == session.delegateQueue)
+		
+		let taskInfo = tasksInfo[task]
+		taskInfo!.completionHandler(taskInfo!.data, taskInfo!.response, error)
+		tasksInfo.removeValueForKey(task)
 		
 		worker.remove{ (asyncTask: AsyncTask) in
 			return (asyncTask as! URLSessionTaskAsync).sessionTask == task

@@ -33,7 +33,7 @@ class RequestManager {
 		backgroundQueue.qualityOfService = NSQualityOfService.UserInitiated
 		backgroundQueue.maxConcurrentOperationCount = 1
 		// TODO: request task resume queue
-		let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+		let sessionConfig = NSURLSessionConfiguration.ephemeralSessionConfiguration() //defaultSessionConfiguration()
 		//sessionConfig.HTTPMaximumConnectionsPerHost = 1
 		sessionConfig.timeoutIntervalForRequest = 5
 		//sessionConfig.timeoutIntervalForResource = 10
@@ -56,7 +56,7 @@ class RequestManager {
 		}
 		else {
 			let error = error ?? NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey : "Unknown error, but data is nil"])
-			print(error.localizedDescription)
+			//print(error.localizedDescription)
 			errorBlock?(error)
 		}
 	}

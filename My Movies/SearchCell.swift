@@ -14,7 +14,7 @@ class SearchCell: UITableViewCell {
 	@IBOutlet var thumbnail: UIImageView!
 	@IBOutlet var name: UILabel!
 	
-	private var imageSetTask: AsyncTask? = nil
+	private weak var imageSetTask: AsyncTask? = nil
 	
 	func setupWithImage(path: String?, andText text: String) {
 		//print("setup for \(self)")
@@ -22,8 +22,8 @@ class SearchCell: UITableViewCell {
 		imageSetTask?.cancel()
 		thumbnail.image = nil//UIImage(named: "default")
 		
-		//ImageSetter.instance.setImage(path, ofType: .Poster, andWidth: thumbnail.frame.width, forView: thumbnail, defaultImage: "default")
-		imageSetTask = ImageSetter.instance.setImage(path, ofType: .Poster, andWidth: 1000, forView: thumbnail)
+		ImageSetter.instance.setImageAsync(path, ofType: .Poster, andWidth: thumbnail.frame.width, forView: thumbnail, defaultImage: "default")
+		//imageSetTask = ImageSetter.instance.setImageAsync(path, ofType: .Poster, andWidth: 1000, forView: thumbnail)
 		
 		name.text = text
 	}

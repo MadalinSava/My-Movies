@@ -29,12 +29,96 @@ class ImageSetter {
 	
 	private var sizes = [ImageType: [ImageSize]]()
 	//private var widths = [(width: Int, type: ImageType): String]()
-	private var imagesToSet = [(String?, ImageType, CGFloat, UIImageView, String?, SimpleBlock?)]()
+	
+	private let worker: QueuedAsyncWorker
+	
+	func setImageAsync(path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: SimpleBlock? = nil) -> AsyncTask? {
+		
+		guard let path = path else {
+			if defaultImage != nil {
+				forView.image = UIImage(named: defaultImage!)
+			}
+			return nil
+		}
+		
+		let taskChain = TaskChain(operationQueue: queue)
+		taskChain.completionBlock = { [weak taskChain, unowned self] didSucceed in
+			//NSLog("chain completed with " + (didSucceed ? "SUCCESS" : "FAILURE"))
+			self.worker.remove(taskChain!)
+		}
+		
+		let setImageTask = AsyncChainTask()
+		let setImageBlock = { [weak setImageTask] (newImage: UIImage?) in {
+				NSOperationQueue.mainQueue().addOperationWithBlock {
+					if forView.image != nil {
+						//print("oh noes")
+					}
+					if newImage != nil {
+						forView.image = newImage
+						//print("success")
+						success?()
+					} else if defaultImage != nil { // TODO: test this
+						forView.image = UIImage(named: defaultImage!)
+						success?()
+					}
+					setImageTask?.done()
+				}
+			}
+		}
+		
+		let mainTask = SyncChainTask()
+		mainTask.start = { [weak mainTask, unowned self] in
+			
+			let pixels = Int(ceil(pointsToPixels(width)))
+			let sizeComponent = self.getSizeComponentForWidth(pixels, ofImageType: type)
+			//print("setting image " + sizeComponent)
+			
+			let imageId = sizeComponent + "-" + path[1, 0]
+			let tmpDirURL = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
+			let fileURL = tmpDirURL.URLByAppendingPathComponent(imageId)
+			
+			var getDataTask: ChainTask
+			if NSFileManager.defaultManager().fileExistsAtPath(fileURL.path!) {
+				getDataTask = SyncChainTask()
+				getDataTask.start = { [weak getDataTask] in
+					let newImage = UIImage(contentsOfFile: fileURL.path!)
+					setImageTask.start = setImageBlock(newImage)
+					getDataTask?.next = setImageTask
+					getDataTask?.done()
+				}
+			} else {
+				let onlinePath = self.basePath + sizeComponent + path
+				getDataTask = AsyncChainTask()
+				getDataTask.start = { [weak getDataTask] in
+					let getDataTaskAsync = getDataTask as? AsyncChainTask
+					getDataTaskAsync?.task = RequestManager.instance.doBackgroundRequest(onlinePath, successBlock: { [weak getDataTaskAsync] data  in
+						
+						NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
+						let newImage = UIImage(data: data)
+						setImageTask.start = setImageBlock(newImage)
+						getDataTaskAsync?.next = setImageTask
+						
+						getDataTaskAsync?.done()
+					}, errorBlock: { [weak getDataTaskAsync] _ in
+						getDataTaskAsync?.done()
+					})
+				}
+			}
+			
+			mainTask?.next = getDataTask
+			
+			mainTask?.done()
+		}
+		
+		taskChain.currentTask = mainTask
+		worker.addTask(taskChain)
+		
+		return taskChain
+	}
 	
 	func setImage(path: String?, ofType type: ImageType, andWidth width: CGFloat, forView: UIImageView, defaultImage: String? = nil, success: SimpleBlock? = nil) -> AsyncTask? {
 		guard configurationComplete else {
 			print("configuration not ready")
-			imagesToSet.append((path, type, width, forView, defaultImage, success))
 			return nil
 		}
 		
@@ -81,9 +165,12 @@ class ImageSetter {
 			}
 		} else {
 			let onlinePath = self.basePath + sizeComponent + path
-			return RequestManager.instance.doBackgroundRequest(onlinePath, successBlock: { (data) -> Void in
-				//NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
-				setImage(UIImage(data: data))
+			return RequestManager.instance.doBackgroundRequest(onlinePath, successBlock: { [unowned self] (data) -> Void in
+				
+				self.queue.addOperationWithBlock() {
+					NSFileManager.defaultManager().createFileAtPath(fileURL.path!, contents: data, attributes: nil)
+					setImage(UIImage(data: data))
+				}
 			})
 		}
 		return nil
@@ -91,13 +178,13 @@ class ImageSetter {
 	
 	private init() {
 		
-		queue.qualityOfService = NSQualityOfService.UserInitiated
-		queue.maxConcurrentOperationCount = 1
+		queue.qualityOfService = .UserInitiated
 		
-		NSLog("image setter init")
+		//NSLog("image setter init")
 		print(NSOperationQueueDefaultMaxConcurrentOperationCount)
+		//#if DEBUG
 		// TESTING - delete cache
-		if true {
+		if false {
 			let manager = NSFileManager.defaultManager()
 			let tempDir = NSTemporaryDirectory()
 			let contents = try! manager.contentsOfDirectoryAtPath(tempDir)
@@ -105,6 +192,9 @@ class ImageSetter {
 				try! manager.removeItemAtPath(tempDir + item)
 			}
 		}
+		//#endif
+		
+		worker = QueuedAsyncWorker(operationQueue: queue, maxOngoingTasks: 0)
 		
 		Api.instance.getConfiguration(gotConfiguration)
 	}
@@ -125,10 +215,7 @@ class ImageSetter {
 		sizes[.Backdrop] = getSizesFromJSON(images["backdrop_sizes"])
 		
 		configurationComplete = true
-		
-		for params in imagesToSet {
-			setImage(params.0, ofType: params.1, andWidth: params.2, forView: params.3, defaultImage: params.4, success: params.5)
-		}
+		worker.maxOngoingTasks = 5
 	}
 	
 	private func getSizesFromJSON(json: JSON) -> [ImageSize] {

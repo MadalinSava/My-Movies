@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Cartography.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-My Movies.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RxBlocking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RxCocoa.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RxSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RxTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>154EF578FC41EA61E6F5773C66517026</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96884B8605E590F40B4CC5E9337522E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3A04698AAE4D6124C20602D622956E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CCC4133802D3ADC06FA452DF269430EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DFBFFC953643B1EA398F28E448E7348D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ECB3EB93CC8358E815FD73D1CB1FAAF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

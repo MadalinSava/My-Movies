@@ -17,12 +17,15 @@ class QueuedAsyncWorker {
 	
 	let operationQueue: NSOperationQueue
 	
-	private var numStarted = 0
-	private var tasks = [AsyncTask]()
+	//private var currentTaskId??
+	private var runningTasks = [AsyncTask]()
+	private var queuedTasks = [AsyncTask]()
 	
 	init(operationQueue queue: NSOperationQueue, maxOngoingTasks: Int) {
 		self.operationQueue = queue
 		self.maxOngoingTasks = maxOngoingTasks
+		
+		operationQueue.maxConcurrentOperationCount = 1
 	}
 	
 	func addTask(task: AsyncTask) {
@@ -30,38 +33,45 @@ class QueuedAsyncWorker {
 	}
 	
 	func remove(predicate: (AsyncTask) -> Bool) {
-		if let asyncTask = findTask(predicate) {
-			remove(asyncTask)
+		if let index = queuedTasks.indexOf(predicate) {
+			queuedTasks.removeAtIndex(index)
 		} else {
-			numStarted--
+			let index = runningTasks.indexOf(predicate)!
+			//NSLog("finished task \((runningTasks[index] as! URLSessionTaskAsync).sessionTask.taskIdentifier)")
+			runningTasks.removeAtIndex(index)
 			startPendingTasks()
 		}
 	}
 	
-	// MARK: private
-	
-	private func findTask(predicate: (AsyncTask) -> Bool) -> AsyncTask? {
-		return tasks.findFirst(predicate)
-	}
-	
-	private func remove(task: AsyncTask) {
-		for (i, t) in tasks.enumerate() {
-			if t === task {
-				tasks.removeAtIndex(i)
+	func remove(task: AsyncTask) {
+		runOnOperationQueue { [unowned self] in
+			for (i, t) in self.queuedTasks.enumerate() {
+				if t === task {
+					self.queuedTasks.removeAtIndex(i)
+					return
+				}
+			}
+			for (i, t) in self.runningTasks.enumerate() {
+				if t === task {
+					self.runningTasks.removeAtIndex(i)
+					self.startPendingTasks()
+					return
+				}
 			}
 		}
 	}
 	
+	// MARK: private
 	private func addTask(task: AsyncTask)() {
-		tasks.push(task)
+		queuedTasks.push(task)
 		startPendingTasks()
 	}
 	
 	private func startPendingTasks() {
-		while numStarted < maxOngoingTasks && tasks.count > 0 {
-			let task = tasks.pop()
+		while runningTasks.count < maxOngoingTasks && queuedTasks.count > 0 {
+			let task = queuedTasks.pop()
 			task.start()
-			numStarted++
+			runningTasks.append(task)
 		}
 	}
 	

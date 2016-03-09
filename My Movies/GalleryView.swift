@@ -57,13 +57,28 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 		reloadData()
 	}
 	
+	func stopSlideshow() {
+		slideshowTimer?.invalidate()
+	}
+	
 	func resetLayout() {
-		// keep the page
-		let prevWidth = layoutAttributesForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!.frame.width
-		let page = round(contentOffset.x / prevWidth)
-		contentOffset.x = frame.width * page
+		
+		stopSlideshow()
+		
+		guard let prevWidth = layoutAttributesForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))?.frame.width else {
+			return
+		}
+		
+		let page = ceil(contentOffset.x / prevWidth)
 		
 		collectionViewLayout.invalidateLayout()
+		
+		setNeedsLayout()
+		layoutIfNeeded()
+		
+		contentOffset.x = frame.width * page
+		
+		tryStartSlideshow()
 	}
 	
 	// MARK: data source
@@ -81,6 +96,7 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = dequeueReusableCellWithReuseIdentifier(GalleryCell.reuseIdentifier, forIndexPath: indexPath) as! GalleryCell
+		//NSLog("set image for \(indexPath.row)")
 		cell.setImage(images[indexPath.row], ofType: imageType) { [unowned self] in
 			if indexPath.row == 0 && self.firstImageSet == false {
 				self.firstImageSet = true
@@ -90,7 +106,7 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	}
 	
 	func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-		slideshowTimer?.invalidate()
+		stopSlideshow()
 	}
 	
 	func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -100,16 +116,22 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	// MARK: private stuff
 	private func tryStartSlideshow() {
 		if firstImageSet && shouldStartSlideshow {
-			slideshowTimer = NSTimer.schedule(slideshowInterval, repeats: true, target: nextImage)
-			//slideshowTimer!.start()
+			slideshowTimer = NSTimer.scheduleEvery(slideshowInterval, target: nextImage)
 		}
 	}
 	
 	private func getCurrentItem() -> Int {
+		print(contentOffset.x, frame.width, round(contentOffset.x / frame.width))
 		return Int(round(contentOffset.x / frame.width))
 	}
 	
 	func nextImage() {
-		scrollToItemAtIndexPath(NSIndexPath(forItem: (getCurrentItem() + 1) % images.count, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+		var nextItem = (getCurrentItem() + 1) % images.count
+		/*if nextItem == 0 {
+			//return
+		} else {
+			nextItem = images.count - 1
+		}*/
+		scrollToItemAtIndexPath(NSIndexPath(forItem: nextItem, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
 	}
 }

@@ -30,19 +30,24 @@ class DetailsViewController: ScrollingViewController {
 	private var movie: Movie! = nil
 	private var backdropImageAspectRatio: NSLayoutConstraint!
 
+	// MARK: overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		titleLabel.text = "\(movie.title) (\(movie.releaseYear ?? "????"))"
 		
 		if let posterPath = movie.posterPath {
-			ImageSetter.instance.setImage(posterPath, ofType: .Poster, andWidth: posterImage.frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
+			ImageSetter.instance.setImageAsync(posterPath, ofType: .Poster, andWidth: posterImage.frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
 				let aspectRatio = self.posterImage.image!.size.height / self.posterImage.image!.size.width
 				self.posterImage.addConstraint(NSLayoutConstraint(item: self.posterImage, attribute: .Height, relatedBy: .Equal, toItem: self.posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
 			}
 		}
 		
 		updateWatchlistButton()
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		gallery.stopSlideshow()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -178,7 +183,7 @@ class DetailsViewController: ScrollingViewController {
 		}
 		// TODO: keep the image in memory? it can be purged on memory warning; it can also be initialized on load with a higher resolution poster, but it needs to be exactly the same; otherwise, maybe use a high res poster for the small image
 		fullscreenPoster = UIImageView(image: posterImage.image)
-		ImageSetter.instance.setImage(movie.posterPath, ofType: .Poster, andWidth: view.frame.width, forView: fullscreenPoster)
+		ImageSetter.instance.setImageAsync(movie.posterPath, ofType: .Poster, andWidth: view.frame.width, forView: fullscreenPoster)
 		
 		let viewToAdd = UIApplication.sharedApplication().delegate!.window!!
 		

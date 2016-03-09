@@ -12,16 +12,6 @@ class CustomViewController: UIViewController {
 	
 	var didAppear = false;
 	
-	private var pendingActions = [SimpleBlock]()
-	
-	func executeAfterTransitionFinishes(action: SimpleBlock) {
-		if didAppear {
-			action()
-		} else {
-			pendingActions.append(action)
-		}
-	}
-	
 	func didAutorotate() {}
 	
 	// MARK: overrides
@@ -35,20 +25,11 @@ class CustomViewController: UIViewController {
 		super.viewDidAppear(animated)
 		
 		didAppear = true
-		
-		doPendingActions()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 		
 		didAppear = false
-	}
-	
-	private func doPendingActions() {
-		for action in pendingActions {
-			action()
-		}
-		pendingActions.removeAll()
 	}
 }
