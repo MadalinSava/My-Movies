@@ -26,7 +26,7 @@ class Api {
 	
 	func searchMultiRx(text: String, page: Int) -> Observable<JSON> {
 		let query = text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-		return Manager.sharedInstance.rx_JSON(.GET, baseUrl + "/search/multsi", parameters: addApiKey(["query": query, "page": page]))
+		return Manager.sharedInstance.rx_JSON(.GET, baseUrl + "/search/multi", parameters: addApiKey(["query": query, "page": page]))
 			.map { JSON($0) }
 	}
 	
