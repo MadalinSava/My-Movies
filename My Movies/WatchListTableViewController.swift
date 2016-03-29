@@ -46,7 +46,8 @@ class WatchListTableViewController: UIViewController, UITableViewDelegate, UITab
 		
 		let movie = movies[indexPath.row]
 		
-		ImageSetter.instance.setImageAsync(movie.posterPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail, defaultImage: "default")
+		_ = ImageSetter.instance.setImageRx(movie.posterPath, ofType: .Poster, andWidth: cell.thumbnail.frame.width, forView: cell.thumbnail, defaultImage: "default")
+			.subscribe()
 		
 		cell.name.text = movie.title
 		return cell

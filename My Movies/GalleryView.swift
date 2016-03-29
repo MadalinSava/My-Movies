@@ -97,8 +97,9 @@ class GalleryView: UICollectionView, UICollectionViewDelegate, UICollectionViewD
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = dequeueReusableCellWithReuseIdentifier(GalleryCell.reuseIdentifier, forIndexPath: indexPath) as! GalleryCell
 		//NSLog("set image for \(indexPath.row)")
-		cell.setImage(images[indexPath.row], ofType: imageType) { [unowned self] in
-			if indexPath.row == 0 && self.firstImageSet == false {
+		let observable = cell.setImage(images[indexPath.row], ofType: imageType)
+		if indexPath.row == 0 && firstImageSet == false {
+			_ = observable.subscribeCompleted {
 				self.firstImageSet = true
 			}
 		}

@@ -84,16 +84,18 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-My Movies/Alamofire.framework"
   install_framework "Pods-My Movies/Cartography.framework"
-  install_framework "Pods-My Movies/RxBlocking.framework"
+  install_framework "Pods-My Movies/RxAlamofire.framework"
   install_framework "Pods-My Movies/RxCocoa.framework"
   install_framework "Pods-My Movies/RxSwift.framework"
-  install_framework "Pods-My Movies/RxTests.framework"
+  install_framework "Pods-My Movies/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-My Movies/Alamofire.framework"
   install_framework "Pods-My Movies/Cartography.framework"
-  install_framework "Pods-My Movies/RxBlocking.framework"
+  install_framework "Pods-My Movies/RxAlamofire.framework"
   install_framework "Pods-My Movies/RxCocoa.framework"
   install_framework "Pods-My Movies/RxSwift.framework"
-  install_framework "Pods-My Movies/RxTests.framework"
+  install_framework "Pods-My Movies/SwiftyJSON.framework"
 fi

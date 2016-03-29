@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class SearchResult {
 	let name: String!
@@ -36,8 +37,8 @@ class SearchResult {
 			//assertionFailure("unsupported result")
 			return nil
 		}
-		if thumbnailPath == nil {
+		/*if thumbnailPath == nil {
 			return nil
-		}
+		}*/
 	}
 }

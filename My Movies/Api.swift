@@ -8,7 +8,14 @@
 
 import Foundation
 
+import RxSwift
+
+import Alamofire
+import RxAlamofire
+import SwiftyJSON
+
 typealias ApiCallSuccessBlock = (JSON) -> Void
+typealias ParamDictionary = [String: AnyObject]
 
 class Api {
 	
@@ -17,15 +24,10 @@ class Api {
 	private let baseUrl = "https://api.themoviedb.org/3"
 	private let apiKey = "1ecc4c837d0fa6e033f34771e531b790"
 	
-	private var configuration: JSON! = nil
-	private var configurationCallbacks = [ApiCallSuccessBlock]()
-	
-	func searchMulti(text: String, page: Int, success: ApiCallSuccessBlock, error: ErrorBlock? = nil) {
+	func searchMultiRx(text: String, page: Int) -> Observable<JSON> {
 		let query = text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-		let stringURL = baseUrl + "/search/multi" + formatParams("query", query, "page", page, withApiKey: true)
-		RequestManager.instance.doForegroundRequest(stringURL, successBlock: { (data) in
-			success(JSON(data: data))
-		}, errorBlock: error)
+		return Manager.sharedInstance.rx_JSON(.GET, baseUrl + "/search/multsi", parameters: addApiKey(["query": query, "page": page]))
+			.map { JSON($0) }
 	}
 	
 	func requestMovieDetails(movieId: Int, success: ApiCallSuccessBlock, error: ErrorBlock? = nil) {
@@ -35,33 +37,20 @@ class Api {
 		}, errorBlock: error)
 	}
 	
-	func getConfiguration(success: ApiCallSuccessBlock) {
-		if configuration != nil {
-			success(configuration)
-		}
-		else {
-			print("wait")
-			configurationCallbacks.append(success)
-		}
-	}
+	lazy var config: Observable<JSON> = {
+		return Manager.sharedInstance.rx_JSON(.GET, self.baseUrl + "/configuration", parameters: self.addApiKey())
+			.map { JSON($0) }
+			.share()
+	}()
 	
 	private init() {
-		requestConfiguration()
+		_ = config.subscribe()
 	}
 	
-	private func requestConfiguration() {
-		let stringURL = baseUrl + "/configuration" + formatParams(withApiKey: true)
-		RequestManager.instance.doForegroundRequest(stringURL, successBlock: { [unowned self] (data) in
-			let config = JSON(data: data)
-			self.configuration = config
-			for callback in self.configurationCallbacks {
-				callback(config)
-			}
-			self.configurationCallbacks.removeAll()
-			}, errorBlock: {
-			(error) in
-			print(error.localizedDescription)
-		})
+	private func addApiKey(params: ParamDictionary = ParamDictionary()) -> ParamDictionary {
+		var apiKeyParams = params
+		apiKeyParams["api_key"] = self.apiKey
+		return apiKeyParams
 	}
 	
 	private func formatParams(params: CustomStringConvertible..., withApiKey: Bool) -> String {
@@ -72,7 +61,7 @@ class Api {
 			separator = "&"
 		}
 		
-		for var i = 0; i < params.count; i += 2 {
+		for i in ((0..<params.count/2).map { $0 * 2 }) {
 			ret += separator + params[i].description + "=" + params[i+1].description
 			separator = "&"
 		}

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftyJSON
 
 class ManagedMovie: NSManagedObject, NamedManagedObject {
 	static let entityName = "Movie"

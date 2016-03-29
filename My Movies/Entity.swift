@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class Entity {
 	static func createWithData(data: JSON) -> Entity! {

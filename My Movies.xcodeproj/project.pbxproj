@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5BF7DDE6DC43C44A383C957C /* Pods_My_Movies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171819C56F4D9F22CEA39B04 /* Pods_My_Movies.framework */; };
+		9EBC81C62B182590F9F85105 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AD41CD31763A8A44C35FA90 /* Pods.framework */; };
 		E305A26B1C0882DE00097A30 /* ScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */; };
 		E31AA31E1C08A1C1003329A3 /* MultipleFontLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */; };
 		E31AA3211C08A507003329A3 /* NewMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37507BF1C04613900DEA958 /* NewMain.storyboard */; };
@@ -48,7 +49,6 @@
 		E3EDF12C1BF0F6560006A238 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF12B1BF0F6560006A238 /* SearchController.swift */; };
 		E3EDF1301BF201F40006A238 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF12F1BF201F40006A238 /* SearchCell.swift */; };
 		E3EDF1341BF210DA0006A238 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF1331BF210DA0006A238 /* SearchResult.swift */; };
-		E3EDF1401BF218910006A238 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF13F1BF218910006A238 /* SwiftyJSON.swift */; };
 		E3EDF16A1BF37C2F0006A238 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EDF1691BF37C2F0006A238 /* Api.swift */; };
 		E3F943C21C12FD2D00E5AF47 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F943C11C12FD2D00E5AF47 /* FileManager.swift */; };
 		E3F943C41C1454E300E5AF47 /* QueuedURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F943C31C1454E300E5AF47 /* QueuedURLSession.swift */; };
@@ -75,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		171819C56F4D9F22CEA39B04 /* Pods_My_Movies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_My_Movies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AD41CD31763A8A44C35FA90 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E305A26A1C0882DE00097A30 /* ScrollingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingViewController.swift; sourceTree = "<group>"; };
 		E31AA31D1C08A1C1003329A3 /* MultipleFontLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleFontLabel.swift; sourceTree = "<group>"; };
 		E33F92A31C0E28990002FF67 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
@@ -119,7 +120,6 @@
 		E3EDF12B1BF0F6560006A238 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		E3EDF12F1BF201F40006A238 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		E3EDF1331BF210DA0006A238 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
-		E3EDF13F1BF218910006A238 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		E3EDF1691BF37C2F0006A238 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		E3F943C11C12FD2D00E5AF47 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		E3F943C31C1454E300E5AF47 /* QueuedURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueuedURLSession.swift; sourceTree = "<group>"; };
@@ -135,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BF7DDE6DC43C44A383C957C /* Pods_My_Movies.framework in Frameworks */,
+				9EBC81C62B182590F9F85105 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +285,6 @@
 		E3EDF1661BF37B860006A238 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				E3EDF13F1BF218910006A238 /* SwiftyJSON.swift */,
 			);
 			name = External;
 			path = "My Movies";
@@ -339,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				171819C56F4D9F22CEA39B04 /* Pods_My_Movies.framework */,
+				2AD41CD31763A8A44C35FA90 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -492,7 +493,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-My Movies/Pods-My Movies-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		50040D3111517C407A75C085 /* Embed Pods Frameworks */ = {
@@ -507,7 +508,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-My Movies/Pods-My Movies-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BE69E0FB8A1E46EBF5D4E946 /* Check Pods Manifest.lock */ = {
@@ -560,7 +561,6 @@
 				E35D54F61C1604EF0025EA76 /* URLSessionTaskAsync.swift in Sources */,
 				E3EDF1341BF210DA0006A238 /* SearchResult.swift in Sources */,
 				E35233331BFA0A0C008FD590 /* RequestManager.swift in Sources */,
-				E3EDF1401BF218910006A238 /* SwiftyJSON.swift in Sources */,
 				E369034C1C0105F4002D40A2 /* Movies.xcdatamodeld in Sources */,
 				E3EDF12C1BF0F6560006A238 /* SearchController.swift in Sources */,
 				E369039B1C022A50002D40A2 /* Entity.swift in Sources */,

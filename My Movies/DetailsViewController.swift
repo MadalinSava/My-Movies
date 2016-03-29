@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class DetailsViewController: ScrollingViewController {
 	
@@ -29,18 +30,27 @@ class DetailsViewController: ScrollingViewController {
 	
 	private var movie: Movie! = nil
 	private var backdropImageAspectRatio: NSLayoutConstraint!
+	
+	private let bag = DisposeBag()
+	
+	deinit {
+		print("finally")
+	}
 
 	// MARK: overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+		playTrailerButton.rx_tap
 		titleLabel.text = "\(movie.title) (\(movie.releaseYear ?? "????"))"
 		
 		if let posterPath = movie.posterPath {
-			ImageSetter.instance.setImageAsync(posterPath, ofType: .Poster, andWidth: posterImage.frame.width, forView: posterImage, defaultImage: "default") { [unowned self] in
-				let aspectRatio = self.posterImage.image!.size.height / self.posterImage.image!.size.width
-				self.posterImage.addConstraint(NSLayoutConstraint(item: self.posterImage, attribute: .Height, relatedBy: .Equal, toItem: self.posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
-			}
+			ImageSetter.instance.setImageRx(posterPath, ofType: .Poster, andWidth: posterImage.frame.width, forView: posterImage, defaultImage: "default")
+				.subscribeCompleted { [weak self] in
+					guard self != nil else {return}
+					let aspectRatio = self!.posterImage.image!.size.height / self!.posterImage.image!.size.width
+					self!.posterImage.addConstraint(NSLayoutConstraint(item: self!.posterImage, attribute: .Height, relatedBy: .Equal, toItem: self!.posterImage, attribute: .Width, multiplier: aspectRatio, constant: 0.0))
+				}
+				.addDisposableTo(bag)
 		}
 		
 		updateWatchlistButton()
@@ -120,7 +130,7 @@ class DetailsViewController: ScrollingViewController {
 		
 		!!posterViewHeight.active
 		
-		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration)) { [unowned self] in
+		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration)) {
 			// TODO: can make this more awesome
 			self.view.layoutIfNeeded()
 			//let overviewPosition = self.overviewLabel.convertPoint(self.overviewLabel.frame.origin, toView: self.view)
@@ -183,7 +193,8 @@ class DetailsViewController: ScrollingViewController {
 		}
 		// TODO: keep the image in memory? it can be purged on memory warning; it can also be initialized on load with a higher resolution poster, but it needs to be exactly the same; otherwise, maybe use a high res poster for the small image
 		fullscreenPoster = UIImageView(image: posterImage.image)
-		ImageSetter.instance.setImageAsync(movie.posterPath, ofType: .Poster, andWidth: view.frame.width, forView: fullscreenPoster)
+		_ = ImageSetter.instance.setImageRx(movie.posterPath, ofType: .Poster, andWidth: view.frame.width, forView: fullscreenPoster)
+			.subscribe()
 		
 		let viewToAdd = UIApplication.sharedApplication().delegate!.window!!
 		
@@ -196,10 +207,10 @@ class DetailsViewController: ScrollingViewController {
 		fullscreenPoster.addGestureRecognizer(gestureRecognizer)
 		viewToAdd.addSubview(fullscreenPoster)
 		
-		UIView.animateWithDuration(0.3, animations: { [unowned self] in
+		UIView.animateWithDuration(0.3, animations: {
 			self.fullscreenPoster.frame = viewToAdd.frame
 			}, completion: { (completed) in
-				UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseInOut, animations: { [unowned self] in
+				UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseInOut, animations: {
 					self.fullscreenPoster.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
 					}, completion: nil)
 		})
@@ -211,9 +222,9 @@ class DetailsViewController: ScrollingViewController {
 		var oldFrame = posterImage.frame
 		oldFrame.origin = posterImage.convertPoint(posterImage.frame.origin, toView: UIApplication.sharedApplication().delegate!.window!!)
 		fullscreenPoster.backgroundColor = UIColor.clearColor()
-		UIView.animateWithDuration(0.3, animations: { [unowned self] in
+		UIView.animateWithDuration(0.3, animations: {
 			self.fullscreenPoster.frame = oldFrame
-			}, completion: { [unowned self] (_) in
+			}, completion: { _ in
 				self.fullscreenPoster.removeFromSuperview()
 				self.fullscreenPoster = nil
 		})

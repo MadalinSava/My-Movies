@@ -127,7 +127,7 @@
                             <scrollView clipsSubviews="YES" contentMode="top" bounces="NO" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACf-jh-9rM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-id-i9C" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="1035"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="076-z1-7E9" userLabel="GalleryView" customClass="GalleryView" customModule="My_Movies" customModuleProvider="target">
@@ -136,7 +136,7 @@
                                                     <constraint firstAttribute="height" priority="999" constant="200" id="Ab9-0e-VnU"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3s-PA-J6R" userLabel="TitleView">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3s-PA-J6R" userLabel="TitleView">
                                                 <rect key="frame" x="0.0" y="208" width="600" height="49"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tp2-RF-TE7">
@@ -153,7 +153,7 @@
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-EP-xRm" customClass="Rating" customModule="My_Movies" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-EP-xRm" customClass="Rating" customModule="My_Movies" customModuleProvider="target">
                                                         <rect key="frame" x="48" y="29" width="34" height="17"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="score">
@@ -193,17 +193,17 @@
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tp2-RF-TE7" secondAttribute="bottom" id="zfD-a4-yCM"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-wl-cBW" userLabel="PosterView">
                                                 <rect key="frame" x="0.0" y="265" width="600" height="162"/>
                                                 <subviews>
-                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
+                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="RIY-na-QSd">
                                                         <rect key="frame" x="0.0" y="0.0" width="180" height="128"/>
                                                         <gestureRecognizers/>
                                                         <connections>
                                                             <outletCollection property="gestureRecognizers" destination="qVR-yK-6Fc" appends="YES" id="tnt-SO-PbH"/>
                                                         </connections>
                                                     </imageView>
-                                                    <label opaque="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
+                                                    <label opaque="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6V-MP-Ofr">
                                                         <rect key="frame" x="188" y="0.0" width="412" height="81"/>
                                                         <gestureRecognizers/>
                                                         <string key="text">Not sure why you get a bad access, but your code should not work. You are passing different values to setAssociateObject and getAssociatedObject. Using the string "shapeLayer" as a key is wrong, it's the pointer (it's address actually) that is the key, not what it points to. Two identical strings residing at different addresses are two different keys. Review Jou's answer and notice how he defined xoAssociationKey to be a global variable, so it is the same key/pointer when setting/getting.</string>
@@ -214,14 +214,14 @@
                                                             <outletCollection property="gestureRecognizers" destination="c7w-WG-fIO" appends="YES" id="oAE-Al-ZPH"/>
                                                         </connections>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-Ed-Tn0" userLabel="Line">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LlB-Ed-Tn0" userLabel="Line">
                                                         <rect key="frame" x="188" y="89" width="412" height="1"/>
                                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="zkI-eN-Q45"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eii-Up-hrZ">
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eii-Up-hrZ">
                                                         <rect key="frame" x="188" y="98" width="119" height="30"/>
                                                         <state key="normal" title="Play Trailer" image="playNormal">
                                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -248,7 +248,7 @@
                                                     <constraint firstItem="RIY-na-QSd" firstAttribute="width" secondItem="wiy-wl-cBW" secondAttribute="width" multiplier="0.3" id="oi1-Jo-2pR"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="jvN-GF-LcO">
                                                 <rect key="frame" x="0.0" y="435" width="600" height="600"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="600" id="7Ed-Se-xPS"/>

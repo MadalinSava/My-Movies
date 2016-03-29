@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 		AppDelegate.instance = self
-		
+		_ = ImageSetter.instance
 		// Override point for customization after application launch.
 		return true
 	}

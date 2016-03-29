@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B163739EABAF7B0BADD43084170C95FA2D9AFBEA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B163739EABAF7B0BADD43084170C95FA2D9AFBEA" : 0,
+    "364D2E5F611143E7C4D0A99C691B1988FBD5381F" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "365903B5-6ACD-4EA9-9E82-B64101847069",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B163739EABAF7B0BADD43084170C95FA2D9AFBEA" : "My-Movies\/",
+    "364D2E5F611143E7C4D0A99C691B1988FBD5381F" : "Cartography\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "My Movies",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "My Movies.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MadalinSava\/Cartography.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "364D2E5F611143E7C4D0A99C691B1988FBD5381F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MadalinSava\/My-Movies.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B163739EABAF7B0BADD43084170C95FA2D9AFBEA"
+    }
+  ]
+}

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class GalleryCell: UICollectionViewCell {
 	
@@ -14,11 +15,16 @@ class GalleryCell: UICollectionViewCell {
 	
 	@IBOutlet var image: UIImageView!
 	
-	private weak var setImageTask: AsyncTask?
+	private var bag: DisposeBag!
 	
-	func setImage(image: String, ofType imageType: ImageType, success: SimpleBlock) {
-		setImageTask?.cancel()
+	func setImage(image: String, ofType imageType: ImageType) -> Observable<Void> {
 		self.image.image = nil
-		setImageTask = ImageSetter.instance.setImageAsync(image, ofType: imageType, andWidth: self.image.frame.width, forView: self.image, defaultImage: nil, success: success)
+		
+		bag = DisposeBag()
+		let observable = ImageSetter.instance.setImageRx(image, ofType: imageType, andWidth: self.image.frame.width, forView: self.image, defaultImage: nil)
+			.shareReplay(1)
+		observable.subscribe().addDisposableTo(bag)
+		
+		return observable
 	}
 }

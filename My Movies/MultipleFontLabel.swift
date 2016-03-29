@@ -29,12 +29,12 @@ class MultipleFontLabel: UILabel {
 	}
 	
 	func updateAttributes() {
-		guard text?.lenght >= charsDifferent else {
+		guard text?.length >= charsDifferent else {
 			return
 		}
 		
 		let attrText = NSMutableAttributedString(string: text!, attributes: [NSFontAttributeName : font])
-		attrText.addAttributes([NSFontAttributeName: font.fontWithSize(secondFontSize), NSForegroundColorAttributeName: UIColor.grayColor()], range: NSRange(location: text!.lenght - charsDifferent, length: charsDifferent))
+		attrText.addAttributes([NSFontAttributeName: font.fontWithSize(secondFontSize), NSForegroundColorAttributeName: UIColor.grayColor()], range: NSRange(location: text!.length - charsDifferent, length: charsDifferent))
 		
 		attributedText = attrText
 	}

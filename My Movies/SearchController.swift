@@ -8,18 +8,39 @@
 
 import UIKit
 
-class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+import RxSwift
+import RxCocoa
+import Cartography
+import SwiftyJSON
+
+class SearchController: NSObject, UITableViewDataSource {
 	
 	private let searchBar: UISearchBar
 	private let tableView: UITableView
 	
-	private(set) var results: [SearchResult] = [SearchResult]()
-	private(set) var medatada = [JSON]()
-	private(set) var hasMoreResults = false
+	private var results: [SearchResult] = [SearchResult]() {
+		didSet {
+			let newCount = results.count
+			let prevCount = oldValue.count
+			if newCount == 0 || prevCount == 0 {
+				tableView.reloadData()
+			} else {
+				let numRowsToInsert = newCount - prevCount + (hasMoreResults ? 1 : 0) - (prevCount == 0 ? 0 : 1)
+				let indexPaths = (0..<numRowsToInsert).map { NSIndexPath(forRow: prevCount + $0, inSection: 0) }
+				tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
+				
+				if prevCount == 0 {
+					tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+				}
+			}
+			tableView.hidden = (newCount == 0)
+		}
+	}
 	
-	private var requestTimer: NSTimer!
-	private var currentPage = 0
-	private var requestDone = true
+	private var medatada = [JSON]()
+	private var hasMoreResults = false
+	
+	private let getNextPage = PublishSubject<()>()
 	
 	init(searchBar: UISearchBar, tableView: UITableView) {
 		self.searchBar = searchBar
@@ -28,18 +49,12 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		super.init()
 		
 		tableView.translatesAutoresizingMaskIntoConstraints = false
-		tableView.delegate = self
 		tableView.dataSource = self
-		searchBar.delegate = self
 		tableView.registerNib(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
-	}
-	
-	func getResultsForNextPage() {
-		guard requestDone else {
-			return
-		}
-		++currentPage
-		doRequest()
+		
+		self.setupSearch()
+		
+		self.setupActions()
 	}
 	
 	func addToViewController(viewController: UIViewController) {
@@ -48,69 +63,13 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		let mainWindow = UIApplication.sharedApplication().keyWindow!
 		mainWindow.addSubview(tableView)
 		
-		mainWindow.addConstraints([
-			NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: viewController.topLayoutGuide, attribute: .Bottom, multiplier: 1.0, constant: 0.0),
-			NSLayoutConstraint(item: tableView, attribute: .Bottom, relatedBy: .Equal, toItem: viewController.bottomLayoutGuide, attribute: .Top, multiplier: 1.0, constant: 0.0),
-			NSLayoutConstraint(item: tableView, attribute: .Leading, relatedBy: .Equal, toItem: viewController.view, attribute: .Leading, multiplier: 1.0, constant: 0.0),
-			NSLayoutConstraint(item: tableView, attribute: .Trailing, relatedBy: .Equal, toItem: viewController.view, attribute: .Trailing, multiplier: 1.0, constant: 0.0)
-			])
-		
-		updateTableVisibility()
-	}
-	
-	// MARK: UISearchBarDelegate
-	func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-		
-		assert(searchBar == self.searchBar, "wrong search bar")
-		
-		requestTimer?.invalidate()
-		requestTimer = NSTimer.schedule(1.0, target: doRequest)
-		// TODO: what if requestDone is false? should cancel it, doh
-		currentPage = 1
-	}
-	
-	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-		searchBar.text = nil
-		searchBar.resignFirstResponder()
-		results.removeAll()
-		resultsReset()
-	}
-	
-	// MARK: request
-	private func doRequest() {
-		//print("requesting page \(currentPage)")
-		self.requestDone = false
-		
-		Api.instance.searchMulti(searchBar.text!, page: currentPage, success: {[unowned self] (result) in
-			
-			let searchResults = result["results"]
-			
-			if self.currentPage == 1 {
-				self.results.removeAll()
-				self.medatada.removeAll()
-			}
-			
-			let prevCount = self.results.count
-			for var i = 0; i < searchResults.count; ++i {
-				if let newResult = SearchResult(data: searchResults[i]) {
-					self.results.append(newResult)
-					self.medatada.append(searchResults[i])
-				}
-			}
-			
-			self.hasMoreResults = (result["page"] < result["total_pages"])
-			
-			if self.currentPage == 1 {
-				self.resultsReset()
-			} else {
-				self.resultsAdded(self.results.count - prevCount)
-			}
-			
-			self.requestDone = true
-		},
-			error: { (error) in
-				print(error.localizedDescription)
-		})
+		constrain(tableView, viewController.topLayoutGuide, viewController.bottomLayoutGuide, viewController.view) {
+			table, top, bottom, vcView in
+			table.top == top.bottom
+			table.bottom == bottom.top
+			table.leading == vcView.leading
+			table.trailing == vcView.trailing
+		}
 	}
 	
 	// MARK: UITableViewDataSource
@@ -125,7 +84,8 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		// Loading... cell
 		if indexPath.row == results.count {
-			getResultsForNextPage()
+			getNextPage.onNext()
+			
 			let cell = tableView.dequeueReusableCellWithIdentifier("loading")!
 			return cell
 		}
@@ -139,47 +99,96 @@ class SearchController: NSObject, UISearchBarDelegate, UITableViewDataSource, UI
 		return cell
 	}
 	
-	// MARK: UITableViewDelegate
-	func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-		searchBar.resignFirstResponder()
+	// MARK: request
+	private func newRequest(page: Int) -> Observable<()> {
+		return Api.instance.searchMultiRx(self.searchBar.text!, page: page)
+			.map { result in
+//				print("got result for text \(self.searchBar.text!) and page \(page)")
+				let searchResults = result["results"].arrayValue
+				
+				if page == 1 {
+					self.results.removeAll()
+					self.medatada.removeAll()
+				}
+				
+				self.hasMoreResults = (result["page"] < result["total_pages"])
+				
+				let processedResults = searchResults
+					.map { SearchResult(data: $0) }
+					.filter { $0 != nil }
+					.map { $0! }
+				
+				self.results.appendContentsOf(processedResults)
+				self.medatada.appendContentsOf(searchResults)
+			}
 	}
 	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		searchBar.resignFirstResponder()
-		results.removeAll()
-		tableView.reloadData()
+	// MARK: reactive
+	private func setupSearch() {
 		
-		//let vc = DetailsViewController()
-		let st = UIStoryboard(name: "NewMain", bundle: nil)
-		let vc = st.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
-		//UIApplication.sharedApplication().keyWindow!.rootViewController!.presentViewController(vc, animated: true){}
-		let nc = UIApplication.sharedApplication().keyWindow!.rootViewController as! UINavigationController
-		nc.pushViewController(vc, animated: true)
+		// testing
+		searchBar.text = "a"
 		
-		let entity = Entity.createWithData(medatada[indexPath.row])
-		vc.setupWithEntity(entity)
+		var currentPage: Int = 0
+		
+		let newSearch = searchBar.rx_text
+			.throttle(0.5)
+			.distinctUntilChanged()
+			.flatMap {_ -> Observable<()> in
+				currentPage = 1
+				return self.newRequest(currentPage)
+			}
+			.share()
+		
+		let continueSearch = getNextPage
+			.flatMap {_ -> Observable<()> in
+				currentPage += 1
+				return self.newRequest(currentPage)
+			}
+			.share()
+		
+		_ = Observable.of(newSearch, continueSearch)
+			.merge()
+			.subscribeError { error in
+				print(error)
+			}
 	}
 	
-	// MARK: search controler delegate
-	func resultsReset() {
-		updateTableVisibility()
-		tableView.reloadData()
-		if results.count > 0 {
-			tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+	private func setupActions() {
+		
+		_ = searchBar.rx_cancel
+			.subscribeNext {
+				self.searchBar.text = nil
+				self.results.removeAll()
 		}
-	}
-	
-	func resultsAdded(count: Int) {
-		let prevCount = results.count - count
-		let numRowsToInsert = count - (hasMoreResults ? 0 : 1)
-		var indexPaths = [NSIndexPath]()
-		for i in 0..<numRowsToInsert {
-			indexPaths.append(NSIndexPath(forRow: prevCount + i, inSection: 0))
+		
+		let rowSelect = tableView.rx_itemSelected.asObservable()
+		
+		_ = rowSelect
+			.subscribeNext { indexPath in
+				self.results.removeAll()
+				
+				let st = UIStoryboard(name: "NewMain", bundle: nil)
+				let vc = st.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
+				let nc = UIApplication.sharedApplication().keyWindow!.rootViewController as! UINavigationController
+				nc.pushViewController(vc, animated: true)
+				
+				let entity = Entity.createWithData(self.medatada[indexPath.row])
+				vc.setupWithEntity(entity)
 		}
-		tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.None)
-	}
-	
-	private func updateTableVisibility() {
-		tableView.hidden = (results.count == 0)
+		
+		let drag = tableView.rx_delegate.observe(#selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:)))
+			.map { _ in }
+		
+		_ = Observable.of(	rowSelect.map { _ in },
+							drag,
+							searchBar.rx_cancel.asObservable())
+			.merge()
+			.filter {
+				self.searchBar.isFirstResponder()
+			}
+			.subscribeNext {_ in
+				self.searchBar.resignFirstResponder()
+		}
 	}
 }

@@ -51,20 +51,21 @@ class MemoryProfiler {
 	
 	func getNextClassId(type: AnyClass) -> Int {
 		references[currentClassId] = (type, 0)
-		return currentClassId++
+		defer { currentClassId += 1 }
+		return currentClassId
 	}
 	
 	func addRefCount(type: MemoryTrackable.Type) {
 		operationQueue.addOperationWithBlock { [unowned self] in
 			let id = type.classId
-			self.references[id]!.1++
+			self.references[id]!.1 += 1
 		}
 	}
 	
 	func removeRefCount(type: MemoryTrackable.Type) {
 		operationQueue.addOperationWithBlock { [unowned self] in
 			let id = type.classId
-			self.references[id]!.1--
+			self.references[id]!.1 -= 1
 		}
 	}
 	

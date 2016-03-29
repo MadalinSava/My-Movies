@@ -8,22 +8,23 @@
 
 import UIKit
 
-class SearchCell: UITableViewCell {
+import RxSwift
+
+final class SearchCell: UITableViewCell {
 	static let reuseIdentifier = "searchCell"
 	
 	@IBOutlet var thumbnail: UIImageView!
 	@IBOutlet var name: UILabel!
 	
-	private weak var imageSetTask: AsyncTask? = nil
+	private var bag: DisposeBag!
 	
 	func setupWithImage(path: String?, andText text: String) {
-		//print("setup for \(self)")
+		thumbnail.image = nil
 		
-		imageSetTask?.cancel()
-		thumbnail.image = nil//UIImage(named: "default")
-		
-		ImageSetter.instance.setImageAsync(path, ofType: .Poster, andWidth: thumbnail.frame.width, forView: thumbnail, defaultImage: "default")
-		//imageSetTask = ImageSetter.instance.setImageAsync(path, ofType: .Poster, andWidth: 1000, forView: thumbnail)
+		bag = DisposeBag()
+		ImageSetter.instance.setImageRx(path, ofType: .Poster, andWidth: thumbnail.frame.width, forView: thumbnail, defaultImage: "default")
+			.subscribe()
+			.addDisposableTo(bag)
 		
 		name.text = text
 	}
